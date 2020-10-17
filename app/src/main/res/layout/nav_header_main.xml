@@ -33,7 +33,7 @@
                 android:paddingHorizontal="@dimen/nav_header_appname_padding"
                 android:textSize="@dimen/nav_header_appname_size"
                 android:id="@+id/appNameTextView"
-                android:textColor="@android:color/primary_text_dark"/>
+                android:textColor="?attr/headerTextColor"/>
 
     </LinearLayout>
 
