@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        if (prefs.getBoolean("theme_dark", false)) {
+        if (prefs.getBoolean("theme_dark", true)) {
             setTheme(R.style.AppThemeDark_NoActionBar);
         }
 
