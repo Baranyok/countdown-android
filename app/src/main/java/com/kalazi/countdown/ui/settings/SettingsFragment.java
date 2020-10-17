@@ -1,33 +1,45 @@
 package com.kalazi.countdown.ui.settings;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.preference.Preference;
+import androidx.preference.PreferenceFragmentCompat;
 import com.kalazi.countdown.R;
 
-public class SettingsFragment extends Fragment {
+public class SettingsFragment extends PreferenceFragmentCompat {
+    private SharedPreferences.OnSharedPreferenceChangeListener listener;
 
-    private SettingsViewModel settingsViewModel;
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-        settingsViewModel =
-                ViewModelProviders.of(this).get(SettingsViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_settings, container, false);
-        final TextView textView = root.findViewById(R.id.text_settings);
-        settingsViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
-        return root;
+
+    }
+
+    @Override
+    public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
+        // set up preferences from xml
+        setPreferencesFromResource(R.xml.root_preferences, rootKey);
+
+        // initialize listeners
+        Preference pref_theme = findPreference("theme_dark");
+        if (pref_theme != null) {
+            pref_theme.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+                @Override
+                public boolean onPreferenceChange(Preference preference, Object newValue) {
+                    change_theme(preference, newValue);
+                    return true;
+                }
+            });
+        }
+
+    }
+
+    public void change_theme(Preference preference, Object newValue) {
+        boolean dark_theme = (boolean) newValue;
+        if (getActivity() != null) {
+            getActivity().recreate();
+        }
     }
 }

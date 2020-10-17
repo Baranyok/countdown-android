@@ -22,4 +22,11 @@
     <string name="hello_home_second">Hello HomeSecondFragment. Arg: %1$s</string>
     <string name="hello_gallery_second">Hello HomeSecondFragment. Arg: %1$s</string>
     <string name="hello_slideshow_second">Hello HomeSecondFragment. Arg: %1$s</string>
+
+    <!-- Preference titles -->
+    <string name="settings_header_environment">Environment</string>
+
+    <!-- Preference items -->
+    <string name="settings_item_theme_dark">Dark theme</string>
+    <string name="reply_title">Default reply action</string>
 </resources>
