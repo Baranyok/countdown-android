@@ -7,7 +7,7 @@
         <item name="colorPrimaryDark">@color/light_colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="selectableItemBackgroundBorderless">@color/lightgray</item>
-        <item name="headerTextColor">?android:attr/textColorPrimary</item>
+        <item name="navHeaderTextColor">@color/colorAccent</item>
     </style>
 
     <style name="AppThemeDark" parent="Theme.AppCompat">
@@ -15,7 +15,7 @@
         <item name="colorPrimaryDark">@color/dark_colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="selectableItemBackgroundBorderless">@color/dark_colorPrimary</item>
-        <item name="headerTextColor">@color/colorAccent</item>
+        <item name="navHeaderTextColor">@color/colorAccent</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
