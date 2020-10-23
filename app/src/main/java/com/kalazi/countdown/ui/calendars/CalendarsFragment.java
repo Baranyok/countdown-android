@@ -1,6 +1,10 @@
 package com.kalazi.countdown.ui.calendars;
 
+import android.content.ContentUris;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.CalendarContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,7 +14,10 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.kalazi.countdown.R;
+
+import java.util.Calendar;
 
 public class CalendarsFragment extends Fragment {
 
@@ -29,5 +36,34 @@ public class CalendarsFragment extends Fragment {
             }
         });
         return root;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        // set button onClickListener
+        FloatingActionButton btn = (FloatingActionButton) view.findViewById(R.id.fab2);
+
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                do_placeholder_things(v);
+            }
+        });
+
+    }
+
+    public void do_placeholder_things(View v) {
+        // A date-time specified in milliseconds since the epoch.
+        Calendar cal = Calendar.getInstance();
+
+        Uri.Builder builder = CalendarContract.CONTENT_URI.buildUpon();
+        builder.appendPath("time");
+        ContentUris.appendId(builder, cal.getTimeInMillis());
+        Intent intent = new Intent(Intent.ACTION_VIEW)
+                .setData(builder.build());
+        startActivity(intent);
+
     }
 }
