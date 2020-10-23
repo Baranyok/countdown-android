@@ -1,4 +1,4 @@
-package com.kalazi.countdown.ui.calendars;
+package com.kalazi.countdown.ui.widgets;
 
 import android.content.ContentUris;
 import android.content.Intent;
@@ -19,17 +19,17 @@ import com.kalazi.countdown.R;
 
 import java.util.Calendar;
 
-public class CalendarsFragment extends Fragment {
+public class WidgetsFragment extends Fragment {
 
-    private CalendarsViewModel calendarsViewModel;
+    private WidgetsViewModel widgetsViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        calendarsViewModel =
-                ViewModelProviders.of(this).get(CalendarsViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_calendars, container, false);
-        final TextView textView = root.findViewById(R.id.text_calendars);
-        calendarsViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
+        widgetsViewModel =
+                ViewModelProviders.of(this).get(WidgetsViewModel.class);
+        View root = inflater.inflate(R.layout.fragment_widgets, container, false);
+        final TextView textView = root.findViewById(R.id.text_widgets);
+        widgetsViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);

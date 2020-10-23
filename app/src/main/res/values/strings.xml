@@ -12,7 +12,7 @@
     <string name="action_settings">Settings</string>
 
     <string name="menu_home">Countdowns</string>
-    <string name="menu_calendars">Calendars</string> <!-- maybe "Calendar events" -->
+    <string name="menu_widgets">Widgets</string> <!-- maybe "Calendar events" -->
     <string name="menu_sync">Sync</string>
     <string name="menu_settings">Settings</string>
 

@@ -35,8 +35,8 @@
             android:label="@string/menu_settings"/>
 
     <fragment
-            android:id="@+id/nav_calendars"
-            android:name="com.kalazi.countdown.ui.calendars.CalendarsFragment"
-            android:label="@string/menu_calendars"
-            tools:layout="@layout/fragment_calendars"/>
+            android:id="@+id/nav_widgets"
+            android:name="com.kalazi.countdown.ui.widgets.WidgetsFragment"
+            android:label="@string/menu_widgets"
+            tools:layout="@layout/fragment_widgets"/>
 </navigation>

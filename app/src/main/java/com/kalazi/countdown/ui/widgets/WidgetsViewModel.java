@@ -1,14 +1,14 @@
-package com.kalazi.countdown.ui.calendars;
+package com.kalazi.countdown.ui.widgets;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class CalendarsViewModel extends ViewModel {
+public class WidgetsViewModel extends ViewModel {
 
     private MutableLiveData<String> mText;
 
-    public CalendarsViewModel() {
+    public WidgetsViewModel() {
         mText = new MutableLiveData<>();
         mText.setValue("This is slideshow fragment");
     }
