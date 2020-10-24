@@ -1,4 +1,4 @@
-package com.kalazi.countdown.ui.widgets;
+package com.kalazi.countdown.ui.countdowns;
 
 import android.os.Bundle;
 import android.view.*;
@@ -13,10 +13,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.kalazi.countdown.R;
 
-public class WidgetsFragment extends Fragment {
+public class CountdownsFragment extends Fragment {
 
-    private WidgetsViewModel widgetsViewModel;
-    private WidgetsRecyclerViewAdapter mAdapter;
+    private CountdownsViewModel countdownsViewModel;
+    private CountdownsRecyclerViewAdapter mAdapter;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -26,8 +26,8 @@ public class WidgetsFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        widgetsViewModel = new ViewModelProvider(this).get(WidgetsViewModel.class);
-        View rootView = inflater.inflate(R.layout.fragment_widgets, container, false);
+        countdownsViewModel = new ViewModelProvider(this).get(CountdownsViewModel.class);
+        View rootView = inflater.inflate(R.layout.fragment_countdowns, container, false);
 
         registerUIListeners(rootView);
 
@@ -60,7 +60,7 @@ public class WidgetsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        RecyclerView recyclerView = view.findViewById(R.id.widgets_recycler_view);
+        RecyclerView recyclerView = view.findViewById(R.id.countdowns_recycler_view);
         recyclerView.setHasFixedSize(true);
 
         // use a linear layout manager
@@ -68,7 +68,7 @@ public class WidgetsFragment extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
 
         // specify an adapter
-        mAdapter = new WidgetsRecyclerViewAdapter();
+        mAdapter = new CountdownsRecyclerViewAdapter();
         recyclerView.setAdapter(mAdapter);
 
         registerDataObservers(view);
@@ -76,16 +76,16 @@ public class WidgetsFragment extends Fragment {
 
     private void registerDataObservers(View view) {
         // register status text observer
-        final TextView textView = view.findViewById(R.id.text_widgets);
-        widgetsViewModel.getText().observe(getViewLifecycleOwner(), s -> {
-            textView.setText(s);
-            if ("".equals(s)) {
+        final TextView textView = view.findViewById(R.id.text_countdowns_status);
+        countdownsViewModel.getStatusText().observe(getViewLifecycleOwner(), s -> {
+            textView.setText(getString(s));
+            if (s == R.string.empty) {
                 textView.setVisibility(View.INVISIBLE);
             }
         });
 
         // observer for widget list change
-        widgetsViewModel.getWidgets().observe(getViewLifecycleOwner(), list -> mAdapter.updateDataset(list));
+        countdownsViewModel.getCountdowns().observe(getViewLifecycleOwner(), list -> mAdapter.updateDataset(list));
     }
 
     private void registerUIListeners(View view) {
@@ -99,6 +99,6 @@ public class WidgetsFragment extends Fragment {
     }
 
     private void do_placeholder_things(View v) {
-        widgetsViewModel.addItem("Another head");
+        countdownsViewModel.addItem("Another head");
     }
 }

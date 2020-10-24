@@ -7,12 +7,12 @@
            android:id="@+id/menu_group_main">
         <item
                 android:id="@+id/nav_home"
-                android:icon="@drawable/ic_timer"
+                android:icon="@drawable/ic_widgets"
                 android:title="@string/menu_home"/>
         <item
-                android:id="@+id/nav_widgets"
-                android:icon="@drawable/ic_widgets"
-                android:title="@string/menu_widgets"/>
+                android:id="@+id/nav_countdowns"
+                android:icon="@drawable/ic_timer"
+                android:title="@string/menu_coundowns"/>
         <item
                 android:id="@+id/nav_sync"
                 android:icon="@drawable/ic_sync"

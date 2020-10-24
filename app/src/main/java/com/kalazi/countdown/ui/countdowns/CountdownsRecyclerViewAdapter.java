@@ -1,4 +1,4 @@
-package com.kalazi.countdown.ui.widgets;
+package com.kalazi.countdown.ui.countdowns;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,21 +12,21 @@ import com.kalazi.countdown.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class WidgetsRecyclerViewAdapter extends RecyclerView.Adapter<WidgetItemViewHolder> implements Filterable {
-    private List<WidgetItem> currentDataSet = null;
-    private List<WidgetItem> fullDataset = null;
+public class CountdownsRecyclerViewAdapter extends RecyclerView.Adapter<CountdownItemViewHolder> implements Filterable {
+    private List<CountdownItem> currentDataSet = null;
+    private List<CountdownItem> fullDataset = null;
 
     // Create new item views (invoked by the layout manager)
     @NonNull
     @Override
-    public WidgetItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public CountdownItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemContainerView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.widgets_item_row, parent, false);
+                .inflate(R.layout.countdown_item_row, parent, false);
 
-        return new WidgetItemViewHolder(itemContainerView);
+        return new CountdownItemViewHolder(itemContainerView);
     }
 
-    public void updateDataset(List<WidgetItem> mDataset) {
+    public void updateDataset(List<CountdownItem> mDataset) {
         // NOTE: Can be optimized using other notify calls
         this.currentDataSet = mDataset;
         this.fullDataset = new ArrayList<>(mDataset);
@@ -35,7 +35,7 @@ public class WidgetsRecyclerViewAdapter extends RecyclerView.Adapter<WidgetItemV
 
     // Replace the contents of an item view (invoked by the layout manager)
     @Override
-    public void onBindViewHolder(WidgetItemViewHolder holder, int position) {
+    public void onBindViewHolder(CountdownItemViewHolder holder, int position) {
         holder.setData(currentDataSet.get(position));
     }
 
@@ -53,15 +53,15 @@ public class WidgetsRecyclerViewAdapter extends RecyclerView.Adapter<WidgetItemV
     private final Filter itemFilter = new Filter() {
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
-            List<WidgetItem> filtered = new ArrayList<>();
+            List<CountdownItem> filtered = new ArrayList<>();
 
             if (constraint == null || constraint.length() == 0) {
                 filtered.addAll(fullDataset);
             } else {
                 String searchPattern = constraint.toString().toLowerCase().trim();
 
-                for (WidgetItem item : fullDataset) {
-                    if (item.getWidgetName().toLowerCase().contains(searchPattern)) {
+                for (CountdownItem item : fullDataset) {
+                    if (item.getCountdownName().toLowerCase().contains(searchPattern)) {
                         filtered.add(item);
                     }
                 }
@@ -75,7 +75,7 @@ public class WidgetsRecyclerViewAdapter extends RecyclerView.Adapter<WidgetItemV
         @Override
         protected void publishResults(CharSequence constraint, FilterResults results) {
             currentDataSet.clear();
-            currentDataSet.addAll((List<WidgetItem>) results.values);
+            currentDataSet.addAll((List<CountdownItem>) results.values);
             notifyDataSetChanged();
         }
     };
