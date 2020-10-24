@@ -2,6 +2,7 @@ package com.kalazi.countdown.ui.home;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -18,18 +19,27 @@ public class HomeFragment extends Fragment {
 
     private HomeViewModel homeViewModel;
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
+
         View root = inflater.inflate(R.layout.fragment_home, container, false);
-        final TextView textView = root.findViewById(R.id.text_home);
-        homeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
+
+        registerDataObservers(root);
+
         return root;
+    }
+
+    @Override
+    public void onPrepareOptionsMenu(@NonNull Menu menu) {
+        menu.findItem(R.id.action_search).setVisible(true);
+        super.onPrepareOptionsMenu(menu);
     }
 
     @Override
@@ -53,6 +63,16 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 do_placeholder_things(v);
+            }
+        });
+    }
+
+    private void registerDataObservers(View view) {
+        final TextView textView = view.findViewById(R.id.text_home);
+        homeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
+            @Override
+            public void onChanged(@Nullable String s) {
+                textView.setText(s);
             }
         });
     }

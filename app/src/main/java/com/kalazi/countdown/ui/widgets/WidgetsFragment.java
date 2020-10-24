@@ -2,6 +2,7 @@ package com.kalazi.countdown.ui.widgets;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -19,6 +20,11 @@ public class WidgetsFragment extends Fragment {
     private WidgetsViewModel widgetsViewModel;
     private WidgetsRecyclerViewAdapter mAdapter;
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -28,6 +34,12 @@ public class WidgetsFragment extends Fragment {
         registerUIListeners(rootView);
 
         return rootView;
+    }
+
+    @Override
+    public void onPrepareOptionsMenu(@NonNull Menu menu) {
+        menu.findItem(R.id.action_search).setVisible(true);
+        super.onPrepareOptionsMenu(menu);
     }
 
     @Override
