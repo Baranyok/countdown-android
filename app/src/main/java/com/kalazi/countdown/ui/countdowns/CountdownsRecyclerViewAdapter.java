@@ -74,8 +74,7 @@ public class CountdownsRecyclerViewAdapter extends RecyclerView.Adapter<Countdow
 
         @Override
         protected void publishResults(CharSequence constraint, FilterResults results) {
-            currentDataSet.clear();
-            currentDataSet.addAll((List<CountdownItem>) results.values);
+            currentDataSet = (List<CountdownItem>) results.values;
             notifyDataSetChanged();
         }
     };
