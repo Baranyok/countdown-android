@@ -8,7 +8,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -22,8 +22,7 @@ public class WidgetsFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        widgetsViewModel =
-                ViewModelProviders.of(this).get(WidgetsViewModel.class);
+        widgetsViewModel = new ViewModelProvider(this).get(WidgetsViewModel.class);
         View rootView = inflater.inflate(R.layout.fragment_widgets, container, false);
 
         registerUIListeners(rootView);
