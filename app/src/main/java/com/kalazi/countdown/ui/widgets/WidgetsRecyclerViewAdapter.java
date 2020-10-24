@@ -3,21 +3,17 @@ package com.kalazi.countdown.ui.widgets;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import androidx.recyclerview.widget.ListAdapter;
+import androidx.recyclerview.widget.RecyclerView;
 import com.kalazi.countdown.R;
 
 import java.util.ArrayList;
 
-public class WidgetsRecyclerViewAdapter extends ListAdapter<WidgetItem, WidgetItemViewHolder> {
-    private ArrayList<String> mDataset;
-    public static final WidgetItemDiff DIFF_CALLBACK = new WidgetItemDiff();
+public class WidgetsRecyclerViewAdapter extends RecyclerView.Adapter<WidgetItemViewHolder> {
+    private ArrayList<WidgetItem> mDataset = null;
 
-    //    public WidgetsRecyclerViewAdapter(ArrayList<String> myDataset) {
-//        mDataset = myDataset;
+//    public WidgetsRecyclerViewAdapter(ArrayList<WidgetItem> mDataset) {
+//        this.mDataset = mDataset;
 //    }
-    public WidgetsRecyclerViewAdapter() {
-        super(DIFF_CALLBACK);
-    }
 
     // Create new item views (invoked by the layout manager)
     @Override
@@ -28,10 +24,21 @@ public class WidgetsRecyclerViewAdapter extends ListAdapter<WidgetItem, WidgetIt
         return new WidgetItemViewHolder(itemContainerView);
     }
 
+    public void updateDataset(ArrayList<WidgetItem> mDataset) {
+        // NOTE: Can be optimized using other notify calls
+        this.mDataset = mDataset;
+        this.notifyDataSetChanged();
+    }
+
     // Replace the contents of an item view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(WidgetItemViewHolder holder, int position) {
-        holder.setData(getItem(position));
+        holder.setData(mDataset.get(position));
     }
 
+    // Return the size of dataset (invoked by the layout manager)
+    @Override
+    public int getItemCount() {
+        return (mDataset == null) ? 0 : mDataset.size();
+    }
 }

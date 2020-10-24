@@ -33,6 +33,9 @@ public class WidgetsFragment extends Fragment {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);
+                if ("".equals(s)) {
+                    textView.setVisibility(View.INVISIBLE);
+                }
             }
         });
 
@@ -55,7 +58,7 @@ public class WidgetsFragment extends Fragment {
         recyclerView.setAdapter(mAdapter);
 
         // observer for widget list change
-        widgetsViewModel.getWidgets().observe(getViewLifecycleOwner(), list -> mAdapter.submitList(list));
+        widgetsViewModel.getWidgets().observe(getViewLifecycleOwner(), list -> mAdapter.updateDataset(list));
 
         FloatingActionButton btn = (FloatingActionButton) view.findViewById(R.id.fab2);
         btn.setOnClickListener(new View.OnClickListener() {

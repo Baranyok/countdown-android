@@ -17,13 +17,24 @@ public class WidgetsViewModel extends ViewModel {
     public WidgetsViewModel() {
         mText = new MutableLiveData<>();
         widgets = new MutableLiveData<>();
-        mText.setValue("No widgets exist");
 
         ArrayList<WidgetItem> sampleData = new ArrayList<>();
-        sampleData.add(new WidgetItem(current_id++, "head 1"));
-        sampleData.add(new WidgetItem(current_id++, "head 2"));
 
         widgets.setValue(sampleData);
+        updateStatusText();
+    }
+
+    private void updateStatusText() {
+        String newText;
+        ArrayList<WidgetItem> arrayList = widgets.getValue();
+        if (arrayList == null || arrayList.isEmpty()) {
+            newText = "No widgets exist";
+        } else {
+            newText = "";
+        }
+        if (!newText.equals(mText.getValue())) {
+            mText.setValue(newText);
+        }
     }
 
     public LiveData<String> getText() {
@@ -31,7 +42,6 @@ public class WidgetsViewModel extends ViewModel {
     }
 
     public LiveData<ArrayList<WidgetItem>> getWidgets() {
-        // do asynchronous operation to get widgets
         return widgets;
     }
 
@@ -39,6 +49,7 @@ public class WidgetsViewModel extends ViewModel {
         ArrayList<WidgetItem> arrayList = widgets.getValue();
         if (arrayList != null) {
             arrayList.add(new WidgetItem(current_id++, s));
+            updateStatusText();
             widgets.setValue(arrayList);
         }
     }
