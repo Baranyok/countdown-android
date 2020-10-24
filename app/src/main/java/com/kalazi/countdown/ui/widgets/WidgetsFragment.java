@@ -8,7 +8,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,48 +17,53 @@ import com.kalazi.countdown.R;
 public class WidgetsFragment extends Fragment {
 
     private WidgetsViewModel widgetsViewModel;
-    private RecyclerView recyclerView;
     private WidgetsRecyclerViewAdapter mAdapter;
-    private RecyclerView.LayoutManager layoutManager;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         widgetsViewModel =
                 ViewModelProviders.of(this).get(WidgetsViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_widgets, container, false);
-        final TextView textView = root.findViewById(R.id.text_widgets);
-        widgetsViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-                if ("".equals(s)) {
-                    textView.setVisibility(View.INVISIBLE);
-                }
-            }
-        });
+        View rootView = inflater.inflate(R.layout.fragment_widgets, container, false);
 
-        return root;
+        registerUIListeners(rootView);
+
+        return rootView;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        recyclerView = view.findViewById(R.id.widgets_recycler_view);
+        RecyclerView recyclerView = view.findViewById(R.id.widgets_recycler_view);
         recyclerView.setHasFixedSize(true);
 
         // use a linear layout manager
-        layoutManager = new LinearLayoutManager(view.getContext());
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(view.getContext());
         recyclerView.setLayoutManager(layoutManager);
 
-        // specify an adapter (see also next example)
+        // specify an adapter
         mAdapter = new WidgetsRecyclerViewAdapter();
         recyclerView.setAdapter(mAdapter);
 
+        registerDataObservers(view);
+    }
+
+    private void registerDataObservers(View view) {
+        // register status text observer
+        final TextView textView = view.findViewById(R.id.text_widgets);
+        widgetsViewModel.getText().observe(getViewLifecycleOwner(), s -> {
+            textView.setText(s);
+            if ("".equals(s)) {
+                textView.setVisibility(View.INVISIBLE);
+            }
+        });
+
         // observer for widget list change
         widgetsViewModel.getWidgets().observe(getViewLifecycleOwner(), list -> mAdapter.updateDataset(list));
+    }
 
+    private void registerUIListeners(View view) {
         FloatingActionButton btn = (FloatingActionButton) view.findViewById(R.id.fab2);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,7 +71,6 @@ public class WidgetsFragment extends Fragment {
                 do_placeholder_things(v);
             }
         });
-
     }
 
     private void do_placeholder_things(View v) {

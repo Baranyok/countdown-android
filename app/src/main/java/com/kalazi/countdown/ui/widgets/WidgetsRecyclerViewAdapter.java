@@ -3,6 +3,7 @@ package com.kalazi.countdown.ui.widgets;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.kalazi.countdown.R;
 
@@ -11,11 +12,8 @@ import java.util.ArrayList;
 public class WidgetsRecyclerViewAdapter extends RecyclerView.Adapter<WidgetItemViewHolder> {
     private ArrayList<WidgetItem> mDataset = null;
 
-//    public WidgetsRecyclerViewAdapter(ArrayList<WidgetItem> mDataset) {
-//        this.mDataset = mDataset;
-//    }
-
     // Create new item views (invoked by the layout manager)
+    @NonNull
     @Override
     public WidgetItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemContainerView = LayoutInflater.from(parent.getContext())
