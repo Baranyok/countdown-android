@@ -13,8 +13,6 @@ public class SettingsFragment extends PreferenceFragmentCompat {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
     }
 
     @Override
@@ -25,21 +23,13 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         // initialize listeners
         Preference pref_theme = findPreference("theme_dark");
         if (pref_theme != null) {
-            pref_theme.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-                @Override
-                public boolean onPreferenceChange(Preference preference, Object newValue) {
-                    change_theme(preference, newValue);
-                    return true;
+            pref_theme.setOnPreferenceChangeListener((preference, newValue) -> {
+                if (getActivity() != null) {
+                    getActivity().recreate();
                 }
+                return true;
             });
         }
 
-    }
-
-    public void change_theme(Preference preference, Object newValue) {
-        boolean dark_theme = (boolean) newValue;
-        if (getActivity() != null) {
-            getActivity().recreate();
-        }
     }
 }

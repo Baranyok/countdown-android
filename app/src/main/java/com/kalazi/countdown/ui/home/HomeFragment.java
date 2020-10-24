@@ -9,7 +9,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.fragment.NavHostFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -46,35 +45,22 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        view.findViewById(R.id.button_home).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                HomeFragmentDirections.ActionHomeFragmentToHomeSecondFragment action =
-                        HomeFragmentDirections.actionHomeFragmentToHomeSecondFragment
-                                ("From HomeFragment");
-                NavHostFragment.findNavController(HomeFragment.this)
-                        .navigate(action);
-            }
+        view.findViewById(R.id.button_home).setOnClickListener(view1 -> {
+            HomeFragmentDirections.ActionHomeFragmentToHomeSecondFragment action =
+                    HomeFragmentDirections.actionHomeFragmentToHomeSecondFragment
+                            ("From HomeFragment");
+            NavHostFragment.findNavController(HomeFragment.this)
+                    .navigate(action);
         });
 
         // set button onClickListener
-        FloatingActionButton btn = (FloatingActionButton) view.findViewById(R.id.fab);
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                do_placeholder_things(v);
-            }
-        });
+        FloatingActionButton btn = view.findViewById(R.id.fab);
+        btn.setOnClickListener(this::do_placeholder_things);
     }
 
     private void registerDataObservers(View view) {
         final TextView textView = view.findViewById(R.id.text_home);
-        homeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
+        homeViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
     }
 
     public void do_placeholder_things(View v) {
