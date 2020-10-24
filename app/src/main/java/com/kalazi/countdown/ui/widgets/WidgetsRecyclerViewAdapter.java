@@ -50,7 +50,7 @@ public class WidgetsRecyclerViewAdapter extends RecyclerView.Adapter<WidgetItemV
         return itemFilter;
     }
 
-    private Filter itemFilter = new Filter() {
+    private final Filter itemFilter = new Filter() {
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
             List<WidgetItem> filtered = new ArrayList<>();
@@ -75,7 +75,7 @@ public class WidgetsRecyclerViewAdapter extends RecyclerView.Adapter<WidgetItemV
         @Override
         protected void publishResults(CharSequence constraint, FilterResults results) {
             currentDataSet.clear();
-            currentDataSet.addAll((List) results.values);
+            currentDataSet.addAll((List<WidgetItem>) results.values);
             notifyDataSetChanged();
         }
     };

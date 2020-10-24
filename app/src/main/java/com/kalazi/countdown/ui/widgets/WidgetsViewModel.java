@@ -8,8 +8,8 @@ import java.util.ArrayList;
 
 public class WidgetsViewModel extends ViewModel {
 
-    private MutableLiveData<String> mText;
-    private MutableLiveData<ArrayList<WidgetItem>> widgets;
+    private final MutableLiveData<String> mText;
+    private final MutableLiveData<ArrayList<WidgetItem>> widgets;
 
     // debug
     private int current_id = 0;
