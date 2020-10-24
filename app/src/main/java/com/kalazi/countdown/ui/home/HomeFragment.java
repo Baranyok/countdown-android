@@ -5,12 +5,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.fragment.NavHostFragment;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.kalazi.countdown.R;
 
 public class HomeFragment extends Fragment {
@@ -46,5 +47,18 @@ public class HomeFragment extends Fragment {
                         .navigate(action);
             }
         });
+
+        // set button onClickListener
+        FloatingActionButton btn = (FloatingActionButton) view.findViewById(R.id.fab);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                do_placeholder_things(v);
+            }
+        });
+    }
+
+    public void do_placeholder_things(View v) {
+
     }
 }
