@@ -2,7 +2,7 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item>
         <shape android:shape="rectangle">
-            <solid android:color="?attr/selectableItemBackgroundBorderless"/>
+            <solid android:color="?attr/navItemBackground"/>
         </shape>
     </item>
 </layer-list>
