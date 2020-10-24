@@ -2,19 +2,26 @@ package com.kalazi.countdown.ui.countdowns;
 
 public class CountdownItem {
     private final int id;
-    private String countdown_name;
 
-    public CountdownItem(int id, String countdown_name) {
+    private String name;
+    private int eventId;
+    private float opacity;
+    private int fontSize;
+    private String fontFamily;
+    private String fontColor;
+    private String color;
+
+    public CountdownItem(int id, String name) {
         this.id = id;
-        this.countdown_name = countdown_name;
+        this.name = name;
     }
 
-    public void setCountdownName(String countdown_name) {
-        this.countdown_name = countdown_name;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getCountdownName() {
-        return countdown_name;
+    public String getName() {
+        return name;
     }
 
     public int getId() {
@@ -28,11 +35,11 @@ public class CountdownItem {
 
         CountdownItem that = (CountdownItem) o;
 
-        return countdown_name.equals(that.countdown_name);
+        return name.equals(that.name);
     }
 
     @Override
     public int hashCode() {
-        return countdown_name.hashCode();
+        return name.hashCode();
     }
 }

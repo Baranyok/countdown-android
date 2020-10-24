@@ -61,7 +61,7 @@ public class CountdownsRecyclerViewAdapter extends RecyclerView.Adapter<Countdow
                 String searchPattern = constraint.toString().toLowerCase().trim();
 
                 for (CountdownItem item : fullDataset) {
-                    if (item.getCountdownName().toLowerCase().contains(searchPattern)) {
+                    if (item.getName().toLowerCase().contains(searchPattern)) {
                         filtered.add(item);
                     }
                 }

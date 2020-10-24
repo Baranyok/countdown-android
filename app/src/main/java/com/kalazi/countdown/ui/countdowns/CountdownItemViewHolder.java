@@ -24,6 +24,6 @@ public class CountdownItemViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void setData(CountdownItem countdownItem) {
-        txtName.setText(countdownItem.getCountdownName());
+        txtName.setText(countdownItem.getName());
     }
 }
