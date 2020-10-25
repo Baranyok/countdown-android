@@ -27,7 +27,7 @@ public class CountdownsFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        countdownsViewModel = new ViewModelProvider(this).get(CountdownsViewModel.class);
+        countdownsViewModel = new ViewModelProvider(requireActivity()).get(CountdownsViewModel.class);
         View rootView = inflater.inflate(R.layout.fragment_countdowns, container, false);
 
         registerUIListeners(rootView);
@@ -73,8 +73,6 @@ public class CountdownsFragment extends Fragment {
         recyclerView.setAdapter(mAdapter);
 
         registerDataObservers(view);
-
-        processNewCountdown();
     }
 
     private void registerDataObservers(View view) {
@@ -95,18 +93,5 @@ public class CountdownsFragment extends Fragment {
         FloatingActionButton btn = view.findViewById(R.id.fab2);
         btn.setOnClickListener(v -> NavHostFragment.findNavController(CountdownsFragment.this)
                 .navigate(R.id.action_create_countdown));
-    }
-
-    private void processNewCountdown() {
-        if (getArguments() == null) {
-            return;
-        }
-
-        String data = CountdownsFragmentArgs.fromBundle(getArguments()).getCountdownData();
-        if (data == null) {
-            return;
-        }
-
-        countdownsViewModel.addItem(data);
     }
 }

@@ -1,16 +1,21 @@
 package com.kalazi.countdown.ui.countdowns;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.*;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import com.kalazi.countdown.R;
 
 public class CreateCountdownFragment extends Fragment {
-    private String data = "hello"; // data placeholder
+
+    private CountdownsViewModel countdownsViewModel;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -23,13 +28,7 @@ public class CreateCountdownFragment extends Fragment {
         MenuItem doneItem = menu.findItem(R.id.action_done);
         doneItem.setVisible(true);
 
-        doneItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                confirmEdits();
-                return true;
-            }
-        });
+        doneItem.setOnMenuItemClickListener(item -> confirmEdits());
 
         super.onPrepareOptionsMenu(menu);
     }
@@ -37,22 +36,24 @@ public class CreateCountdownFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        countdownsViewModel = new ViewModelProvider(requireActivity()).get(CountdownsViewModel.class);
         return inflater.inflate(R.layout.fragment_create_countdown, container, false);
     }
 
     private String createCountdownObject() {
-        View rootView = getView();
-        if (rootView != null) {
-            EditText text = rootView.findViewById(R.id.editField);
-            return text.getText().toString();
-        }
-        return "";
+        EditText text = requireView().findViewById(R.id.editField);
+        return text.getText().toString();
     }
 
-    private void confirmEdits() {
-        CreateCountdownFragmentDirections.ActionCreateCountdownSubmit action;
-        action = CreateCountdownFragmentDirections.actionCreateCountdownSubmit();
-        action.setCountdownData(createCountdownObject());
-        NavHostFragment.findNavController(CreateCountdownFragment.this).navigate(action);
+    private boolean confirmEdits() {
+        // hide the keyboard
+        InputMethodManager keyboard = (InputMethodManager) requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        keyboard.hideSoftInputFromWindow(requireActivity().getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+
+        // publish the data
+        NavController navController = NavHostFragment.findNavController(CreateCountdownFragment.this);
+        countdownsViewModel.addItem(createCountdownObject());
+        navController.popBackStack();
+        return true;
     }
 }

@@ -1,5 +1,6 @@
 package com.kalazi.countdown.ui.countdowns;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,6 +32,7 @@ public class CountdownsRecyclerViewAdapter extends RecyclerView.Adapter<Countdow
         this.currentDataSet = mDataset;
         this.fullDataset = new ArrayList<>(mDataset);
         this.notifyDataSetChanged();
+        Log.v("Dataset changed", mDataset.toString());
     }
 
     // Replace the contents of an item view (invoked by the layout manager)
