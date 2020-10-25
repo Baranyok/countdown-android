@@ -28,6 +28,6 @@ public class HomeSecondFragment extends Fragment {
         textView.setText(getString(R.string.hello_home_second, myArg));
 
         view.findViewById(R.id.button_home_second).setOnClickListener(view1 -> NavHostFragment.findNavController(HomeSecondFragment.this)
-                .navigate(R.id.action_HomeSecondFragment_to_HomeFragment));
+                .navigate(R.id.action_2to1));
     }
 }

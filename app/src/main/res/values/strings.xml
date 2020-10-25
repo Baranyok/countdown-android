@@ -13,6 +13,7 @@
 
     <string name="action_settings">Settings</string>
     <string name="action_search">Search</string>
+    <string name="action_done">Done</string>
 
     <string name="menu_home">Home</string>
     <string name="menu_coundowns">Countdowns</string> <!-- maybe "Calendar events" -->
@@ -28,6 +29,9 @@
 
     <!-- Fragments - Countdowns -->
     <string name="frag_countdowns_none">No countdowns exist yet…</string>
+
+    <!-- Fragments - Create countdown -->
+    <string name="frag_create_countdown">Create countdown</string>
 
     <!-- Preference titles -->
     <string name="settings_header_environment">Environment</string>

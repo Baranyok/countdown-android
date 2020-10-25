@@ -12,7 +12,7 @@
             tools:layout="@layout/fragment_home">
 
         <action
-                android:id="@+id/action_HomeFragment_to_HomeSecondFragment"
+                android:id="@+id/action_1to2"
                 app:destination="@id/nav_home_second"/>
     </fragment>
     <fragment
@@ -21,7 +21,7 @@
             android:label="@string/home_second"
             tools:layout="@layout/fragment_home_second">
         <action
-                android:id="@+id/action_HomeSecondFragment_to_HomeFragment"
+                android:id="@+id/action_2to1"
                 app:destination="@id/nav_home"/>
 
         <argument
@@ -38,5 +38,24 @@
             android:id="@+id/nav_countdowns"
             android:name="com.kalazi.countdown.ui.countdowns.CountdownsFragment"
             android:label="@string/menu_coundowns"
-            tools:layout="@layout/fragment_countdowns"/>
+            tools:layout="@layout/fragment_countdowns">
+
+        <action android:id="@+id/action_create_countdown"
+                app:destination="@id/nav_create_countdown"
+        />
+        <argument
+                android:name="countdown_data"
+                app:argType="string"
+                app:nullable="true"
+                android:defaultValue="@null"/>
+    </fragment>
+
+    <fragment android:id="@+id/nav_create_countdown"
+              android:name="com.kalazi.countdown.ui.countdowns.CreateCountdownFragment"
+              android:label="@string/frag_create_countdown"
+              tools:layout="@layout/fragment_create_countdown">
+
+        <action android:id="@+id/action_create_countdown_submit"
+                app:destination="@id/nav_countdowns"/>
+    </fragment>
 </navigation>

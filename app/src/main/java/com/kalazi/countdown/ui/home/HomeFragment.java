@@ -46,9 +46,8 @@ public class HomeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         view.findViewById(R.id.button_home).setOnClickListener(view1 -> {
-            HomeFragmentDirections.ActionHomeFragmentToHomeSecondFragment action =
-                    HomeFragmentDirections.actionHomeFragmentToHomeSecondFragment
-                            ("From HomeFragment");
+            HomeFragmentDirections.Action1to2 action =
+                    HomeFragmentDirections.action1to2("From HomeFragment");
             NavHostFragment.findNavController(HomeFragment.this)
                     .navigate(action);
         });

@@ -8,6 +8,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -72,6 +73,8 @@ public class CountdownsFragment extends Fragment {
         recyclerView.setAdapter(mAdapter);
 
         registerDataObservers(view);
+
+        processNewCountdown();
     }
 
     private void registerDataObservers(View view) {
@@ -89,16 +92,21 @@ public class CountdownsFragment extends Fragment {
     }
 
     private void registerUIListeners(View view) {
-        FloatingActionButton btn = (FloatingActionButton) view.findViewById(R.id.fab2);
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                do_placeholder_things(v);
-            }
-        });
+        FloatingActionButton btn = view.findViewById(R.id.fab2);
+        btn.setOnClickListener(v -> NavHostFragment.findNavController(CountdownsFragment.this)
+                .navigate(R.id.action_create_countdown));
     }
 
-    private void do_placeholder_things(View v) {
-        countdownsViewModel.addItem("Another head");
+    private void processNewCountdown() {
+        if (getArguments() == null) {
+            return;
+        }
+
+        String data = CountdownsFragmentArgs.fromBundle(getArguments()).getCountdownData();
+        if (data == null) {
+            return;
+        }
+
+        countdownsViewModel.addItem(data);
     }
 }
