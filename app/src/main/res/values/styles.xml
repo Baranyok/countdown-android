@@ -8,6 +8,7 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="navItemBackground">@color/lightgray</item>
         <item name="navHeaderTextColor">@color/colorAccent</item>
+        <item name="android:windowContentOverlay">@null</item>
     </style>
 
     <style name="AppThemeDark" parent="Theme.AppCompat">
@@ -16,6 +17,7 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="navItemBackground">@color/dark_colorPrimary</item>
         <item name="navHeaderTextColor">@color/colorAccent</item>
+        <item name="android:windowContentOverlay">@null</item>
     </style>
 
     <style name="AppTheme.NoActionBar">

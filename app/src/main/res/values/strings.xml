@@ -31,7 +31,11 @@
     <string name="frag_countdowns_none">No countdowns exist yet…</string>
 
     <!-- Fragments - Create countdown -->
-    <string name="frag_create_countdown">Create countdown</string>
+    <string name="frag_cc">Create countdown</string>
+    <string name="frag_cc_label_name">Name</string>
+    <string name="frag_cc_hint_name">An awesome countdown name</string>
+    <string name="frag_cc_label_opacity">Opacity</string>
+    <string name="frag_cc_label_color">Color</string>
 
     <!-- Preference titles -->
     <string name="settings_header_environment">Environment</string>

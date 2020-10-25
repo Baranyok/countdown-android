@@ -28,6 +28,12 @@ android {
 
 }
 
+repositories {
+    maven {
+        url "http://github.com/wada811/Android-Material-Design-Colors/raw/master/repository/"
+    }
+}
+
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
@@ -44,4 +50,9 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
     implementation "androidx.cardview:cardview:1.0.0"
+    implementation "androidx.room:room-runtime:2.2.5"
+
+    // cutom license section
+    implementation 'com.thebluealliance:spectrum:0.7.1'
+    implementation 'com.wada811:android-material-design-colors:3.0.0'
 }
