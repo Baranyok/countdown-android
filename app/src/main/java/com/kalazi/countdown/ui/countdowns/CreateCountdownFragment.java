@@ -1,9 +1,7 @@
 package com.kalazi.countdown.ui.countdowns;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.view.*;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.SeekBar;
 import androidx.annotation.NonNull;
@@ -57,14 +55,10 @@ public class CreateCountdownFragment extends Fragment {
     }
 
     private boolean confirmEdits() {
-        // hide the keyboard
-        InputMethodManager keyboard = (InputMethodManager) requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-        keyboard.hideSoftInputFromWindow(requireActivity().getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
-
         // publish the data
         NavController navController = NavHostFragment.findNavController(CreateCountdownFragment.this);
         countdownsViewModel.addItem(createCountdownObject());
         navController.popBackStack();
-        return true;
+        return false;
     }
 }
