@@ -1,6 +1,5 @@
 package com.kalazi.countdown.ui.countdowns;
 
-import android.util.Log;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -20,7 +19,6 @@ public class CountdownsViewModel extends ViewModel {
     public CountdownsViewModel() {
         if (countdowns.getValue() == null) {
             countdowns.setValue(new ArrayList<>());
-            Log.v("This", "shit happened");
         }
 
         updateStatusText();
@@ -37,7 +35,6 @@ public class CountdownsViewModel extends ViewModel {
     }
 
     public LiveData<List<CountdownItem>> getCountdowns() {
-        Log.v("ok1", countdowns.toString());
         return countdowns;
     }
 
@@ -46,10 +43,7 @@ public class CountdownsViewModel extends ViewModel {
         if (arrayList != null) {
             arrayList.add(new CountdownItem(current_id++, s));
             updateStatusText();
-            Log.v("Data model", arrayList.toString());
             countdowns.setValue(arrayList);
-            Log.v("Data model after", countdowns.getValue().toString());
         }
-        Log.v("ok2", countdowns.toString());
     }
 }

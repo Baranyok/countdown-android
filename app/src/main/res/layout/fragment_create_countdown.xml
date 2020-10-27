@@ -3,6 +3,7 @@
               xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
               android:orientation="vertical"
               android:paddingTop="4pt"
               tools:context=".ui.countdowns.CreateCountdownFragment">
@@ -24,6 +25,7 @@
                 android:hint="@string/frag_cc_hint_name"
                 android:ems="10"
                 android:id="@+id/cc_form_name"
+                android:layout_marginEnd="12dp"
                 android:importantForAutofill="no"/>
     </LinearLayout>
 
@@ -46,20 +48,19 @@
     </LinearLayout>
 
     <LinearLayout
-            android:orientation="horizontal"
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-        <Button
+        <com.kalazi.countdown.ui.util.ColorPickSelectableItem
                 android:text="@string/frag_cc_label_color"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="?android:attr/buttonBarButtonStyle"
-                android:textAlignment="textStart"
-                android:padding="8pt"
-                android:paddingVertical="12pt"
-                android:textAllCaps="false"
-                android:textAppearance="@android:style/TextAppearance.Material"
-                android:id="@+id/cc_button_color"/>
+                android:id="@+id/cc_button_color"
+                app:defaultPickColor="@color/md_light_blue_500"
+                app:iconPadding="16dp"
+                app:iconSize="24pt"
+                android:background="?attr/selectableItemBackground"
+                android:padding="8pt"/>
     </LinearLayout>
 
 </LinearLayout>

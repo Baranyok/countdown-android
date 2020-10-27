@@ -1,5 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <attr name="navHeaderTextColor" format="color"/>
-    <attr name="navItemBackground" format="color"/>
+    <attr name="navHeaderTextColor"
+          format="color"/>
+    <attr name="navItemBackground"
+          format="color"/>
+
+    <declare-styleable name="ColorPickSelectableItem">
+        <attr name="defaultPickColor"
+              format="color"/>
+        <attr name="iconPadding"
+              format="dimension"/>
+        <attr name="iconSize"
+              format="dimension"/>
+    </declare-styleable>
 </resources>
