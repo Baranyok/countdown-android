@@ -89,4 +89,8 @@ public class ColorPickSelectableItem extends AppCompatTextView {
         int size = iconSize / 2 - iconPadding;
         canvas.drawCircle(getWidth() - size - iconPadding, getHeight() / 2.0f, size, paint);
     }
+
+    public int getColor() {
+        return color;
+    }
 }

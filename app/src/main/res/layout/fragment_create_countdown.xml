@@ -55,8 +55,24 @@
                 android:text="@string/frag_cc_label_color"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/cc_button_color"
+                android:id="@+id/cc_form_color"
                 app:defaultPickColor="@color/md_light_blue_500"
+                app:iconPadding="16dp"
+                app:iconSize="24pt"
+                android:background="?attr/selectableItemBackground"
+                android:padding="8pt"/>
+    </LinearLayout>
+
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <com.kalazi.countdown.ui.util.ColorPickSelectableItem
+                android:text="@string/frag_cc_label_font_color"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/cc_form_font_color"
+                app:defaultPickColor="@color/md_black"
                 app:iconPadding="16dp"
                 app:iconSize="24pt"
                 android:background="?attr/selectableItemBackground"

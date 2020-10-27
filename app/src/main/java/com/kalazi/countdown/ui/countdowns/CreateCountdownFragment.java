@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.*;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.SeekBar;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -12,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import com.kalazi.countdown.R;
+import com.kalazi.countdown.ui.util.ColorPickSelectableItem;
 
 public class CreateCountdownFragment extends Fragment {
 
@@ -40,9 +42,18 @@ public class CreateCountdownFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_create_countdown, container, false);
     }
 
-    private String createCountdownObject() {
+    private CountdownItem createCountdownObject() {
         EditText text = requireView().findViewById(R.id.cc_form_name);
-        return text.getText().toString();
+        ColorPickSelectableItem color = requireView().findViewById(R.id.cc_form_color);
+        SeekBar opacity = requireView().findViewById(R.id.cc_form_opacity);
+        ColorPickSelectableItem fontColor = requireView().findViewById(R.id.cc_form_font_color);
+
+        CountdownItem item = new CountdownItem(countdownsViewModel.getLastIndex());
+        item.setName(text.getText().toString());
+        item.setColor(color.getColor());
+        item.setOpacity(opacity.getProgress());
+        item.setFontColor(fontColor.getColor());
+        return item;
     }
 
     private boolean confirmEdits() {

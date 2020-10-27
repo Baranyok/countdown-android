@@ -5,28 +5,63 @@ public class CountdownItem {
 
     private String name;
     private int eventId;
-    private float opacity;
+    private int color;
+    private int opacity;
+    private int fontColor;
     private int fontSize;
     private String fontFamily;
-    private String fontColor;
-    private String color;
+
+    public CountdownItem(int id) {
+        this.id = id;
+        this.name = "";
+    }
 
     public CountdownItem(int id, String name) {
         this.id = id;
         this.name = name;
     }
 
+    // setters
+
     public void setName(String name) {
         this.name = name;
+    }
+
+    public void setColor(int color) {
+        this.color = color;
+    }
+
+    public void setOpacity(int opacity) {
+        this.opacity = opacity;
+    }
+
+    public void setFontColor(int fontColor) {
+        this.fontColor = fontColor;
+    }
+
+    // getters
+
+    public int getId() {
+        return id;
     }
 
     public String getName() {
         return name;
     }
 
-    public int getId() {
-        return id;
+    public int getColor() {
+        return color;
     }
+
+    public int getOpacity() {
+        return opacity;
+    }
+
+    public int getFontColor() {
+        return fontColor;
+    }
+
+    // overrides
 
     @Override
     public boolean equals(Object o) {

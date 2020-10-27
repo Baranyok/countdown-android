@@ -15,26 +15,26 @@
             android:padding="4dp">
 
         <TextView
-                android:id="@+id/txtName"
+                android:id="@+id/ci_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="1dp"
                 android:textSize="18sp"/>
 
         <TextView
-                android:id="@+id/txtDistance"
+                android:id="@+id/ci_color"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="1dp"/>
 
         <TextView
-                android:id="@+id/txtGravity"
+                android:id="@+id/ci_opacity"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="1dp"/>
 
         <TextView
-                android:id="@+id/txtDiameter"
+                android:id="@+id/ci_fontcolor"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="1dp"/>

@@ -39,11 +39,28 @@ public class CountdownsViewModel extends ViewModel {
     }
 
     public void addItem(String s) {
+        addItem(new CountdownItem(current_id++, s));
+    }
+
+    public void addItem(CountdownItem item) {
         List<CountdownItem> arrayList = countdowns.getValue();
         if (arrayList != null) {
-            arrayList.add(new CountdownItem(current_id++, s));
+            arrayList.add(item);
             updateStatusText();
             countdowns.setValue(arrayList);
         }
+    }
+
+    public int getLastIndex() {
+        int last_id = 0;
+        List<CountdownItem> arrayList = countdowns.getValue();
+        if (arrayList != null) {
+            for (CountdownItem item : arrayList) {
+                if (item.getId() > last_id) {
+                    last_id = item.getId();
+                }
+            }
+        }
+        return last_id;
     }
 }

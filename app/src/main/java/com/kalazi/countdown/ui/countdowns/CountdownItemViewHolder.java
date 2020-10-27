@@ -10,20 +10,23 @@ import com.kalazi.countdown.R;
 // you provide access to all the views for a data item in a view holder
 public class CountdownItemViewHolder extends RecyclerView.ViewHolder {
     // each data item is just a string in this case
-    private TextView txtName;
-    private TextView txtDistance;
-    private TextView txtGravity;
-    private TextView txtDiameter;
+    private final TextView nameView;
+    private final TextView colorView;
+    private final TextView opacityView;
+    private final TextView fontColorView;
 
     public CountdownItemViewHolder(View itemContainerView) {
         super(itemContainerView);
-        txtName = itemContainerView.findViewById(R.id.txtName);
-        txtDistance = itemContainerView.findViewById(R.id.txtDistance);
-        txtGravity = itemContainerView.findViewById(R.id.txtGravity);
-        txtDiameter = itemContainerView.findViewById(R.id.txtDiameter);
+        nameView = itemContainerView.findViewById(R.id.ci_name);
+        colorView = itemContainerView.findViewById(R.id.ci_color);
+        opacityView = itemContainerView.findViewById(R.id.ci_opacity);
+        fontColorView = itemContainerView.findViewById(R.id.ci_fontcolor);
     }
 
     public void setData(CountdownItem countdownItem) {
-        txtName.setText(countdownItem.getName());
+        nameView.setText(countdownItem.getName());
+        colorView.setText("#" + Integer.toHexString(countdownItem.getColor()));
+        opacityView.setText(Integer.toString(countdownItem.getOpacity()));
+        fontColorView.setText("#" + Integer.toHexString(countdownItem.getFontColor()));
     }
 }
