@@ -5,7 +5,7 @@
               android:layout_height="wrap_content"
               xmlns:app="http://schemas.android.com/apk/res-auto"
               android:orientation="vertical"
-              android:paddingTop="4pt"
+              android:paddingTop="@dimen/form_fragment_padding_top"
               tools:context=".ui.countdowns.CreateCountdownFragment">
 
     <LinearLayout
@@ -26,7 +26,7 @@
                 android:hint="@string/frag_cc_hint_name"
                 android:ems="10"
                 android:id="@+id/cc_form_name"
-                android:layout_marginEnd="12dp"
+                android:layout_marginEnd="@dimen/cc_item_hpadding"
                 android:importantForAutofill="no"/>
     </LinearLayout>
 
@@ -39,8 +39,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/cc_label_opacity"
-                android:paddingVertical="4pt"
-                android:paddingHorizontal="8pt"/>
+                android:paddingVertical="@dimen/cc_item_slider_vpadding"
+                android:paddingHorizontal="@dimen/cc_item_hpadding"/>
         <SeekBar
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -58,7 +58,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/cc_form_color"
                 app:defaultPickColor="@color/md_light_blue_500"
-                app:iconSize="32dp"
+                app:iconSize="@dimen/cc_item_icon_size"
                 android:background="?attr/selectableItemBackground"
                 android:paddingHorizontal="@dimen/cc_item_hpadding"
                 android:paddingVertical="@dimen/cc_item_vpadding"/>
@@ -74,7 +74,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/cc_form_font_color"
                 app:defaultPickColor="@color/md_black"
-                app:iconSize="32dp"
+                app:iconSize="@dimen/cc_item_icon_size"
                 android:background="?attr/selectableItemBackground"
                 android:paddingHorizontal="@dimen/cc_item_hpadding"
                 android:paddingVertical="@dimen/cc_item_vpadding"/>

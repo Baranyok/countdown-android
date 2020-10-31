@@ -9,6 +9,9 @@
     <dimen name="nav_header_appname_padding">8dp</dimen>
     <dimen name="nav_header_appname_size">20sp</dimen>
 
+    <!-- Fragments -->
+    <dimen name="form_fragment_padding_top">12dp</dimen>
+
     <!-- Countdowns fragment -->
     <dimen name="countdown_item_margin">10dp</dimen>
     <dimen name="countdown_item_margin_separator">12dp</dimen>
@@ -18,4 +21,6 @@
     <!-- Create Countdown fragment -->
     <dimen name="cc_item_hpadding">8pt</dimen>
     <dimen name="cc_item_vpadding">24dp</dimen>
+    <dimen name="cc_item_slider_vpadding">12dp</dimen>
+    <dimen name="cc_item_icon_size">32dp</dimen>
 </resources>
