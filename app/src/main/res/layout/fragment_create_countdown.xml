@@ -17,7 +17,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/cc_label_name"
-                android:padding="8pt"/>
+                android:paddingHorizontal="@dimen/cc_item_hpadding"
+                android:paddingVertical="@dimen/cc_item_vpadding"/>
         <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -60,7 +61,8 @@
                 app:iconPadding="16dp"
                 app:iconSize="64dp"
                 android:background="?attr/selectableItemBackground"
-                android:padding="8pt"/>
+                android:paddingHorizontal="@dimen/cc_item_hpadding"
+                android:paddingVertical="@dimen/cc_item_vpadding"/>
     </LinearLayout>
 
     <LinearLayout
@@ -76,7 +78,8 @@
                 app:iconPadding="16dp"
                 app:iconSize="64dp"
                 android:background="?attr/selectableItemBackground"
-                android:padding="8pt"/>
+                android:paddingHorizontal="@dimen/cc_item_hpadding"
+                android:paddingVertical="@dimen/cc_item_vpadding"/>
     </LinearLayout>
 
 </LinearLayout>

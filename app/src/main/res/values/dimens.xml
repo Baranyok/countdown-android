@@ -14,4 +14,8 @@
     <dimen name="countdown_item_margin_separator">12dp</dimen>
     <dimen name="countdown_item_padding">4dp</dimen>
     <dimen name="countdown_item_corner_radius">6dp</dimen>
+
+    <!-- Create Countdown fragment -->
+    <dimen name="cc_item_hpadding">8pt</dimen>
+    <dimen name="cc_item_vpadding">24dp</dimen>
 </resources>
