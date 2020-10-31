@@ -20,8 +20,8 @@ public class ColorPickSelectableItem extends AppCompatTextView {
 
     private final Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private int color = 0xff000000;
-    private int iconPadding = 0;
-    private int iconSize = 0;
+    private float iconPadding = 0;
+    private float iconSize = 0;
 
     public ColorPickSelectableItem(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
@@ -45,8 +45,8 @@ public class ColorPickSelectableItem extends AppCompatTextView {
         if (attrs != null) {
             TypedArray a = getContext().obtainStyledAttributes(attrs, R.styleable.ColorPickSelectableItem);
             color = a.getColor(R.styleable.ColorPickSelectableItem_defaultPickColor, color);
-            iconPadding = a.getDimensionPixelSize(R.styleable.ColorPickSelectableItem_iconPadding, iconPadding);
-            iconSize = a.getDimensionPixelSize(R.styleable.ColorPickSelectableItem_iconSize, iconSize);
+            iconPadding = a.getDimension(R.styleable.ColorPickSelectableItem_iconPadding, getPaddingEnd());
+            iconSize = a.getDimension(R.styleable.ColorPickSelectableItem_iconSize, iconSize);
             a.recycle();
         }
         paint.setColor(color);
@@ -86,7 +86,7 @@ public class ColorPickSelectableItem extends AppCompatTextView {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        int radius = iconSize / 2;
+        float radius = iconSize / 2;
         canvas.drawCircle(getWidth() - radius - iconPadding, getHeight() / 2.0f, radius, paint);
     }
 
