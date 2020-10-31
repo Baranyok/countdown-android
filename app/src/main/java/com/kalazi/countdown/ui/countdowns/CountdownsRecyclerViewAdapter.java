@@ -50,7 +50,7 @@ public class CountdownsRecyclerViewAdapter extends RecyclerView.Adapter<Countdow
         if (parentFragment != null) {
             CountdownsFragmentDirections.ActionEditCountdown action =
                     CountdownsFragmentDirections.actionEditCountdown();
-            action.setCountdownData(position);
+            action.setCountdownArrayIndex(position);
             holder.itemView.setOnClickListener(v -> NavHostFragment.findNavController(parentFragment)
                     .navigate(action));
         }

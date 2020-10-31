@@ -57,7 +57,7 @@
               android:label="@string/frag_ec"
               tools:layout="@layout/fragment_edit_countdown">
         <argument
-                android:name="countdown_data"
+                android:name="countdown_array_index"
                 android:defaultValue="-1"
                 app:argType="integer"/>
     </fragment>

@@ -14,9 +14,6 @@ public class CountdownsViewModel extends ViewModel {
     private final MutableLiveData<Integer> statusText = new MutableLiveData<>();
     private final MutableLiveData<List<CountdownItem>> countdowns = new MutableLiveData<>(null);
 
-    // debug
-    private int current_id = 0;
-
     public CountdownsViewModel() {
         if (countdowns.getValue() == null) {
             countdowns.setValue(countdownsArray);
@@ -36,10 +33,6 @@ public class CountdownsViewModel extends ViewModel {
 
     public LiveData<List<CountdownItem>> getCountdowns() {
         return countdowns;
-    }
-
-    public void addItem(String s) {
-        addItem(new CountdownItem(current_id++, s));
     }
 
     public void addItem(CountdownItem item) {

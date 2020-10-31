@@ -51,7 +51,7 @@ public class EditCountdownFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        int arrayIndex = EditCountdownFragmentArgs.fromBundle(requireArguments()).getCountdownData();
+        int arrayIndex = EditCountdownFragmentArgs.fromBundle(requireArguments()).getCountdownArrayIndex();
         if (arrayIndex == -1) {
             item = new CountdownItem(countdownsViewModel.getLastIndex());
             existedBefore = false;
