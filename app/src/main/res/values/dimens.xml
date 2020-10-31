@@ -9,6 +9,9 @@
     <dimen name="nav_header_appname_padding">8dp</dimen>
     <dimen name="nav_header_appname_size">20sp</dimen>
 
+    <!-- Text -->
+    <dimen name="text_micro">12sp</dimen>
+
     <!-- Fragments -->
     <dimen name="form_fragment_padding_top">12dp</dimen>
 

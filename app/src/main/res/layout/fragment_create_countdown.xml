@@ -71,19 +71,13 @@
             android:background="?attr/selectableItemBackground"
             android:paddingHorizontal="@dimen/cc_item_hpadding"/>
 
-    <LinearLayout
-            android:orientation="vertical"
+    <com.kalazi.countdown.ui.util.CalendarEventPickItem
+            android:id="@+id/cc_form_event"
             android:layout_width="match_parent"
             android:layout_height="@dimen/cc_item_height"
             android:gravity="center_vertical"
-            android:paddingHorizontal="@dimen/cc_item_hpadding">
-
-        <Button
-                android:id="@+id/button"
-                android:text="@string/frag_cc_label_choose_event"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                style="@style/Widget.AppCompat.Button.Borderless.Colored"/>
-    </LinearLayout>
+            android:background="?attr/selectableItemBackground"
+            android:paddingHorizontal="@dimen/cc_item_hpadding"
+            app:title="@string/frag_cc_label_choose_event"/>
 
 </LinearLayout>

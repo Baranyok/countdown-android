@@ -37,7 +37,7 @@
     <string name="frag_cc_label_opacity">Opacity</string>
     <string name="frag_cc_label_color">Color</string>
     <string name="frag_cc_label_font_color">Font color</string>
-    <string name="frag_cc_label_choose_event">Choose Google event</string>
+    <string name="frag_cc_label_choose_event">Select Google event</string>
 
     <!-- Preference titles -->
     <string name="settings_header_environment">Environment</string>

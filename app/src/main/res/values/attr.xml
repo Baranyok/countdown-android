@@ -13,4 +13,9 @@
         <attr name="iconSize"
               format="dimension"/>
     </declare-styleable>
+
+    <declare-styleable name="CalendarEventPickItem">
+        <attr name="title"
+              format="string"/>
+    </declare-styleable>
 </resources>
