@@ -20,7 +20,7 @@
 
     <!-- Create Countdown fragment -->
     <dimen name="cc_item_hpadding">8pt</dimen>
-    <dimen name="cc_item_vpadding">24dp</dimen>
-    <dimen name="cc_item_slider_vpadding">12dp</dimen>
+    <dimen name="cc_item_height">64dp</dimen>
+    <dimen name="cc_item_slider_label_padding">12dp</dimen>
     <dimen name="cc_item_icon_size">32dp</dimen>
 </resources>

@@ -11,14 +11,14 @@
     <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="@dimen/cc_item_height"
+            android:gravity="center_vertical">
         <TextView
                 android:text="@string/frag_cc_label_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/cc_label_name"
-                android:paddingHorizontal="@dimen/cc_item_hpadding"
-                android:paddingVertical="@dimen/cc_item_vpadding"/>
+                android:paddingHorizontal="@dimen/cc_item_hpadding"/>
         <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -33,13 +33,14 @@
     <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="@dimen/cc_item_height"
+            android:gravity="bottom">
         <TextView
                 android:text="@string/frag_cc_label_opacity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/cc_label_opacity"
-                android:paddingVertical="@dimen/cc_item_slider_vpadding"
+                android:paddingBottom="@dimen/cc_item_slider_label_padding"
                 android:paddingHorizontal="@dimen/cc_item_hpadding"/>
         <SeekBar
                 android:layout_width="match_parent"
@@ -48,36 +49,41 @@
                 android:id="@+id/cc_form_opacity"/>
     </LinearLayout>
 
-    <LinearLayout
-            android:orientation="vertical"
+    <com.kalazi.countdown.ui.util.ColorPickSelectableItem
+            android:text="@string/frag_cc_label_color"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-        <com.kalazi.countdown.ui.util.ColorPickSelectableItem
-                android:text="@string/frag_cc_label_color"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/cc_form_color"
-                app:defaultPickColor="@color/md_light_blue_500"
-                app:iconSize="@dimen/cc_item_icon_size"
-                android:background="?attr/selectableItemBackground"
-                android:paddingHorizontal="@dimen/cc_item_hpadding"
-                android:paddingVertical="@dimen/cc_item_vpadding"/>
-    </LinearLayout>
+            android:layout_height="@dimen/cc_item_height"
+            android:gravity="center_vertical"
+            android:id="@+id/cc_form_color"
+            app:defaultPickColor="@color/md_light_blue_500"
+            app:iconSize="@dimen/cc_item_icon_size"
+            android:background="?attr/selectableItemBackground"
+            android:paddingHorizontal="@dimen/cc_item_hpadding"/>
+
+    <com.kalazi.countdown.ui.util.ColorPickSelectableItem
+            android:text="@string/frag_cc_label_font_color"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/cc_item_height"
+            android:gravity="center_vertical"
+            android:id="@+id/cc_form_font_color"
+            app:defaultPickColor="@color/md_black"
+            app:iconSize="@dimen/cc_item_icon_size"
+            android:background="?attr/selectableItemBackground"
+            android:paddingHorizontal="@dimen/cc_item_hpadding"/>
 
     <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-        <com.kalazi.countdown.ui.util.ColorPickSelectableItem
-                android:text="@string/frag_cc_label_font_color"
+            android:layout_height="@dimen/cc_item_height"
+            android:gravity="center_vertical"
+            android:paddingHorizontal="@dimen/cc_item_hpadding">
+
+        <Button
+                android:text="@string/frag_cc_label_choose_event"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/cc_form_font_color"
-                app:defaultPickColor="@color/md_black"
-                app:iconSize="@dimen/cc_item_icon_size"
-                android:background="?attr/selectableItemBackground"
-                android:paddingHorizontal="@dimen/cc_item_hpadding"
-                android:paddingVertical="@dimen/cc_item_vpadding"/>
+                android:layout_height="match_parent"
+                style="@style/Widget.AppCompat.Button.Borderless.Colored"
+                android:id="@+id/button"/>
     </LinearLayout>
 
 </LinearLayout>
