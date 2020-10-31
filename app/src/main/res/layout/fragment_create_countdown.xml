@@ -16,6 +16,7 @@
         <TextView
                 android:id="@+id/cc_label_name"
                 android:text="@string/frag_cc_label_name"
+                android:textColor="?android:attr/textColorPrimary"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingHorizontal="@dimen/cc_item_hpadding"/>
@@ -38,6 +39,7 @@
         <TextView
                 android:id="@+id/cc_label_opacity"
                 android:text="@string/frag_cc_label_opacity"
+                android:textColor="?android:attr/textColorPrimary"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="@dimen/cc_item_slider_label_padding"
@@ -52,6 +54,7 @@
     <com.kalazi.countdown.ui.util.ColorPickSelectableItem
             android:id="@+id/cc_form_color"
             android:text="@string/frag_cc_label_color"
+            android:textColor="?android:attr/textColorPrimary"
             android:layout_width="match_parent"
             android:layout_height="@dimen/cc_item_height"
             android:gravity="center_vertical"
@@ -63,6 +66,7 @@
     <com.kalazi.countdown.ui.util.ColorPickSelectableItem
             android:id="@+id/cc_form_font_color"
             android:text="@string/frag_cc_label_font_color"
+            android:textColor="?android:attr/textColorPrimary"
             android:layout_width="match_parent"
             android:layout_height="@dimen/cc_item_height"
             android:gravity="center_vertical"
@@ -73,11 +77,12 @@
 
     <com.kalazi.countdown.ui.util.CalendarEventPickItem
             android:id="@+id/cc_form_event"
+            app:title="@string/frag_cc_label_choose_event"
+            app:titleTextColor="?android:attr/textColorPrimary"
             android:layout_width="match_parent"
             android:layout_height="@dimen/cc_item_height"
             android:gravity="center_vertical"
             android:background="?attr/selectableItemBackground"
-            android:paddingHorizontal="@dimen/cc_item_hpadding"
-            app:title="@string/frag_cc_label_choose_event"/>
+            android:paddingHorizontal="@dimen/cc_item_hpadding"/>
 
 </LinearLayout>

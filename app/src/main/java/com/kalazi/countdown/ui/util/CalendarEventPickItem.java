@@ -1,6 +1,7 @@
 package com.kalazi.countdown.ui.util;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.widget.LinearLayout;
@@ -13,12 +14,15 @@ import static android.util.TypedValue.COMPLEX_UNIT_PX;
 
 public class CalendarEventPickItem extends LinearLayout {
 
-    private String title = null;
+    private String title = "Title";
     private String eventName = "None";
     private int eventID;
 
     private TextView titleView;
-    private TextView selectedEventView;
+    private TextView eventView;
+
+    private ColorStateList titleTextColor = null;
+    private ColorStateList eventTextColor = null;
 
     public CalendarEventPickItem(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
@@ -43,6 +47,8 @@ public class CalendarEventPickItem extends LinearLayout {
         if (attrs != null) {
             TypedArray a = getContext().obtainStyledAttributes(attrs, R.styleable.CalendarEventPickItem);
             title = a.getString(R.styleable.CalendarEventPickItem_title);
+            titleTextColor = a.getColorStateList(R.styleable.CalendarEventPickItem_titleTextColor);
+            eventTextColor = a.getColorStateList(R.styleable.CalendarEventPickItem_android_textColor);
             a.recycle();
         }
 
@@ -53,13 +59,19 @@ public class CalendarEventPickItem extends LinearLayout {
     private void createTitleView() {
         titleView = new TextView(getContext());
         titleView.setText(title);
+        if (titleTextColor != null) {
+            titleView.setTextColor(titleTextColor);
+        }
         this.addView(titleView);
     }
 
     private void createEventView() {
-        selectedEventView = new TextView(getContext());
-        selectedEventView.setText(eventName);
-        selectedEventView.setTextSize(COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.text_micro));
-        this.addView(selectedEventView);
+        eventView = new TextView(getContext());
+        eventView.setText(eventName);
+        eventView.setTextSize(COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.text_micro));
+        if (eventTextColor != null) {
+            eventView.setTextColor(eventTextColor);
+        }
+        this.addView(eventView);
     }
 }
