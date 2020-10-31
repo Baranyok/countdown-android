@@ -86,8 +86,8 @@ public class ColorPickSelectableItem extends AppCompatTextView {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        int size = iconSize / 2 - iconPadding;
-        canvas.drawCircle(getWidth() - size - iconPadding, getHeight() / 2.0f, size, paint);
+        int radius = iconSize / 2;
+        canvas.drawCircle(getWidth() - radius - iconPadding, getHeight() / 2.0f, radius, paint);
     }
 
     public int getColor() {

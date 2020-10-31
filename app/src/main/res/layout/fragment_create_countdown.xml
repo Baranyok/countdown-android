@@ -59,7 +59,7 @@
                 android:id="@+id/cc_form_color"
                 app:defaultPickColor="@color/md_light_blue_500"
                 app:iconPadding="16dp"
-                app:iconSize="64dp"
+                app:iconSize="32dp"
                 android:background="?attr/selectableItemBackground"
                 android:paddingHorizontal="@dimen/cc_item_hpadding"
                 android:paddingVertical="@dimen/cc_item_vpadding"/>
@@ -76,7 +76,7 @@
                 android:id="@+id/cc_form_font_color"
                 app:defaultPickColor="@color/md_black"
                 app:iconPadding="16dp"
-                app:iconSize="64dp"
+                app:iconSize="32dp"
                 android:background="?attr/selectableItemBackground"
                 android:paddingHorizontal="@dimen/cc_item_hpadding"
                 android:paddingVertical="@dimen/cc_item_vpadding"/>
