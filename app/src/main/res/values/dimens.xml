@@ -8,4 +8,10 @@
     <dimen name="nav_header_icon_size">48dp</dimen>
     <dimen name="nav_header_appname_padding">8dp</dimen>
     <dimen name="nav_header_appname_size">20sp</dimen>
+
+    <!-- Countdowns fragment -->
+    <dimen name="countdown_item_margin">10dp</dimen>
+    <dimen name="countdown_item_margin_separator">12dp</dimen>
+    <dimen name="countdown_item_padding">4dp</dimen>
+    <dimen name="countdown_item_corner_radius">6dp</dimen>
 </resources>

@@ -58,7 +58,7 @@
                 android:id="@+id/cc_form_color"
                 app:defaultPickColor="@color/md_light_blue_500"
                 app:iconPadding="16dp"
-                app:iconSize="24pt"
+                app:iconSize="64dp"
                 android:background="?attr/selectableItemBackground"
                 android:padding="8pt"/>
     </LinearLayout>
@@ -74,7 +74,7 @@
                 android:id="@+id/cc_form_font_color"
                 app:defaultPickColor="@color/md_black"
                 app:iconPadding="16dp"
-                app:iconSize="24pt"
+                app:iconSize="64dp"
                 android:background="?attr/selectableItemBackground"
                 android:padding="8pt"/>
     </LinearLayout>
