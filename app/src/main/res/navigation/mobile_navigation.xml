@@ -40,18 +40,11 @@
             android:label="@string/menu_coundowns"
             tools:layout="@layout/fragment_countdowns">
 
-        <action android:id="@+id/action_create_countdown"
-                app:destination="@id/nav_create_countdown"/>
         <action android:id="@+id/action_edit_countdown"
                 app:destination="@id/nav_edit_countdown">
         </action>
     </fragment>
 
-    <fragment android:id="@+id/nav_create_countdown"
-              android:name="com.kalazi.countdown.ui.countdowns.EditCountdownFragment"
-              android:label="@string/frag_cc"
-              tools:layout="@layout/fragment_edit_countdown">
-    </fragment>
     <fragment android:id="@+id/nav_edit_countdown"
               android:name="com.kalazi.countdown.ui.countdowns.EditCountdownFragment"
               android:label="@string/frag_ec"
