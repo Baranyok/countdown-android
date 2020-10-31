@@ -68,9 +68,7 @@ public class ColorPickSelectableItem extends AppCompatTextView {
                 .setOutlineWidth(0)
                 .setOnColorSelectedListener((positiveResult, color) -> {
                     if (positiveResult) {
-                        this.color = color;
-                        paint.setColor(color);
-                        this.invalidate();
+                        this.setColor(color);
                     }
                 }).build().show(fragmentManager, "pick_color");
     }
@@ -92,5 +90,11 @@ public class ColorPickSelectableItem extends AppCompatTextView {
 
     public int getColor() {
         return color;
+    }
+
+    public void setColor(int color) {
+        this.color = color;
+        paint.setColor(color);
+        this.invalidate();
     }
 }

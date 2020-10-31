@@ -10,6 +10,7 @@ import java.util.List;
 
 public class CountdownsViewModel extends ViewModel {
 
+    private final List<CountdownItem> countdownsArray = new ArrayList<>();
     private final MutableLiveData<Integer> statusText = new MutableLiveData<>();
     private final MutableLiveData<List<CountdownItem>> countdowns = new MutableLiveData<>(null);
 
@@ -18,7 +19,7 @@ public class CountdownsViewModel extends ViewModel {
 
     public CountdownsViewModel() {
         if (countdowns.getValue() == null) {
-            countdowns.setValue(new ArrayList<>());
+            countdowns.setValue(countdownsArray);
         }
 
         updateStatusText();
@@ -26,8 +27,7 @@ public class CountdownsViewModel extends ViewModel {
 
     // displays a text if no countdowns are present
     private void updateStatusText() {
-        List<CountdownItem> arrayList = countdowns.getValue();
-        statusText.setValue((arrayList == null || arrayList.isEmpty()) ? R.string.frag_countdowns_none : R.string.empty);
+        statusText.setValue((countdownsArray.isEmpty()) ? R.string.frag_countdowns_none : R.string.empty);
     }
 
     public LiveData<Integer> getStatusText() {
@@ -43,24 +43,32 @@ public class CountdownsViewModel extends ViewModel {
     }
 
     public void addItem(CountdownItem item) {
-        List<CountdownItem> arrayList = countdowns.getValue();
-        if (arrayList != null) {
-            arrayList.add(item);
-            updateStatusText();
-            countdowns.setValue(arrayList);
-        }
+        countdownsArray.add(item);
+        notifyItemChanged();
+        updateStatusText();
+    }
+
+    public CountdownItem getItemReference(int index) {
+        return countdownsArray.get(index);
+    }
+
+    public void notifyItemChanged() {
+        countdowns.setValue(countdownsArray);
+    }
+
+    public void deleteItem(CountdownItem item) {
+        countdownsArray.remove(item);
+        notifyItemChanged();
+        updateStatusText();
     }
 
     public int getLastIndex() {
-        int last_id = 0;
-        List<CountdownItem> arrayList = countdowns.getValue();
-        if (arrayList != null) {
-            for (CountdownItem item : arrayList) {
-                if (item.getId() > last_id) {
-                    last_id = item.getId();
-                }
+        int new_id = 0;
+        for (CountdownItem item : countdownsArray) {
+            if (item.getId() == new_id) {
+                new_id = item.getId() + 1;
             }
         }
-        return last_id;
+        return new_id;
     }
 }

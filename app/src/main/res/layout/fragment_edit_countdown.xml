@@ -6,7 +6,7 @@
               xmlns:app="http://schemas.android.com/apk/res-auto"
               android:orientation="vertical"
               android:paddingTop="@dimen/form_fragment_padding_top"
-              tools:context=".ui.countdowns.CreateCountdownFragment">
+              tools:context=".ui.countdowns.EditCountdownFragment">
 
     <LinearLayout
             android:orientation="horizontal"

@@ -70,11 +70,11 @@ public class CountdownItem {
 
         CountdownItem that = (CountdownItem) o;
 
-        return name.equals(that.name);
+        return this.hashCode() == that.hashCode();
     }
 
     @Override
     public int hashCode() {
-        return name.hashCode();
+        return id;
     }
 }

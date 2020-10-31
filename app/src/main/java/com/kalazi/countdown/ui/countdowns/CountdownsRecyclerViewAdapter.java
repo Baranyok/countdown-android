@@ -6,6 +6,8 @@ import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
 import com.kalazi.countdown.R;
 
@@ -15,6 +17,12 @@ import java.util.List;
 public class CountdownsRecyclerViewAdapter extends RecyclerView.Adapter<CountdownItemViewHolder> implements Filterable {
     private List<CountdownItem> currentDataSet = null;
     private List<CountdownItem> fullDataset = null;
+
+    private Fragment parentFragment = null;
+
+    public void setParentFragment(Fragment parentFragment) {
+        this.parentFragment = parentFragment;
+    }
 
     // Create new item views (invoked by the layout manager)
     @NonNull
@@ -37,6 +45,15 @@ public class CountdownsRecyclerViewAdapter extends RecyclerView.Adapter<Countdow
     @Override
     public void onBindViewHolder(CountdownItemViewHolder holder, int position) {
         holder.setData(currentDataSet.get(position));
+
+        // set onClick listener
+        if (parentFragment != null) {
+            CountdownsFragmentDirections.ActionEditCountdown action =
+                    CountdownsFragmentDirections.actionEditCountdown();
+            action.setCountdownData(position);
+            holder.itemView.setOnClickListener(v -> NavHostFragment.findNavController(parentFragment)
+                    .navigate(action));
+        }
     }
 
     // Return the size of dataset (invoked by the layout manager)

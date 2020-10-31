@@ -70,6 +70,7 @@ public class CountdownsFragment extends Fragment {
 
         // specify an adapter
         mAdapter = new CountdownsRecyclerViewAdapter();
+        mAdapter.setParentFragment(CountdownsFragment.this);
         recyclerView.setAdapter(mAdapter);
 
         registerDataObservers(view);
@@ -90,8 +91,8 @@ public class CountdownsFragment extends Fragment {
     }
 
     private void registerUIListeners(View view) {
-        FloatingActionButton btn = view.findViewById(R.id.fab2);
+        FloatingActionButton btn = view.findViewById(R.id.fab_cc);
         btn.setOnClickListener(v -> NavHostFragment.findNavController(CountdownsFragment.this)
-                .navigate(R.id.action_create_countdown));
+                .navigate(R.id.action_edit_countdown));
     }
 }
