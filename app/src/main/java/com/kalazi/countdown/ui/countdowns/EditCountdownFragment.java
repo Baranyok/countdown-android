@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import com.kalazi.countdown.R;
+import com.kalazi.countdown.ui.events.EventListFragment;
 import com.kalazi.countdown.ui.util.ColorPickSelectableItem;
 
 public class EditCountdownFragment extends Fragment {
@@ -60,6 +61,10 @@ public class EditCountdownFragment extends Fragment {
             existedBefore = true;
             updateUIFromItem();
         }
+
+        requireView().findViewById(R.id.cc_form_event).setOnClickListener(v -> {
+            EventListFragment.newInstance().show(getParentFragmentManager(), "EVENT_LIST");
+        });
     }
 
     private void updateUIFromItem() {
