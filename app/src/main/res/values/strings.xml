@@ -28,6 +28,9 @@
     <string name="hello_gallery_second">Hello HomeSecondFragment. Arg: %1$s</string>
     <string name="hello_slideshow_second">Hello HomeSecondFragment. Arg: %1$s</string>
 
+    <!-- Fragment Countdown item -->
+    <string name="ci_date_placeholder">1 year, 10 months, 3 days, 5 hours and 23 minutes</string>
+
     <!-- Fragments - Countdowns -->
     <string name="frag_countdowns_none">No countdowns exist yet…</string>
 
