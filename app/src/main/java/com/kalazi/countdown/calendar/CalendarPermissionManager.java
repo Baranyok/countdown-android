@@ -1,4 +1,4 @@
-package com.kalazi.countdown;
+package com.kalazi.countdown.calendar;
 
 import android.Manifest;
 import android.app.Activity;
@@ -7,7 +7,7 @@ import android.content.pm.PackageManager;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-public class PermissionManager {
+public class CalendarPermissionManager {
     private static final int PERM_REQUEST_CODE = 2;
     private static final String[] perms = {
             Manifest.permission.READ_CALENDAR,
@@ -16,6 +16,7 @@ public class PermissionManager {
 
     /**
      * Requests every permission
+     *
      * @param ctx context activity on which the onRequestPermissionsResult will be called
      */
     static public void askForPermissions(Activity ctx) {

@@ -1,17 +1,11 @@
-package com.kalazi.countdown;
+package com.kalazi.countdown.calendar;
 
-import android.Manifest;
-import android.accounts.AccountManager;
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Context;
-import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.CalendarContract;
-import android.widget.TextView;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 
 import java.util.ArrayList;
 
@@ -48,8 +42,8 @@ public class CalendarAccountManager {
     }
 
     public String getFirstItem(Activity ctx) {
-        if (!PermissionManager.checkPermissions(ctx)) {
-            PermissionManager.askForPermissions(ctx);
+        if (!CalendarPermissionManager.checkPermissions(ctx)) {
+            CalendarPermissionManager.askForPermissions(ctx);
             return "Permission denied";
         }
 

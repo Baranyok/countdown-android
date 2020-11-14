@@ -1,4 +1,4 @@
-package com.kalazi.countdown.ui.settings;
+package com.kalazi.countdown.settings;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;

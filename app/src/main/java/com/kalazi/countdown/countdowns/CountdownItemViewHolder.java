@@ -1,4 +1,4 @@
-package com.kalazi.countdown.ui.countdowns;
+package com.kalazi.countdown.countdowns;
 
 import android.view.View;
 import android.widget.TextView;

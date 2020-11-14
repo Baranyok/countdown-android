@@ -1,4 +1,4 @@
-package com.kalazi.countdown.ui.util;
+package com.kalazi.countdown.util;
 
 import android.content.Context;
 import android.content.res.TypedArray;

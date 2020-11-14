@@ -1,4 +1,4 @@
-package com.kalazi.countdown.ui.countdowns;
+package com.kalazi.countdown.countdowns;
 
 public class CountdownItem {
     private final int id;

@@ -1,4 +1,4 @@
-package com.kalazi.countdown.ui.home;
+package com.kalazi.countdown.home;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;

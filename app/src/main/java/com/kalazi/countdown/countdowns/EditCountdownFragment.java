@@ -1,4 +1,4 @@
-package com.kalazi.countdown.ui.countdowns;
+package com.kalazi.countdown.countdowns;
 
 import android.os.Bundle;
 import android.view.*;
@@ -11,8 +11,8 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import com.kalazi.countdown.R;
-import com.kalazi.countdown.ui.events.EventListFragment;
-import com.kalazi.countdown.ui.util.ColorPickSelectableItem;
+import com.kalazi.countdown.events.EventListFragment;
+import com.kalazi.countdown.util.ColorPickSelectableItem;
 
 public class EditCountdownFragment extends Fragment {
 

@@ -1,4 +1,4 @@
-package com.kalazi.countdown.ui.events;
+package com.kalazi.countdown.events;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
