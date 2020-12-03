@@ -21,6 +21,8 @@ public class HomeFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // enable options in the action bar
         setHasOptionsMenu(true);
     }
 

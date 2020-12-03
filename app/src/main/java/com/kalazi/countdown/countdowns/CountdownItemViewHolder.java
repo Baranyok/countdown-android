@@ -5,9 +5,10 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 import com.kalazi.countdown.R;
 
-// Provide a reference to the views for each data item
-// Complex data items may need more than one view per item, and
-// you provide access to all the views for a data item in a view holder
+/**
+ * Represents an Item View in the UI<br>
+ * One ViewHolder references exactly one item
+ */
 public class CountdownItemViewHolder extends RecyclerView.ViewHolder {
     // each data item is just a string in this case
     private final TextView nameView;
@@ -23,6 +24,12 @@ public class CountdownItemViewHolder extends RecyclerView.ViewHolder {
         fontColorView = itemContainerView.findViewById(R.id.ci_fontcolor);
     }
 
+    /**
+     * Updates the View elements according to the give Item
+     *
+     * @param countdownItem updated Item
+     */
+    // TODO: bind instead?
     public void setData(CountdownItem countdownItem) {
         nameView.setText(countdownItem.getName());
         colorView.setText("#" + Integer.toHexString(countdownItem.getColor()));

@@ -34,29 +34,44 @@ public class MainActivity extends AppCompatActivity {
         setupNavigation();
     }
 
+    /**
+     * Used for inflating the action bar menu
+     * -> add items to the action bar if it is present.
+     *
+     * @param menu Action Bar Menu
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu
-        // this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
 
+    /**
+     * Used for automatic destination return handling (back arrow on the left side of the action bar)
+     */
     @Override
     public boolean onSupportNavigateUp() {
         return NavigationUI.navigateUp(navController, barConfiguration) || super.onSupportNavigateUp();
     }
 
+    /**
+     * Used for hiding the keyboard on action bar icon click<br>
+     * <b>NOTE: return false from onMenuItemClickListener(s) to apply this after the listener is processed</b>
+     *
+     * @param item the clicked menu item
+     */
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        // hide the keyboard on action bar icon click
-        // NOTE: return false from onMenuItemClickListener(s) to apply this after the listener is processed
         InputMethodManager keyboard = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         keyboard.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
         return super.onOptionsItemSelected(item);
     }
 
-    ////// private utility functions
+    ////// private utility methods
+
+    /**
+     * Update app theme depending on the saved persistent preference
+     */
     private void updateTheme() {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         if (prefs.getBoolean("theme_dark", true)) {
@@ -64,11 +79,17 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Enable toolbar integration
+     */
     private void allowToolbar() {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
     }
 
+    /**
+     * Setup app navigation using the navigation drawer
+     */
     private void setupNavigation() {
         // Build an application bar configuration
         // Passing each menu ID as a set of Ids because each
