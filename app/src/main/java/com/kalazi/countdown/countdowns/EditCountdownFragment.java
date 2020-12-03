@@ -62,9 +62,8 @@ public class EditCountdownFragment extends Fragment {
             updateUIFromItem();
         }
 
-        requireView().findViewById(R.id.cc_form_event).setOnClickListener(v -> {
-            EventListFragment.newInstance().show(getParentFragmentManager(), "EVENT_LIST");
-        });
+        requireView().findViewById(R.id.cc_form_event).setOnClickListener(v ->
+                EventListFragment.newInstance().show(getParentFragmentManager(), "EVENT_LIST"));
     }
 
     private void updateUIFromItem() {
