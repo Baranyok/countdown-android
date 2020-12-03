@@ -14,6 +14,13 @@ import com.kalazi.countdown.R;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Represents countdowns as a list (Adapter)<br><br>
+ * What this does:<br>
+ * - Binds Items to ViewHolders<br>
+ * - Updates Individual items on change (onBindViewHolder)<br>
+ * - Search filter
+ */
 public class CountdownsRecyclerViewAdapter extends RecyclerView.Adapter<CountdownItemViewHolder> implements Filterable {
     private List<CountdownItem> currentDataSet = null;
     private List<CountdownItem> fullDataset = null;
@@ -24,7 +31,12 @@ public class CountdownsRecyclerViewAdapter extends RecyclerView.Adapter<Countdow
         this.parentFragment = parentFragment;
     }
 
-    // Create new item views (invoked by the layout manager)
+    ////// Overrides
+
+    /**
+     * Create a ViewHolder (inflate layout)
+     * -> invoked by the layout manager
+     */
     @NonNull
     @Override
     public CountdownItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -34,14 +46,13 @@ public class CountdownsRecyclerViewAdapter extends RecyclerView.Adapter<Countdow
         return new CountdownItemViewHolder(itemContainerView);
     }
 
-    public void updateDataset(List<CountdownItem> mDataset) {
-        // NOTE: Can be optimized using other notify calls
-        this.currentDataSet = mDataset;
-        this.fullDataset = new ArrayList<>(mDataset);
-        this.notifyDataSetChanged();
-    }
-
-    // Replace the contents of an item view (invoked by the layout manager)
+    /**
+     * Replace the contents of an item ViewHolder
+     * -> invoked by the layout manager
+     *
+     * @param holder   the ViewHolder of an Item
+     * @param position The position of the item within the adapter's data set.
+     */
     @Override
     public void onBindViewHolder(CountdownItemViewHolder holder, int position) {
         holder.setData(currentDataSet.get(position));
@@ -56,7 +67,8 @@ public class CountdownsRecyclerViewAdapter extends RecyclerView.Adapter<Countdow
         }
     }
 
-    // Return the size of dataset (invoked by the layout manager)
+    ////// Necessary overrides
+
     @Override
     public int getItemCount() {
         return (currentDataSet == null) ? 0 : currentDataSet.size();
@@ -66,6 +78,8 @@ public class CountdownsRecyclerViewAdapter extends RecyclerView.Adapter<Countdow
     public Filter getFilter() {
         return itemFilter;
     }
+
+    ////// Filter
 
     private final Filter itemFilter = new Filter() {
         @Override
@@ -95,5 +109,19 @@ public class CountdownsRecyclerViewAdapter extends RecyclerView.Adapter<Countdow
             notifyDataSetChanged();
         }
     };
+
+    ////// Public interface methods
+
+    /**
+     * Updates the dataset and notifies all items to update
+     *
+     * @param newDataset new dataset
+     */
+    public void updateDataset(List<CountdownItem> newDataset) {
+        // NOTE: Can be optimized using other notify calls
+        this.currentDataSet = newDataset;
+        this.fullDataset = new ArrayList<>(newDataset);
+        this.notifyDataSetChanged();
+    }
 
 }

@@ -1,5 +1,7 @@
 package com.kalazi.countdown.calendar;
 
+// FIXME: Unused class
+
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Context;
@@ -56,8 +58,8 @@ public class CalendarAccountManager {
     }
 
     private ArrayList<String> getAccounts(Context ctx) {
-        ArrayList <String> accounts = new ArrayList<String>();
-        Cursor cur = null;
+        ArrayList<String> accounts = new ArrayList<>();
+        Cursor cur;
         ContentResolver cr = ctx.getContentResolver();
         Uri uri = CalendarContract.Calendars.CONTENT_URI;
 

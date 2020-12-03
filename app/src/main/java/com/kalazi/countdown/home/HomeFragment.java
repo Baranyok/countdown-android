@@ -14,6 +14,8 @@ import androidx.navigation.fragment.NavHostFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.kalazi.countdown.R;
 
+// FIXME: Unused class
+
 public class HomeFragment extends Fragment {
 
     private HomeViewModel homeViewModel;
@@ -21,6 +23,8 @@ public class HomeFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // enable options in the action bar
         setHasOptionsMenu(true);
     }
 

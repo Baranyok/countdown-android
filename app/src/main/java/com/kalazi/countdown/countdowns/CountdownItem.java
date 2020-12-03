@@ -11,17 +11,14 @@ public class CountdownItem {
     private int fontSize;
     private String fontFamily;
 
+    ////// Constructors
+
     public CountdownItem(int id) {
         this.id = id;
         this.name = "";
     }
 
-    public CountdownItem(int id, String name) {
-        this.id = id;
-        this.name = name;
-    }
-
-    // setters
+    ////// Setters
 
     public void setName(String name) {
         this.name = name;
@@ -39,7 +36,7 @@ public class CountdownItem {
         this.fontColor = fontColor;
     }
 
-    // getters
+    ////// Getters
 
     public int getId() {
         return id;
@@ -61,7 +58,7 @@ public class CountdownItem {
         return fontColor;
     }
 
-    // overrides
+    ////// Overrides
 
     @Override
     public boolean equals(Object o) {
