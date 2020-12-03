@@ -10,6 +10,8 @@ import com.kalazi.countdown.R;
 public class SettingsFragment extends PreferenceFragmentCompat {
     private SharedPreferences.OnSharedPreferenceChangeListener listener;
 
+    ////// Overrides
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,7 +22,15 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         // set up preferences from xml
         setPreferencesFromResource(R.xml.root_preferences, rootKey);
 
-        // initialize listeners
+        registerUIListeners();
+    }
+
+    ////// Private utility methods
+
+    /**
+     * Register all UI listeners (UI Interactivity)
+     */
+    private void registerUIListeners() {
         Preference pref_theme = findPreference("theme_dark");
         if (pref_theme != null) {
             pref_theme.setOnPreferenceChangeListener((preference, newValue) -> {
@@ -30,6 +40,5 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 return true;
             });
         }
-
     }
 }

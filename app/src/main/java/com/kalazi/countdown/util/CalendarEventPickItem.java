@@ -24,6 +24,8 @@ public class CalendarEventPickItem extends LinearLayout {
     private ColorStateList titleTextColor = null;
     private ColorStateList eventTextColor = null;
 
+    ////// Inherited Constructor calls (for compatibility)
+
     public CalendarEventPickItem(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(attrs);
@@ -38,6 +40,8 @@ public class CalendarEventPickItem extends LinearLayout {
         super(context);
         init(null);
     }
+
+    ////// Constructor callback
 
     private void init(AttributeSet attrs) {
         this.setClickable(true);
@@ -55,6 +59,8 @@ public class CalendarEventPickItem extends LinearLayout {
         createTitleView();
         createEventView();
     }
+
+    ////// Private utility methods
 
     private void createTitleView() {
         titleView = new TextView(getContext());

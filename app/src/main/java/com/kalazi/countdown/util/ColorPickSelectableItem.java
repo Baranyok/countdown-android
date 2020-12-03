@@ -23,6 +23,8 @@ public class ColorPickSelectableItem extends AppCompatTextView {
     private float iconPadding = 0;
     private float iconSize = 0;
 
+    ////// Inherited Constructor calls (for compatibility)
+
     public ColorPickSelectableItem(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         init(attrs);
@@ -37,6 +39,8 @@ public class ColorPickSelectableItem extends AppCompatTextView {
         super(context);
         init(null);
     }
+
+    ////// Constructor callback
 
     private void init(AttributeSet attrs) {
         this.setClickable(true);
@@ -53,6 +57,17 @@ public class ColorPickSelectableItem extends AppCompatTextView {
 
         this.setOnClickListener(this::pickColor);
     }
+
+    ////// Overrides
+
+    @Override
+    protected void onDraw(Canvas canvas) {
+        super.onDraw(canvas);
+        float radius = iconSize / 2;
+        canvas.drawCircle(getWidth() - radius - iconPadding, getHeight() / 2.0f, radius, paint);
+    }
+
+    ////// Public interface methods
 
     private void pickColor(View view) {
         FragmentManager fragmentManager = getFM();
@@ -73,6 +88,22 @@ public class ColorPickSelectableItem extends AppCompatTextView {
                 }).build().show(fragmentManager, "pick_color");
     }
 
+    /// Getters
+
+    public int getColor() {
+        return color;
+    }
+
+    /// Setters
+
+    public void setColor(int color) {
+        this.color = color;
+        paint.setColor(color);
+        this.invalidate();
+    }
+
+    ////// Private utility methods
+
     private FragmentManager getFM() {
         if (getContext() instanceof AppCompatActivity) {
             return ((AppCompatActivity) getContext()).getSupportFragmentManager();
@@ -81,20 +112,4 @@ public class ColorPickSelectableItem extends AppCompatTextView {
         }
     }
 
-    @Override
-    protected void onDraw(Canvas canvas) {
-        super.onDraw(canvas);
-        float radius = iconSize / 2;
-        canvas.drawCircle(getWidth() - radius - iconPadding, getHeight() / 2.0f, radius, paint);
-    }
-
-    public int getColor() {
-        return color;
-    }
-
-    public void setColor(int color) {
-        this.color = color;
-        paint.setColor(color);
-        this.invalidate();
-    }
 }

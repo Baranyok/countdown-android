@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    ////// private utility methods
+    ////// Private utility methods
 
     /**
      * Update app theme depending on the saved persistent preference
