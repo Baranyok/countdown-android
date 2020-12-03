@@ -1,5 +1,7 @@
 package com.kalazi.countdown.calendar;
 
+// TODO: Unused class
+
 import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
