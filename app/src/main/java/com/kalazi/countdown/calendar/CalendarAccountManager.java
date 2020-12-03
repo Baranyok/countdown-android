@@ -1,6 +1,6 @@
 package com.kalazi.countdown.calendar;
 
-// TODO: Unused class
+// FIXME: Unused class
 
 import android.app.Activity;
 import android.content.ContentResolver;

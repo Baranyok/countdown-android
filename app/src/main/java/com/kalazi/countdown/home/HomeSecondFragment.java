@@ -10,6 +10,8 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 import com.kalazi.countdown.R;
 
+// FIXME: Unused class
+
 public class HomeSecondFragment extends Fragment {
 
     @Override
@@ -23,7 +25,7 @@ public class HomeSecondFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        String myArg = HomeSecondFragmentArgs.fromBundle(getArguments()).getMyArg();
+        String myArg = HomeSecondFragmentArgs.fromBundle(requireArguments()).getMyArg();
         TextView textView = view.findViewById(R.id.textview_home_second);
         textView.setText(getString(R.string.hello_home_second, myArg));
 
