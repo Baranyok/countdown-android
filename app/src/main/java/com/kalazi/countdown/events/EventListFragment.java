@@ -34,30 +34,16 @@ public class EventListFragment extends DialogFragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        registerDataObservers(view);
+        registerDataObservers();
         registerUIListeners(view);
 
         permissionViewModel.checkPerms(requireActivity());
     }
 
-    private void initLoad() {
-        if (permissionViewModel.getPermsGranted().getValue() == null) {
-            return;
-        }
-
-        boolean perms = permissionViewModel.getPermsGranted().getValue();
-        if (perms) {
-            viewModel.load(getActivity());
-        }
-        askPermButton.setVisibility((perms) ? View.INVISIBLE : View.VISIBLE);
-    }
-
     /**
      * Register all data observers (Data binding section)
-     *
-     * @param view Root view of this fragment
      */
-    private void registerDataObservers(@NonNull View view) {
+    private void registerDataObservers() {
         permissionViewModel.getPermsGranted().observe(getViewLifecycleOwner(), perms -> {
             if (perms) {
                 viewModel.load(getActivity());
