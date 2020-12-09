@@ -10,8 +10,8 @@ import java.util.List;
 
 public class EventListViewModel extends ViewModel {
 
-    private List<CalendarEventItem> eventList = null;
-    private final MutableLiveData<List<CalendarEventItem>> events = new MutableLiveData<>(null);
+    private List<EventItem> eventList = null;
+    private final MutableLiveData<List<EventItem>> events = new MutableLiveData<>(null);
 
     // TODO: Implement the ViewModel
 
@@ -30,7 +30,7 @@ public class EventListViewModel extends ViewModel {
         return true;
     }
 
-    public LiveData<List<CalendarEventItem>> getEvents() {
+    public LiveData<List<EventItem>> getEvents() {
         return events;
     }
 }

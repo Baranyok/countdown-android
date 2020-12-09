@@ -8,7 +8,7 @@ import android.provider.CalendarContract;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import com.kalazi.countdown.events.CalendarEventItem;
+import com.kalazi.countdown.events.EventItem;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -27,8 +27,8 @@ public class CalendarManager {
 
     // event loading
 
-    public static List<CalendarEventItem> loadEvents(@NonNull Activity context) {
-        List<CalendarEventItem> events = new ArrayList<>();
+    public static List<EventItem> loadEvents(@NonNull Activity context) {
+        List<EventItem> events = new ArrayList<>();
 
         ContentResolver resolver = context.getContentResolver();
 
@@ -37,7 +37,7 @@ public class CalendarManager {
         cursor = resolver.query(CalendarContract.Events.CONTENT_URI, PROJECTION, null, null, null);
 
         while (cursor.moveToNext()) {
-            CalendarEventItem eventItem = new CalendarEventItem();
+            EventItem eventItem = new EventItem();
 
             eventItem.title = cursor.getString(INDEX_TITLE);
             eventItem.calendar_id = cursor.getInt(INDEX_CALENDAR_ID);
