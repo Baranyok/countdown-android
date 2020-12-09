@@ -8,6 +8,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.CalendarContract;
+import com.kalazi.countdown.permissions.PermissionManager;
 
 import java.util.ArrayList;
 
@@ -44,8 +45,8 @@ public class CalendarAccountManager {
     }
 
     public String getFirstItem(Activity ctx) {
-        if (!CalendarPermissionManager.checkPermissions(ctx)) {
-            CalendarPermissionManager.askForPermissions(ctx);
+        if (!PermissionManager.checkPermissions(ctx)) {
+            PermissionManager.askForPermissions(ctx);
             return "Permission denied";
         }
 

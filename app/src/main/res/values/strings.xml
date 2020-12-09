@@ -50,4 +50,7 @@
     <!-- Preference items -->
     <string name="settings_item_theme_dark">Dark theme</string>
     <string name="reply_title">Default reply action</string>
+
+    <!-- Fragment - events -->
+    <string name="ask_perm_button_label">Ask for permissions</string>
 </resources>

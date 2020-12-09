@@ -41,7 +41,7 @@ public class CountdownsRecyclerViewAdapter extends RecyclerView.Adapter<Countdow
     @Override
     public CountdownItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemContainerView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.countdown_item_row, parent, false);
+                .inflate(R.layout.row_item_countdown, parent, false);
 
         return new CountdownItemViewHolder(itemContainerView);
     }

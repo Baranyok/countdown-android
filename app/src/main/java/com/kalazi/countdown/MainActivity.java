@@ -2,6 +2,7 @@ package com.kalazi.countdown;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -9,17 +10,22 @@ import android.view.inputmethod.InputMethodManager;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import androidx.preference.PreferenceManager;
 import com.google.android.material.navigation.NavigationView;
+import com.kalazi.countdown.permissions.PermissionViewModel;
+
+import static com.kalazi.countdown.permissions.PermissionManager.PERM_REQUEST_CODE;
 
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration barConfiguration;
     private NavController navController;
+    private PermissionViewModel permissionViewModel;
 
     ////// Overrides
 
@@ -32,6 +38,8 @@ public class MainActivity extends AppCompatActivity {
 
         allowToolbar();
         setupNavigation();
+
+        permissionViewModel = new ViewModelProvider(this).get(PermissionViewModel.class);
     }
 
     /**
@@ -65,6 +73,21 @@ public class MainActivity extends AppCompatActivity {
         InputMethodManager keyboard = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         keyboard.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if (requestCode == PERM_REQUEST_CODE) {
+            for (int res : grantResults) {
+                if (res == PackageManager.PERMISSION_DENIED) {
+                    permissionViewModel.setPermsGranted(false);
+                    return;
+                }
+            }
+            permissionViewModel.setPermsGranted(true);
+        }
     }
 
     ////// Private utility methods
