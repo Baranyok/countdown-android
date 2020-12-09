@@ -21,7 +21,7 @@ import java.util.List;
  * - Updates Individual items on change (onBindViewHolder)<br>
  * - Search filter
  */
-public class CountdownsRecyclerViewAdapter extends RecyclerView.Adapter<CountdownItemViewHolder> implements Filterable {
+public class CountdownsRVAdapter extends RecyclerView.Adapter<CountdownItemViewHolder> implements Filterable {
     private List<CountdownItem> currentDataSet = null;
     private List<CountdownItem> fullDataset = null;
 

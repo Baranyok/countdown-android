@@ -21,7 +21,7 @@ import com.kalazi.countdown.R;
 public class CountdownsFragment extends Fragment {
 
     private CountdownsViewModel viewModel;
-    private CountdownsRecyclerViewAdapter rvAdapter;
+    private CountdownsRVAdapter rvAdapter;
 
     ////// Overrides
 
@@ -79,7 +79,7 @@ public class CountdownsFragment extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
 
         // specify an adapter
-        rvAdapter = new CountdownsRecyclerViewAdapter();
+        rvAdapter = new CountdownsRVAdapter();
         rvAdapter.setParentFragment(CountdownsFragment.this);
         recyclerView.setAdapter(rvAdapter);
     }
