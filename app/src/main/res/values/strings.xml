@@ -30,6 +30,7 @@
 
     <!-- Fragment Countdown item -->
     <string name="ci_date_placeholder">1 year, 10 months, 3 days, 5 hours and 23 minutes</string>
+    <string name="ci_since_until_placeholder">Since</string>
 
     <!-- Fragments - Countdowns -->
     <string name="frag_countdowns_none">No countdowns exist yet…</string>

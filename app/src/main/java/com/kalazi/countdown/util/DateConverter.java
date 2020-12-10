@@ -9,12 +9,23 @@ public class DateConverter {
     boolean hit = false;
 
     /**
+     * Checks if the UTC timestamp is in the future
+     *
+     * @param nextTime next occurrence in reference to which the time delta will be calculated (in UTC millis)
+     * @return true if the timestamp is in the future
+     */
+    public boolean isInFuture(long nextTime) {
+        TimeZone timeZone = TimeZone.getTimeZone("UTC");
+        return nextTime > Calendar.getInstance(timeZone).getTimeInMillis();
+    }
+
+    /**
      * Calculates and formats the time delta value from now until <code>nextTime</code>
      *
-     * @param nextTime next occurrence in reference to which the time delta will be calculated
+     * @param nextTime next occurrence in reference to which the time delta will be calculated (in UTC millis)
      * @return formatted string
      */
-    public String timeDeltaToString(long nextTime) {
+    public String timeDifferenceToString(long nextTime) {
         if (nextTime <= 0) {
             // TODO implement count-up
             return "Negative or zero";
@@ -29,7 +40,7 @@ public class DateConverter {
         dateDelta.setTimeInMillis(nextTime - Calendar.getInstance(timeZone).getTimeInMillis());
 
         long delta = nextTime - Calendar.getInstance(timeZone).getTimeInMillis();
-        if (delta == 0) {
+        if ((delta / 1000) == 0) {
             return "NOW"; // TODO: Make a resource
         } else if (delta < 0) {
             delta = -delta;

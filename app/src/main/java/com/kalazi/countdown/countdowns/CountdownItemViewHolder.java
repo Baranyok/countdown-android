@@ -21,7 +21,8 @@ public class CountdownItemViewHolder extends RecyclerView.ViewHolder {
     private final TextView nameView;
     private final TextView colorView;
     private final TextView opacityView;
-    private final TextView fontColorView;
+    private final TextView remainingTimeView;
+    private final TextView whenView;
 
     private CountdownItem countdownItem;
     private long nextInstance = 0;
@@ -31,7 +32,8 @@ public class CountdownItemViewHolder extends RecyclerView.ViewHolder {
         nameView = itemContainerView.findViewById(R.id.ci_name);
         colorView = itemContainerView.findViewById(R.id.ci_color);
         opacityView = itemContainerView.findViewById(R.id.ci_opacity);
-        fontColorView = itemContainerView.findViewById(R.id.ci_fontcolor);
+        remainingTimeView = itemView.findViewById(R.id.ci_remaining_time);
+        whenView = itemView.findViewById(R.id.ci_since_until);
     }
 
     /**
@@ -45,7 +47,6 @@ public class CountdownItemViewHolder extends RecyclerView.ViewHolder {
         nameView.setText(countdownItem.getName());
         colorView.setText("#" + Integer.toHexString(countdownItem.getColor()));
         opacityView.setText(Integer.toString(countdownItem.getOpacity()));
-        fontColorView.setText("#" + Integer.toHexString(countdownItem.getFontColor()));
 
         loadNextInstanceTime();
         updateDisplayedTime();
@@ -72,8 +73,6 @@ public class CountdownItemViewHolder extends RecyclerView.ViewHolder {
     }
 
     private void updateDisplayedTime() {
-        TextView remainingTimeView = itemView.findViewById(R.id.ci_remaining_time);
-
         if (nextInstance == 0) {
             // TODO
             remainingTimeView.setText("N/A");
@@ -84,6 +83,8 @@ public class CountdownItemViewHolder extends RecyclerView.ViewHolder {
         remainingTimeView.setText(dateFormat.format(new Date(nextInstance)));
 
         DateConverter dateConverter = new DateConverter();
-        remainingTimeView.setText(dateConverter.timeDeltaToString(nextInstance));
+        remainingTimeView.setText(dateConverter.timeDifferenceToString(nextInstance));
+
+        whenView.setText((dateConverter.isInFuture(nextInstance)) ? "Until" : "Since"); // TODO: Resource
     }
 }
