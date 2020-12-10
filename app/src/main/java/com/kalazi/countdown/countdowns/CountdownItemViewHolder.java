@@ -67,11 +67,11 @@ public class CountdownItemViewHolder extends RecyclerView.ViewHolder {
 
     }
 
-    public void loadNextInstanceTime() {
+    private void loadNextInstanceTime() {
         nextInstance = CalendarManager.getNextInstance(countdownItem.eventID, itemView.getContext());
     }
 
-    public void updateDisplayedTime() {
+    private void updateDisplayedTime() {
         TextView remainingTimeView = itemView.findViewById(R.id.ci_remaining_time);
 
         if (nextInstance == 0) {

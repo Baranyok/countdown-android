@@ -55,6 +55,13 @@ public class CountdownsFragment extends Fragment {
         registerDataObservers(view);
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        rvAdapter.notifyDataSetChanged();
+    }
+
     ////// Private utility methods
 
     /**
