@@ -4,15 +4,24 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         tools:context=".events.EventListFragment"
         android:orientation="vertical">
 
     <Button
-            android:text="@string/ask_perm_button_label"
+            android:text="@string/frag_events_ask_perm_button_label"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/ask_perm_button"/>
+    <androidx.appcompat.widget.SearchView
+            android:id="@+id/event_search"
+            app:queryHint="@string/frag_events_search_hint"
+            app:iconifiedByDefault="false"
+            android:focusable="false"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
     <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/events_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 

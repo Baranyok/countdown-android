@@ -18,12 +18,14 @@ public class CalendarManager {
 
     // Projection
     public static final String[] PROJECTION = new String[]{
-            CalendarContract.Events.TITLE,          // 0
-            CalendarContract.Events.CALENDAR_ID,    // 1
+            CalendarContract.Events._ID,            // 0
+            CalendarContract.Events.TITLE,          // 1
+            CalendarContract.Events.CALENDAR_ID,    // 2
     };
 
-    private static final int INDEX_TITLE = 0;
-    private static final int INDEX_CALENDAR_ID = 1;
+    private static final int INDEX_ID = 0;
+    private static final int INDEX_TITLE = 1;
+    private static final int INDEX_CALENDAR_ID = 2;
 
     // event loading
 
@@ -39,9 +41,11 @@ public class CalendarManager {
         while (cursor.moveToNext()) {
             EventItem eventItem = new EventItem();
 
+            eventItem.id = cursor.getInt(INDEX_ID);
             eventItem.title = cursor.getString(INDEX_TITLE);
             eventItem.calendar_id = cursor.getInt(INDEX_CALENDAR_ID);
 
+            Log.i("ID", Integer.toString(eventItem.id));
             Log.i("Title", eventItem.title);
             Log.i("Calendar id", Integer.toString(eventItem.calendar_id));
 

@@ -52,5 +52,6 @@
     <string name="reply_title">Default reply action</string>
 
     <!-- Fragment - events -->
-    <string name="ask_perm_button_label">Ask for permissions</string>
+    <string name="frag_events_ask_perm_button_label">Ask for permissions</string>
+    <string name="frag_events_search_hint">Search…</string>
 </resources>
