@@ -24,11 +24,13 @@ public class CalendarManager {
             CalendarContract.Events._ID,            // 0
             CalendarContract.Events.TITLE,          // 1
             CalendarContract.Events.CALENDAR_ID,    // 2
+            CalendarContract.Events.DTSTART,        // 3
     };
 
     private static final int EV_INDEX_ID = 0;
     private static final int EV_INDEX_TITLE = 1;
     private static final int EV_INDEX_CALENDAR_ID = 2;
+    private static final int EV_START = 3;
 
     ////// Projection [INSTANCES table]
 
@@ -58,18 +60,25 @@ public class CalendarManager {
         Cursor cursor;
         cursor = resolver.query(builder.build(), INST_PROJECTION, selection, selectionArgs, null);
 
-        while (cursor.moveToNext()) {
+        if (cursor.moveToNext()) {
             nextInstance = cursor.getLong(INST_INDEX_BEGIN);
+            Log.i("BEGIN", Long.toString(nextInstance));
         }
 
         cursor.close();
+
+        // try to get the nextInstance as the event start
+        if (nextInstance == 0) {
+            EventItem event = loadEventFromID(event_id, context);
+            if (event != null) {
+                nextInstance = event.dt_start;
+            }
+        }
 
         return nextInstance;
     }
 
     public static EventItem loadEventFromID(int id, @NonNull Context context) {
-        EventItem eventItem = new EventItem();
-
         ContentResolver resolver = context.getContentResolver();
         String selection = CalendarContract.Events._ID + " = ?";
         String[] selectionArgs = new String[]{Integer.toString(id)};
@@ -77,12 +86,13 @@ public class CalendarManager {
         Cursor cursor;
         cursor = resolver.query(CalendarContract.Events.CONTENT_URI, EV_PROJECTION, selection, selectionArgs, null);
 
-        while (cursor.moveToNext()) {
+        EventItem eventItem = null;
+        if (cursor.moveToNext()) {
+            eventItem = new EventItem();
             cursorToEventItem(cursor, eventItem);
         }
 
         cursor.close();
-
         return eventItem;
     }
 
@@ -113,10 +123,12 @@ public class CalendarManager {
         eventItem.id = cursor.getInt(EV_INDEX_ID);
         eventItem.title = cursor.getString(EV_INDEX_TITLE);
         eventItem.calendar_id = cursor.getInt(EV_INDEX_CALENDAR_ID);
+        eventItem.dt_start = cursor.getLong(EV_START);
 
         Log.i("ID", Integer.toString(eventItem.id));
         Log.i("Title", eventItem.title);
         Log.i("Calendar id", Integer.toString(eventItem.calendar_id));
+        Log.i("START", Long.toString(eventItem.dt_start));
     }
 
     ////// Not implemented

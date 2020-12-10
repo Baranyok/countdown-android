@@ -1,10 +1,13 @@
 package com.kalazi.countdown.countdowns;
 
+import android.os.Handler;
+import android.os.Looper;
 import android.view.View;
 import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 import com.kalazi.countdown.R;
 import com.kalazi.countdown.calendar.CalendarManager;
+import com.kalazi.countdown.util.DateConverter;
 
 import java.text.DateFormat;
 import java.util.Date;
@@ -46,6 +49,22 @@ public class CountdownItemViewHolder extends RecyclerView.ViewHolder {
 
         loadNextInstanceTime();
         updateDisplayedTime();
+        startUpdateHandler();
+    }
+
+    private void startUpdateHandler() {
+        final Handler handler = new Handler(Looper.getMainLooper());
+        final int delay = 1000; // 1000 milliseconds == 1 second
+
+        handler.postDelayed(new Runnable() {
+            public void run() {
+                updateDisplayedTime();
+                if (itemView.isShown()) {
+                    handler.postDelayed(this, delay);
+                }
+            }
+        }, delay);
+
     }
 
     public void loadNextInstanceTime() {
@@ -55,17 +74,16 @@ public class CountdownItemViewHolder extends RecyclerView.ViewHolder {
     public void updateDisplayedTime() {
         TextView remainingTimeView = itemView.findViewById(R.id.ci_remaining_time);
 
-//        if (nextInstance == 0) {
-//            remainingTimeView.setText("N/A");
-//            return;
-//        }
+        if (nextInstance == 0) {
+            // TODO
+            remainingTimeView.setText("N/A");
+            return;
+        }
 
         DateFormat dateFormat = DateFormat.getDateTimeInstance();
         remainingTimeView.setText(dateFormat.format(new Date(nextInstance)));
 
-//        long currentTime = Calendar.getInstance().getTimeInMillis();
-//        long timeDelta = nextInstance - currentTime;
-//
-//        remainingTimeView.setText(DateConverter.timeDeltaToString(timeDelta));
+        DateConverter dateConverter = new DateConverter();
+        remainingTimeView.setText(dateConverter.timeDeltaToString(nextInstance));
     }
 }

@@ -82,7 +82,9 @@ public class CalendarEventPickItem extends LinearLayout {
 
         try {
             EventItem eventItem = CalendarManager.loadEventFromID(eventID, getActivity());
-            event.postValue(eventItem);
+            if (eventItem != null) {
+                event.postValue(eventItem);
+            }
         } catch (SecurityException ignored) {
 
         }
