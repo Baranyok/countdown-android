@@ -4,6 +4,10 @@ import android.view.View;
 import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 import com.kalazi.countdown.R;
+import com.kalazi.countdown.calendar.CalendarManager;
+
+import java.text.DateFormat;
+import java.util.Date;
 
 /**
  * Represents an Item View in the UI<br>
@@ -15,6 +19,9 @@ public class CountdownItemViewHolder extends RecyclerView.ViewHolder {
     private final TextView colorView;
     private final TextView opacityView;
     private final TextView fontColorView;
+
+    private CountdownItem countdownItem;
+    private long nextInstance = 0;
 
     public CountdownItemViewHolder(View itemContainerView) {
         super(itemContainerView);
@@ -31,9 +38,34 @@ public class CountdownItemViewHolder extends RecyclerView.ViewHolder {
      */
     // TODO: bind instead?
     public void setData(CountdownItem countdownItem) {
+        this.countdownItem = countdownItem;
         nameView.setText(countdownItem.getName());
         colorView.setText("#" + Integer.toHexString(countdownItem.getColor()));
         opacityView.setText(Integer.toString(countdownItem.getOpacity()));
         fontColorView.setText("#" + Integer.toHexString(countdownItem.getFontColor()));
+
+        loadNextInstanceTime();
+        updateDisplayedTime();
+    }
+
+    public void loadNextInstanceTime() {
+        nextInstance = CalendarManager.getNextInstance(countdownItem.eventID, itemView.getContext());
+    }
+
+    public void updateDisplayedTime() {
+        TextView remainingTimeView = itemView.findViewById(R.id.ci_remaining_time);
+
+//        if (nextInstance == 0) {
+//            remainingTimeView.setText("N/A");
+//            return;
+//        }
+
+        DateFormat dateFormat = DateFormat.getDateTimeInstance();
+        remainingTimeView.setText(dateFormat.format(new Date(nextInstance)));
+
+//        long currentTime = Calendar.getInstance().getTimeInMillis();
+//        long timeDelta = nextInstance - currentTime;
+//
+//        remainingTimeView.setText(DateConverter.timeDeltaToString(timeDelta));
     }
 }

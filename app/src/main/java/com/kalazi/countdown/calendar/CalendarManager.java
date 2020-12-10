@@ -1,9 +1,11 @@
 package com.kalazi.countdown.calendar;
 
-import android.app.Activity;
 import android.content.ContentResolver;
+import android.content.ContentUris;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.net.Uri;
 import android.provider.CalendarContract;
 import android.util.Log;
 import androidx.annotation.NonNull;
@@ -16,30 +18,56 @@ import java.util.List;
 
 public class CalendarManager {
 
-    ////// Projection
-    public static final String[] PROJECTION = new String[]{
+    ////// Projection [EVENTS table]
+
+    public static final String[] EV_PROJECTION = new String[]{
             CalendarContract.Events._ID,            // 0
             CalendarContract.Events.TITLE,          // 1
             CalendarContract.Events.CALENDAR_ID,    // 2
     };
 
-    private static final int INDEX_ID = 0;
-    private static final int INDEX_TITLE = 1;
-    private static final int INDEX_CALENDAR_ID = 2;
+    private static final int EV_INDEX_ID = 0;
+    private static final int EV_INDEX_TITLE = 1;
+    private static final int EV_INDEX_CALENDAR_ID = 2;
 
-    ////// event loading
+    ////// Projection [INSTANCES table]
 
-    private static void cursorToEventItem(Cursor cursor, EventItem eventItem) {
-        eventItem.id = cursor.getInt(INDEX_ID);
-        eventItem.title = cursor.getString(INDEX_TITLE);
-        eventItem.calendar_id = cursor.getInt(INDEX_CALENDAR_ID);
+    public static final String[] INST_PROJECTION = new String[]{
+            CalendarContract.Instances._ID,         // 0
+            CalendarContract.Instances.BEGIN,       // 1
+    };
 
-        Log.i("ID", Integer.toString(eventItem.id));
-        Log.i("Title", eventItem.title);
-        Log.i("Calendar id", Integer.toString(eventItem.calendar_id));
+    private static final int INST_INDEX_ID = 0;
+    private static final int INST_INDEX_BEGIN = 1;
+
+    ////// Event loading
+
+    public static long getNextInstance(int event_id, @NonNull Context context) {
+        long nextInstance = 0;
+
+        ContentResolver resolver = context.getContentResolver();
+        String selection = CalendarContract.Instances.EVENT_ID + " = ?";
+        String[] selectionArgs = new String[]{Integer.toString(event_id)};
+
+        long startMillis = Calendar.getInstance().getTimeInMillis();
+        long endMillis = Long.MAX_VALUE;
+        Uri.Builder builder = CalendarContract.Instances.CONTENT_URI.buildUpon();
+        ContentUris.appendId(builder, startMillis);
+        ContentUris.appendId(builder, endMillis);
+
+        Cursor cursor;
+        cursor = resolver.query(builder.build(), INST_PROJECTION, selection, selectionArgs, null);
+
+        while (cursor.moveToNext()) {
+            nextInstance = cursor.getLong(INST_INDEX_BEGIN);
+        }
+
+        cursor.close();
+
+        return nextInstance;
     }
 
-    public static EventItem loadEventFromID(int id, @NonNull Activity context) {
+    public static EventItem loadEventFromID(int id, @NonNull Context context) {
         EventItem eventItem = new EventItem();
 
         ContentResolver resolver = context.getContentResolver();
@@ -47,8 +75,7 @@ public class CalendarManager {
         String[] selectionArgs = new String[]{Integer.toString(id)};
 
         Cursor cursor;
-
-        cursor = resolver.query(CalendarContract.Events.CONTENT_URI, PROJECTION, selection, selectionArgs, null);
+        cursor = resolver.query(CalendarContract.Events.CONTENT_URI, EV_PROJECTION, selection, selectionArgs, null);
 
         while (cursor.moveToNext()) {
             cursorToEventItem(cursor, eventItem);
@@ -59,14 +86,13 @@ public class CalendarManager {
         return eventItem;
     }
 
-    public static List<EventItem> loadEvents(@NonNull Activity context) {
+    public static List<EventItem> loadEvents(@NonNull Context context) {
         List<EventItem> events = new ArrayList<>();
 
         ContentResolver resolver = context.getContentResolver();
 
         Cursor cursor;
-
-        cursor = resolver.query(CalendarContract.Events.CONTENT_URI, PROJECTION, null, null, null);
+        cursor = resolver.query(CalendarContract.Events.CONTENT_URI, EV_PROJECTION, null, null, null);
 
         while (cursor.moveToNext()) {
             EventItem eventItem = new EventItem();
@@ -80,6 +106,20 @@ public class CalendarManager {
 
         return events;
     }
+
+    ////// Event loading - private
+
+    private static void cursorToEventItem(Cursor cursor, EventItem eventItem) {
+        eventItem.id = cursor.getInt(EV_INDEX_ID);
+        eventItem.title = cursor.getString(EV_INDEX_TITLE);
+        eventItem.calendar_id = cursor.getInt(EV_INDEX_CALENDAR_ID);
+
+        Log.i("ID", Integer.toString(eventItem.id));
+        Log.i("Title", eventItem.title);
+        Log.i("Calendar id", Integer.toString(eventItem.calendar_id));
+    }
+
+    ////// Not implemented
 
     public static void addEvent(Fragment fragment) {
         Calendar beginTime = Calendar.getInstance();
