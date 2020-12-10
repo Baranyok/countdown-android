@@ -16,6 +16,12 @@ public class EventRVAdapter extends RecyclerView.Adapter<EventItemViewHolder> im
     private List<EventItem> currentDataSet = null;
     private List<EventItem> fullDataSet = null;
 
+    private EventListFragment parentFragment = null;
+
+    public void setParentFragment(EventListFragment parentFragment) {
+        this.parentFragment = parentFragment;
+    }
+
     ////// Overrides
 
     @NonNull
@@ -30,6 +36,14 @@ public class EventRVAdapter extends RecyclerView.Adapter<EventItemViewHolder> im
     @Override
     public void onBindViewHolder(@NonNull EventItemViewHolder holder, int position) {
         holder.setData(currentDataSet.get(position));
+
+        // set onClick listener
+        if (parentFragment != null) {
+            holder.itemView.setOnClickListener(v -> {
+                parentFragment.event.postValue(holder.getEventItem());
+                parentFragment.dismiss();
+            });
+        }
     }
 
     ////// Necessary overrides

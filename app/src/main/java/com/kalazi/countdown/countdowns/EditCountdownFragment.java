@@ -11,7 +11,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import com.kalazi.countdown.R;
-import com.kalazi.countdown.events.EventListFragment;
+import com.kalazi.countdown.util.CalendarEventPickItem;
 import com.kalazi.countdown.util.ColorPickSelectableItem;
 
 /**
@@ -106,8 +106,8 @@ public class EditCountdownFragment extends Fragment {
      * @param view Root view of this fragment
      */
     private void registerUIListeners(@NonNull View view) {
-        view.findViewById(R.id.cc_form_event).setOnClickListener(v ->
-                EventListFragment.newInstance().show(getParentFragmentManager(), "EVENT_LIST"));
+        CalendarEventPickItem eventPickItem = view.findViewById(R.id.cc_form_event);
+        eventPickItem.registerDataObservers(getViewLifecycleOwner());
     }
 
     /// Action methods
@@ -121,11 +121,13 @@ public class EditCountdownFragment extends Fragment {
         ColorPickSelectableItem color = requireView().findViewById(R.id.cc_form_color);
         SeekBar opacity = requireView().findViewById(R.id.cc_form_opacity);
         ColorPickSelectableItem fontColor = requireView().findViewById(R.id.cc_form_font_color);
+        CalendarEventPickItem eventPickItem = requireView().findViewById(R.id.cc_form_event);
 
         name.setText(item.getName());
         color.setColor(item.getColor());
         opacity.setProgress(item.getOpacity());
         fontColor.setColor(item.getFontColor());
+        eventPickItem.setEventFromID(item.eventID);
     }
 
     /**
@@ -137,11 +139,13 @@ public class EditCountdownFragment extends Fragment {
         ColorPickSelectableItem color = requireView().findViewById(R.id.cc_form_color);
         SeekBar opacity = requireView().findViewById(R.id.cc_form_opacity);
         ColorPickSelectableItem fontColor = requireView().findViewById(R.id.cc_form_font_color);
+        CalendarEventPickItem eventPickItem = requireView().findViewById(R.id.cc_form_event);
 
         item.setName(name.getText().toString());
         item.setColor(color.getColor());
         item.setOpacity(opacity.getProgress());
         item.setFontColor(fontColor.getColor());
+        item.eventID = eventPickItem.getEventID();
     }
 
     /**

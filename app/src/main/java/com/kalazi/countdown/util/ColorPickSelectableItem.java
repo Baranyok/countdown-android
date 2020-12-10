@@ -67,7 +67,7 @@ public class ColorPickSelectableItem extends AppCompatTextView {
         canvas.drawCircle(getWidth() - radius - iconPadding, getHeight() / 2.0f, radius, paint);
     }
 
-    ////// Public interface methods
+    ////// Private callback
 
     private void pickColor(View view) {
         FragmentManager fragmentManager = getFM();

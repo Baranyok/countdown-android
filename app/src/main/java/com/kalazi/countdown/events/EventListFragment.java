@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.DialogFragment;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -22,10 +23,19 @@ public class EventListFragment extends DialogFragment {
     private PermissionViewModel permissionViewModel;
     private Button askPermButton;
     private EventRVAdapter rvAdapter;
+    public MutableLiveData<EventItem> event;
 
-    public static EventListFragment newInstance() {
-        return new EventListFragment();
+    ////// Constructors
+
+    public EventListFragment(MutableLiveData<EventItem> event) {
+        this.event = event;
     }
+
+    public static EventListFragment newInstance(MutableLiveData<EventItem> event) {
+        return new EventListFragment(event);
+    }
+
+    ////// Overrides
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -41,7 +51,7 @@ public class EventListFragment extends DialogFragment {
 
         initRecyclerView(view);
 
-        registerDataObservers();
+        registerDataObservers(view);
         registerUIListeners(view);
 
         permissionViewModel.checkPerms(requireActivity());
@@ -56,13 +66,16 @@ public class EventListFragment extends DialogFragment {
 
         // specify an adapter
         rvAdapter = new EventRVAdapter();
+        rvAdapter.setParentFragment(this);
         recyclerView.setAdapter(rvAdapter);
     }
 
     /**
      * Register all data observers (Data binding section)
      */
-    private void registerDataObservers() {
+    private void registerDataObservers(@NonNull View view) {
+        SearchView searchView = view.findViewById(R.id.event_search);
+
         permissionViewModel.getPermsGranted().observe(getViewLifecycleOwner(), perms -> {
             if (perms) {
                 viewModel.load(getActivity());
@@ -76,7 +89,7 @@ public class EventListFragment extends DialogFragment {
 
         permissionViewModel.getPermsGranted().observe(getViewLifecycleOwner(), perms -> {
             // display button for perm asking
-            askPermButton.setVisibility((perms) ? View.GONE : View.VISIBLE);
+            searchView.setVisibility((perms) ? View.VISIBLE : View.GONE);
         });
 
         viewModel.getEvents().observe(getViewLifecycleOwner(), eventList -> rvAdapter.updateDataset(eventList));

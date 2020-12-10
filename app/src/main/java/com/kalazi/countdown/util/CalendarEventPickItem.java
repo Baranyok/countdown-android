@@ -4,19 +4,30 @@ import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
+import android.util.Log;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.MutableLiveData;
 import com.kalazi.countdown.R;
+import com.kalazi.countdown.calendar.CalendarManager;
+import com.kalazi.countdown.events.EventItem;
+import com.kalazi.countdown.events.EventListFragment;
 
 import static android.util.TypedValue.COMPLEX_UNIT_PX;
 
 public class CalendarEventPickItem extends LinearLayout {
 
-    private String title = "Title";
-    private String eventName = "None";
-    private int eventID;
+    private static final String TAG = "CalendarEventPickItem";
+
+    private final MutableLiveData<EventItem> event = new MutableLiveData<>();
+
+    private String title = "Select event";
 
     private TextView titleView;
     private TextView eventView;
@@ -41,7 +52,44 @@ public class CalendarEventPickItem extends LinearLayout {
         init(null);
     }
 
-    ////// Constructor callback
+    ////// public data observer registration -> we need the parent fragment lifecycle owner for the observer
+
+    public void registerDataObservers(LifecycleOwner lifecycleOwner) {
+        if (lifecycleOwner == null) {
+            return;
+        }
+
+        event.observe(lifecycleOwner, eventItem -> {
+            if (eventItem != null) {
+                eventView.setText(eventItem.title);
+            }
+        });
+    }
+
+    ////// Public setters & getters
+
+    public int getEventID() {
+        if (event.getValue() != null) {
+            return event.getValue().id;
+        }
+        return -1; // TODO: Make a constant
+    }
+
+    public void setEventFromID(int eventID) {
+        if (eventID == -1 || getActivity() == null) {
+            return;
+        }
+
+        try {
+            EventItem eventItem = CalendarManager.loadEventFromID(eventID, getActivity());
+            event.postValue(eventItem);
+        } catch (SecurityException ignored) {
+
+        }
+
+    }
+
+    ////// Private constructor callback
 
     private void init(AttributeSet attrs) {
         this.setClickable(true);
@@ -58,6 +106,20 @@ public class CalendarEventPickItem extends LinearLayout {
 
         createTitleView();
         createEventView();
+
+        this.setOnClickListener(this::selectEvent);
+    }
+
+    ////// Private callback
+
+    private void selectEvent(View view) {
+        FragmentManager fragmentManager = getFM();
+        if (fragmentManager == null) {
+            Log.d(TAG, "Can't get the fragment manager");
+            return;
+        }
+
+        EventListFragment.newInstance(event).show(fragmentManager, "EVENT_LIST");
     }
 
     ////// Private utility methods
@@ -73,11 +135,31 @@ public class CalendarEventPickItem extends LinearLayout {
 
     private void createEventView() {
         eventView = new TextView(getContext());
-        eventView.setText(eventName);
+        eventView.setText("None");
         eventView.setTextSize(COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.text_micro));
         if (eventTextColor != null) {
             eventView.setTextColor(eventTextColor);
         }
         this.addView(eventView);
+    }
+
+    ////// Private utility methods
+
+    private FragmentManager getFM() {
+        AppCompatActivity activity = getActivity();
+
+        if (activity != null) {
+            return activity.getSupportFragmentManager();
+        } else {
+            return null;
+        }
+    }
+
+    private AppCompatActivity getActivity() {
+        if (getContext() instanceof AppCompatActivity) {
+            return ((AppCompatActivity) getContext());
+        } else {
+            return null;
+        }
     }
 }

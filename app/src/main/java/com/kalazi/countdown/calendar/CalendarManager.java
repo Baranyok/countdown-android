@@ -16,7 +16,7 @@ import java.util.List;
 
 public class CalendarManager {
 
-    // Projection
+    ////// Projection
     public static final String[] PROJECTION = new String[]{
             CalendarContract.Events._ID,            // 0
             CalendarContract.Events.TITLE,          // 1
@@ -27,7 +27,37 @@ public class CalendarManager {
     private static final int INDEX_TITLE = 1;
     private static final int INDEX_CALENDAR_ID = 2;
 
-    // event loading
+    ////// event loading
+
+    private static void cursorToEventItem(Cursor cursor, EventItem eventItem) {
+        eventItem.id = cursor.getInt(INDEX_ID);
+        eventItem.title = cursor.getString(INDEX_TITLE);
+        eventItem.calendar_id = cursor.getInt(INDEX_CALENDAR_ID);
+
+        Log.i("ID", Integer.toString(eventItem.id));
+        Log.i("Title", eventItem.title);
+        Log.i("Calendar id", Integer.toString(eventItem.calendar_id));
+    }
+
+    public static EventItem loadEventFromID(int id, @NonNull Activity context) {
+        EventItem eventItem = new EventItem();
+
+        ContentResolver resolver = context.getContentResolver();
+        String selection = CalendarContract.Events._ID + " = ?";
+        String[] selectionArgs = new String[]{Integer.toString(id)};
+
+        Cursor cursor;
+
+        cursor = resolver.query(CalendarContract.Events.CONTENT_URI, PROJECTION, selection, selectionArgs, null);
+
+        while (cursor.moveToNext()) {
+            cursorToEventItem(cursor, eventItem);
+        }
+
+        cursor.close();
+
+        return eventItem;
+    }
 
     public static List<EventItem> loadEvents(@NonNull Activity context) {
         List<EventItem> events = new ArrayList<>();
@@ -41,13 +71,7 @@ public class CalendarManager {
         while (cursor.moveToNext()) {
             EventItem eventItem = new EventItem();
 
-            eventItem.id = cursor.getInt(INDEX_ID);
-            eventItem.title = cursor.getString(INDEX_TITLE);
-            eventItem.calendar_id = cursor.getInt(INDEX_CALENDAR_ID);
-
-            Log.i("ID", Integer.toString(eventItem.id));
-            Log.i("Title", eventItem.title);
-            Log.i("Calendar id", Integer.toString(eventItem.calendar_id));
+            cursorToEventItem(cursor, eventItem);
 
             events.add(eventItem);
         }

@@ -4,12 +4,13 @@ public class CountdownItem {
     private final int id;
 
     private String name;
-    private int eventId;
+    public int eventID;
     private int color;
     private int opacity;
     private int fontColor;
     private int fontSize;
     private String fontFamily;
+    ;
 
     ////// Constructors
 
