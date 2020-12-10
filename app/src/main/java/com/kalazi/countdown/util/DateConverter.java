@@ -1,7 +1,5 @@
 package com.kalazi.countdown.util;
 
-import android.util.Log;
-
 import java.util.Calendar;
 import java.util.Locale;
 import java.util.TimeZone;
@@ -30,20 +28,29 @@ public class DateConverter {
         Calendar dateDelta = Calendar.getInstance(timeZone);
         dateDelta.setTimeInMillis(nextTime - Calendar.getInstance(timeZone).getTimeInMillis());
 
-        long delta = (nextTime - Calendar.getInstance(timeZone).getTimeInMillis()) / 1000;
+        long delta = nextTime - Calendar.getInstance(timeZone).getTimeInMillis();
+        if (delta == 0) {
+            return "NOW"; // TODO: Make a resource
+        } else if (delta < 0) {
+            delta = -delta;
+        }
 
-        Log.i("next", Long.toString(nextTime));
-        Log.i("now", Long.toString(Calendar.getInstance(timeZone).getTimeInMillis()));
+        long secondsInMilli = 1000;
+        long minutesInMilli = secondsInMilli * 60;
+        long hoursInMilli = minutesInMilli * 60;
+        long daysInMilli = hoursInMilli * 24;
 
-        long seconds = delta % 60;
-        int minutes = dateDelta.get(Calendar.MINUTE) - epoch.get(Calendar.MINUTE);
-        int hours = dateDelta.get(Calendar.HOUR_OF_DAY) - epoch.get(Calendar.HOUR_OF_DAY);
-        int days = dateDelta.get(Calendar.DAY_OF_MONTH) - epoch.get(Calendar.DAY_OF_MONTH);
-        int months = dateDelta.get(Calendar.MONTH) - epoch.get(Calendar.MONTH);
-        int years = dateDelta.get(Calendar.YEAR) - epoch.get(Calendar.YEAR);
+        long days = delta / daysInMilli;
+        delta = delta % daysInMilli;
 
-        retString += formatVal("%d Years, ", years);
-        retString += formatVal("%d Months, ", months);
+        long hours = delta / hoursInMilli;
+        delta = delta % hoursInMilli;
+
+        long minutes = delta / minutesInMilli;
+        delta = delta % minutesInMilli;
+
+        long seconds = delta / secondsInMilli;
+
         retString += formatVal("%d Days, ", days);
         retString += formatVal("%d Hours, ", hours);
         retString += formatVal("%d Minutes, ", minutes);
