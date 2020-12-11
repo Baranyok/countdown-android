@@ -30,7 +30,10 @@
 
     <!-- Fragment Countdown item -->
     <string name="ci_date_placeholder">1 year, 10 months, 3 days, 5 hours and 23 minutes</string>
-    <string name="ci_since_until_placeholder">Since</string>
+    <string name="ci_since_until_placeholder">Until</string>
+    <string name="ci_event_name_placeholder">ITU obhajoba</string>
+    <string name="ci_title_placeholder">countdown name</string>
+    <string name="ci_event_static_label">Event:</string>
 
     <!-- Fragments - Countdowns -->
     <string name="frag_countdowns_none">No countdowns exist yet…</string>

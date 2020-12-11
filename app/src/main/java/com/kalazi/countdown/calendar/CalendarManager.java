@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.CalendarContract;
-import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import com.kalazi.countdown.events.EventItem;
@@ -62,7 +61,7 @@ public class CalendarManager {
 
         if (cursor.moveToNext()) {
             nextInstance = cursor.getLong(INST_INDEX_BEGIN);
-            Log.i("BEGIN", Long.toString(nextInstance));
+//            Log.i("BEGIN", Long.toString(nextInstance));
         }
 
         cursor.close();
@@ -125,10 +124,10 @@ public class CalendarManager {
         eventItem.calendar_id = cursor.getInt(EV_INDEX_CALENDAR_ID);
         eventItem.dt_start = cursor.getLong(EV_START);
 
-        Log.i("ID", Integer.toString(eventItem.id));
-        Log.i("Title", eventItem.title);
-        Log.i("Calendar id", Integer.toString(eventItem.calendar_id));
-        Log.i("START", Long.toString(eventItem.dt_start));
+//        Log.i("ID", Integer.toString(eventItem.id));
+//        Log.i("Title", eventItem.title);
+//        Log.i("Calendar id", Integer.toString(eventItem.calendar_id));
+//        Log.i("START", Long.toString(eventItem.dt_start));
     }
 
     ////// Not implemented
