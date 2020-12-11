@@ -13,6 +13,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import com.kalazi.countdown.R;
 import com.kalazi.countdown.calendar.CalendarManager;
@@ -64,6 +65,10 @@ public class CalendarEventPickItem extends LinearLayout {
                 eventView.setText(eventItem.title);
             }
         });
+    }
+
+    public LiveData<EventItem> getEvent() {
+        return event;
     }
 
     ////// Public setters & getters

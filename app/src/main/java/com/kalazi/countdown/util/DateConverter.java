@@ -1,6 +1,9 @@
 package com.kalazi.countdown.util;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
 
@@ -8,13 +11,20 @@ public class DateConverter {
 
     boolean hit = false;
 
+    public static String millisToFormattedDate(long millis) {
+        Date date = new Date(millis);
+        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US);
+        formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
+        return formatter.format(date);
+    }
+
     /**
      * Checks if the UTC timestamp is in the future
      *
      * @param nextTime next occurrence in reference to which the time delta will be calculated (in UTC millis)
      * @return true if the timestamp is in the future
      */
-    public boolean isInFuture(long nextTime) {
+    public static boolean isInFuture(long nextTime) {
         TimeZone timeZone = TimeZone.getTimeZone("UTC");
         return nextTime > Calendar.getInstance(timeZone).getTimeInMillis();
     }

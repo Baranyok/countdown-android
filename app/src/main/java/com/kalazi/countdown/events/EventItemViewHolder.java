@@ -5,6 +5,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.kalazi.countdown.R;
+import com.kalazi.countdown.util.DateConverter;
 
 public class EventItemViewHolder extends RecyclerView.ViewHolder {
     private final TextView titleView;
@@ -20,7 +21,7 @@ public class EventItemViewHolder extends RecyclerView.ViewHolder {
     public void setData(EventItem eventItem) {
         this.eventItem = eventItem;
         titleView.setText(eventItem.title);
-        calendarIdView.setText(Integer.toString(eventItem.calendar_id));
+        calendarIdView.setText(DateConverter.millisToFormattedDate(eventItem.dt_start));
     }
 
     public EventItem getEventItem() {

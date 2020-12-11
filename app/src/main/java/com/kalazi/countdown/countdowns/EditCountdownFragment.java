@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.*;
 import android.widget.EditText;
 import android.widget.SeekBar;
+import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -25,6 +26,15 @@ public class EditCountdownFragment extends Fragment {
     private CountdownsViewModel viewModel;
     private CountdownItem item;
     private boolean existedBefore;
+
+    private EditText titleView;
+    private ColorPickSelectableItem colorView;
+    private SeekBar opacityView;
+    private ColorPickSelectableItem fontColorView;
+    private CalendarEventPickItem eventPickItemView;
+    private TextView titleLockView;
+
+    private boolean nameLocked = false;
 
     ////// Overrides
 
@@ -51,6 +61,13 @@ public class EditCountdownFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        titleView = view.findViewById(R.id.cc_form_title);
+        colorView = view.findViewById(R.id.cc_form_color);
+        opacityView = view.findViewById(R.id.cc_form_opacity);
+        fontColorView = view.findViewById(R.id.cc_form_font_color);
+        eventPickItemView = view.findViewById(R.id.cc_form_event);
+        titleLockView = view.findViewById(R.id.cc_title_lock);
 
         loadItem();
         registerUIListeners(view);
@@ -96,6 +113,8 @@ public class EditCountdownFragment extends Fragment {
         } else {
             item = viewModel.getItemReference(arrayIndex);
             existedBefore = true;
+            titleLockView.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, R.drawable.ic_lock_closed);
+            nameLocked = true;
             updateUIFromItem();
         }
     }
@@ -106,8 +125,19 @@ public class EditCountdownFragment extends Fragment {
      * @param view Root view of this fragment
      */
     private void registerUIListeners(@NonNull View view) {
-        CalendarEventPickItem eventPickItem = view.findViewById(R.id.cc_form_event);
-        eventPickItem.registerDataObservers(getViewLifecycleOwner());
+        eventPickItemView = view.findViewById(R.id.cc_form_event);
+        eventPickItemView.registerDataObservers(getViewLifecycleOwner());
+        eventPickItemView.getEvent().observe(getViewLifecycleOwner(), eventItem -> {
+            if (!nameLocked) {
+                titleView.setText(eventItem.title);
+            }
+        });
+
+        titleLockView.setOnClickListener(l -> {
+            nameLocked = !nameLocked;
+            titleLockView.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0,
+                    (nameLocked) ? R.drawable.ic_lock_closed : R.drawable.ic_lock_open);
+        });
     }
 
     /// Action methods
@@ -117,17 +147,11 @@ public class EditCountdownFragment extends Fragment {
      */
     // TODO: bind instead?
     private void updateUIFromItem() {
-        EditText name = requireView().findViewById(R.id.cc_form_name);
-        ColorPickSelectableItem color = requireView().findViewById(R.id.cc_form_color);
-        SeekBar opacity = requireView().findViewById(R.id.cc_form_opacity);
-        ColorPickSelectableItem fontColor = requireView().findViewById(R.id.cc_form_font_color);
-        CalendarEventPickItem eventPickItem = requireView().findViewById(R.id.cc_form_event);
-
-        name.setText(item.getName());
-        color.setColor(item.getColor());
-        opacity.setProgress(item.getOpacity());
-        fontColor.setColor(item.getFontColor());
-        eventPickItem.setEventFromID(item.eventID);
+        titleView.setText(item.getName());
+        colorView.setColor(item.getColor());
+        opacityView.setProgress(item.getOpacity());
+        fontColorView.setColor(item.getFontColor());
+        eventPickItemView.setEventFromID(item.eventID);
     }
 
     /**
@@ -135,17 +159,11 @@ public class EditCountdownFragment extends Fragment {
      */
     // TODO: bind instead?
     private void updateItemFromUI() {
-        EditText name = requireView().findViewById(R.id.cc_form_name);
-        ColorPickSelectableItem color = requireView().findViewById(R.id.cc_form_color);
-        SeekBar opacity = requireView().findViewById(R.id.cc_form_opacity);
-        ColorPickSelectableItem fontColor = requireView().findViewById(R.id.cc_form_font_color);
-        CalendarEventPickItem eventPickItem = requireView().findViewById(R.id.cc_form_event);
-
-        item.setName(name.getText().toString());
-        item.setColor(color.getColor());
-        item.setOpacity(opacity.getProgress());
-        item.setFontColor(fontColor.getColor());
-        item.eventID = eventPickItem.getEventID();
+        item.setName(titleView.getText().toString());
+        item.setColor(colorView.getColor());
+        item.setOpacity(opacityView.getProgress());
+        item.setFontColor(fontColorView.getColor());
+        item.eventID = eventPickItemView.getEventID();
     }
 
     /**

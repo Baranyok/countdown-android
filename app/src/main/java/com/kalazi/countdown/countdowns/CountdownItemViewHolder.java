@@ -23,7 +23,9 @@ public class CountdownItemViewHolder extends RecyclerView.ViewHolder {
     private final TextView colorView;
     private final TextView eventNameView;
     private final TextView remainingTimeView;
+
     private final TextView whenView;
+    private final TextView eventStaticView;
 
     private CountdownItem countdownItem;
     private EventItem eventItem;
@@ -34,8 +36,9 @@ public class CountdownItemViewHolder extends RecyclerView.ViewHolder {
         nameView = itemContainerView.findViewById(R.id.ci_title);
         colorView = itemContainerView.findViewById(R.id.ci_color);
         eventNameView = itemContainerView.findViewById(R.id.ci_event_name);
-        remainingTimeView = itemView.findViewById(R.id.ci_remaining_time);
-        whenView = itemView.findViewById(R.id.ci_since_until);
+        remainingTimeView = itemContainerView.findViewById(R.id.ci_remaining_time);
+        whenView = itemContainerView.findViewById(R.id.ci_since_until);
+        eventStaticView = itemContainerView.findViewById(R.id.ci_event_static);
     }
 
     /**
@@ -55,6 +58,19 @@ public class CountdownItemViewHolder extends RecyclerView.ViewHolder {
         loadNextInstanceTime();
         updateDisplayedTime();
         startUpdateHandler();
+
+        hideEventIfNameIsSame();
+    }
+
+    private void hideEventIfNameIsSame() {
+        if (eventItem == null || countdownItem == null) {
+            return;
+        }
+
+        if (eventItem.title.equals(countdownItem.getName())) {
+            eventStaticView.setVisibility(View.GONE);
+            eventNameView.setVisibility(View.GONE);
+        }
     }
 
     private void loadEvent() {
@@ -93,6 +109,6 @@ public class CountdownItemViewHolder extends RecyclerView.ViewHolder {
         DateConverter dateConverter = new DateConverter();
         remainingTimeView.setText(dateConverter.timeDifferenceToString(nextInstance));
 
-        whenView.setText((dateConverter.isInFuture(nextInstance)) ? "Until" : "Since"); // TODO: Resource
+        whenView.setText((DateConverter.isInFuture(nextInstance)) ? "Until" : "Since"); // TODO: Resource
     }
 }

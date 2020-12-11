@@ -14,21 +14,35 @@
             android:layout_height="@dimen/cc_item_height"
             android:gravity="center_vertical">
         <TextView
-                android:id="@+id/cc_label_name"
+                android:id="@+id/cc_label_title"
                 android:text="@string/frag_cc_label_name"
                 android:textColor="?android:attr/textColorPrimary"
-                android:layout_width="wrap_content"
+                android:layout_weight="4"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:paddingHorizontal="@dimen/cc_item_hpadding"/>
         <EditText
-                android:id="@+id/cc_form_name"
-                android:layout_width="match_parent"
+                android:id="@+id/cc_form_title"
+                android:layout_weight="14"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:inputType="textPersonName"
                 android:hint="@string/frag_cc_hint_name"
                 android:ems="10"
-                android:layout_marginEnd="@dimen/cc_item_hpadding"
+                android:layout_marginEnd="4dp"
                 android:importantForAutofill="no"/>
+        <TextView
+                android:id="@+id/cc_title_lock"
+                android:text=""
+                android:layout_weight="2"
+                android:layout_width="0dp"
+                android:layout_height="24dp"
+                android:layout_marginEnd="10dp"
+                app:drawableBottomCompat="@drawable/ic_lock_open"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="?selectableItemBackgroundBorderless"/>
+
     </LinearLayout>
 
     <LinearLayout
