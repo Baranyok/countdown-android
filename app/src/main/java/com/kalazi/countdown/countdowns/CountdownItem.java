@@ -4,7 +4,7 @@ public class CountdownItem {
     private final int id;
 
     // TODO: Make this look uniform
-    private String name;
+    private String title;
     public int eventID;
     private int color;
     private int opacity;
@@ -17,13 +17,13 @@ public class CountdownItem {
 
     public CountdownItem(int id) {
         this.id = id;
-        this.name = "";
+        this.title = "";
     }
 
     ////// Setters
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public void setColor(int color) {
@@ -44,8 +44,8 @@ public class CountdownItem {
         return id;
     }
 
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
     public int getColor() {

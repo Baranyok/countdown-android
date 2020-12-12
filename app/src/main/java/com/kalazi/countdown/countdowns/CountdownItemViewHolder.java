@@ -58,7 +58,7 @@ public class CountdownItemViewHolder extends RecyclerView.ViewHolder {
         this.countdownItem = countdownItem;
         loadEvent();
 
-        nameView.setText(countdownItem.getName());
+        nameView.setText(countdownItem.getTitle());
         colorView.setText("#" + Integer.toHexString(countdownItem.getColor()));
         eventNameView.setText((eventItem == null) ? "" : eventItem.title); // TODO: resource
 
@@ -85,12 +85,16 @@ public class CountdownItemViewHolder extends RecyclerView.ViewHolder {
     }
 
     private void hideEventIfNameIsSame() {
-        if (eventItem == null || countdownItem == null) {
+        if (countdownItem == null) {
             return;
         }
 
+        if ("".equals(countdownItem.getTitle())) {
+            whenView.setVisibility(View.GONE);
+        }
+
         // TODO: Add setting to apply || eventItem.title.equals(countdownItem.getName())
-        if (!countdownItem.showEventName) {
+        if (eventItem == null || !countdownItem.showEventName) {
             eventStaticView.setVisibility(View.GONE);
             eventNameView.setVisibility(View.GONE);
         }

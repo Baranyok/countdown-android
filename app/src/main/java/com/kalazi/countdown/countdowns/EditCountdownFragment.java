@@ -117,10 +117,8 @@ public class EditCountdownFragment extends Fragment {
         } else {
             item = viewModel.getItemReference(arrayIndex);
             existedBefore = true;
-            if (!"".equals(item.getName())) {
-                titleLockView.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, R.drawable.ic_lock_closed);
-                titleView.setEnabled(false);
-                titleLocked = true;
+            if (!"".equals(item.getTitle())) {
+                lockTitle(true);
             }
             updateUIFromItem();
         }
@@ -141,11 +139,21 @@ public class EditCountdownFragment extends Fragment {
         });
 
         titleLockView.setOnClickListener(l -> {
-            titleLocked = !titleLocked;
-            titleLockView.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0,
-                    (titleLocked) ? R.drawable.ic_lock_closed : R.drawable.ic_lock_open);
-            titleView.setEnabled(!titleLocked);
+            lockTitle(!titleLocked);
         });
+
+        titleView.setOnFocusChangeListener((v, hasFocus) -> {
+            if (!hasFocus) {
+                lockTitle(true);
+            }
+        });
+    }
+
+    private void lockTitle(boolean newState) {
+        titleLocked = newState;
+        titleLockView.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0,
+                (titleLocked) ? R.drawable.ic_lock_closed : R.drawable.ic_lock_open);
+        titleView.setEnabled(!newState);
     }
 
     /// Action methods
@@ -155,7 +163,7 @@ public class EditCountdownFragment extends Fragment {
      */
     // TODO: bind instead?
     private void updateUIFromItem() {
-        titleView.setText(item.getName());
+        titleView.setText(item.getTitle());
         colorView.setColor(ColorConverter.removeColorAlpha(item.getColor()));
         opacityView.setProgress(ColorConverter.colorToOpacity(item.getColor()));
         fontColorView.setColor(item.getFontColor());
@@ -168,7 +176,7 @@ public class EditCountdownFragment extends Fragment {
      */
     // TODO: bind instead?
     private void updateItemFromUI() {
-        item.setName(titleView.getText().toString());
+        item.setTitle(titleView.getText().toString());
         item.setColor(ColorConverter.combineColorOpacity(colorView.getColor(), opacityView.getProgress()));
         item.setFontColor(fontColorView.getColor());
         item.eventID = eventPickItemView.getEventID();
