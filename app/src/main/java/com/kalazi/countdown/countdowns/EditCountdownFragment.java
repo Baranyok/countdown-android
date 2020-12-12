@@ -7,6 +7,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SwitchCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
@@ -33,6 +34,7 @@ public class EditCountdownFragment extends Fragment {
     private ColorPickSelectableItem fontColorView;
     private CalendarEventPickItem eventPickItemView;
     private TextView titleLockView;
+    private SwitchCompat showEventNameSwitch;
 
     private boolean titleLocked = false;
 
@@ -68,6 +70,7 @@ public class EditCountdownFragment extends Fragment {
         fontColorView = view.findViewById(R.id.cc_form_font_color);
         eventPickItemView = view.findViewById(R.id.cc_form_event);
         titleLockView = view.findViewById(R.id.cc_title_lock);
+        showEventNameSwitch = view.findViewById(R.id.cc_form_show_event);
 
         loadItem();
         registerUIListeners(view);
@@ -154,6 +157,7 @@ public class EditCountdownFragment extends Fragment {
         opacityView.setProgress(item.getOpacity());
         fontColorView.setColor(item.getFontColor());
         eventPickItemView.setEventFromID(item.eventID);
+        showEventNameSwitch.setChecked(item.showEventName);
     }
 
     /**
@@ -166,6 +170,7 @@ public class EditCountdownFragment extends Fragment {
         item.setOpacity(opacityView.getProgress());
         item.setFontColor(fontColorView.getColor());
         item.eventID = eventPickItemView.getEventID();
+        item.showEventName = showEventNameSwitch.isChecked();
     }
 
     /**

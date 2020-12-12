@@ -3,6 +3,7 @@ package com.kalazi.countdown.countdowns;
 public class CountdownItem {
     private final int id;
 
+    // TODO: Make this look uniform
     private String name;
     public int eventID;
     private int color;
@@ -10,7 +11,7 @@ public class CountdownItem {
     private int fontColor;
     private int fontSize;
     private String fontFamily;
-    ;
+    public boolean showEventName;
 
     ////// Constructors
 

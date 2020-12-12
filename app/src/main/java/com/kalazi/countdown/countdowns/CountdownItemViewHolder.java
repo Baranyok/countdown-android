@@ -67,7 +67,8 @@ public class CountdownItemViewHolder extends RecyclerView.ViewHolder {
             return;
         }
 
-        if (eventItem.title.equals(countdownItem.getName())) {
+        // TODO: Add setting to apply || eventItem.title.equals(countdownItem.getName())
+        if (!countdownItem.showEventName) {
             eventStaticView.setVisibility(View.GONE);
             eventNameView.setVisibility(View.GONE);
         }

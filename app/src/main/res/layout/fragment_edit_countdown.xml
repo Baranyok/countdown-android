@@ -99,4 +99,11 @@
             android:background="?attr/selectableItemBackground"
             android:paddingHorizontal="@dimen/cc_item_hpadding"/>
 
+    <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/cc_form_show_event"
+            android:text="@string/frag_cc_label_show_event"
+            android:paddingHorizontal="@dimen/cc_item_hpadding"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/cc_item_height"/>
+
 </LinearLayout>
