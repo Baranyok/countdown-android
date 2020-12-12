@@ -8,12 +8,25 @@
         tools:context=".events.EventListFragment"
         android:orientation="vertical">
 
-    <Button
-            android:text="@string/frag_events_ask_perm_button_label"
+    <LinearLayout
+            android:id="@+id/no_perms_block"
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="?android:attr/borderlessButtonStyle"
-            android:id="@+id/ask_perm_button"/>
+            android:layout_height="wrap_content">
+        <TextView
+                android:text="@string/frag_events_no_perms_label"
+                android:textSize="@dimen/text_big"
+                android:textColor="?android:attr/textColorPrimary"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        <Button
+                android:text="@string/frag_events_ask_perm_button_label"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                style="?android:attr/borderlessButtonStyle"
+                android:id="@+id/ask_perm_button"/>
+    </LinearLayout>
     <androidx.appcompat.widget.SearchView
             android:id="@+id/event_search"
             app:queryHint="@string/frag_events_search_hint"

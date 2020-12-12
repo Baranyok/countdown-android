@@ -101,7 +101,11 @@ public class CountdownItemViewHolder extends RecyclerView.ViewHolder {
     }
 
     private void loadEvent() {
-        eventItem = CalendarManager.loadEventFromID(countdownItem.eventID, itemView.getContext());
+        try {
+            eventItem = CalendarManager.loadEventFromID(countdownItem.eventID, itemView.getContext());
+        } catch (SecurityException ignored) {
+
+        }
     }
 
     private void startUpdateHandler() {
@@ -120,7 +124,11 @@ public class CountdownItemViewHolder extends RecyclerView.ViewHolder {
     }
 
     private void loadNextInstanceTime() {
-        nextInstance = CalendarManager.getNextInstance(countdownItem.eventID, itemView.getContext());
+        try {
+            nextInstance = CalendarManager.getNextInstance(countdownItem.eventID, itemView.getContext());
+        } catch (SecurityException ignored) {
+
+        }
     }
 
     private void updateDisplayedTime() {

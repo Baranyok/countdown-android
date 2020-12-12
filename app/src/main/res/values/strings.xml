@@ -57,7 +57,8 @@
     <string name="reply_title">Default reply action</string>
 
     <!-- Fragment - events -->
-    <string name="frag_events_ask_perm_button_label">Allow calendar access</string>
+    <string name="frag_events_no_perms_label">Calendar access needed for event interaction</string>
+    <string name="frag_events_ask_perm_button_label">Grant permissions</string>
     <string name="frag_events_search_hint">Search…</string>
     <string name="ei_title_placeholder">Example event</string>
     <string name="ei_id_placeholder">69</string>

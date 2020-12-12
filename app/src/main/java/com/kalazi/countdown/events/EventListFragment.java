@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
@@ -22,6 +23,7 @@ public class EventListFragment extends DialogFragment {
     private EventListViewModel viewModel;
     private PermissionViewModel permissionViewModel;
     private Button askPermButton;
+    private LinearLayout noPermsBlock;
     private EventRVAdapter rvAdapter;
     public MutableLiveData<EventItem> event;
 
@@ -48,6 +50,9 @@ public class EventListFragment extends DialogFragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        askPermButton = view.findViewById(R.id.ask_perm_button);
+        noPermsBlock = view.findViewById(R.id.no_perms_block);
 
         initRecyclerView(view);
 
@@ -84,7 +89,7 @@ public class EventListFragment extends DialogFragment {
 
         permissionViewModel.getPermsGranted().observe(getViewLifecycleOwner(), perms -> {
             // display button for perm asking
-            askPermButton.setVisibility((perms) ? View.GONE : View.VISIBLE);
+            noPermsBlock.setVisibility((perms) ? View.GONE : View.VISIBLE);
         });
 
         permissionViewModel.getPermsGranted().observe(getViewLifecycleOwner(), perms -> {
@@ -101,7 +106,6 @@ public class EventListFragment extends DialogFragment {
      * @param view Root view of this fragment
      */
     private void registerUIListeners(@NonNull View view) {
-        askPermButton = view.findViewById(R.id.ask_perm_button);
         askPermButton.setOnClickListener(v -> PermissionManager.askForPermissions(getActivity()));
 
         SearchView searchView = view.findViewById(R.id.event_search);
