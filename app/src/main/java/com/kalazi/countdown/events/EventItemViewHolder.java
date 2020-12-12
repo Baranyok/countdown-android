@@ -21,7 +21,7 @@ public class EventItemViewHolder extends RecyclerView.ViewHolder {
     public void setData(EventItem eventItem) {
         this.eventItem = eventItem;
         titleView.setText(eventItem.title);
-        calendarIdView.setText(DateConverter.millisToFormattedDate(eventItem.dt_start));
+        calendarIdView.setText(DateConverter.millisToFormattedString(eventItem.dt_start, eventItem.timezone));
     }
 
     public EventItem getEventItem() {

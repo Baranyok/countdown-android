@@ -2,7 +2,7 @@ package com.kalazi.countdown.util;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
+import java.time.Instant;
 import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
@@ -11,31 +11,41 @@ public class DateConverter {
 
     boolean hit = false;
 
-    public static String millisToFormattedDate(long millis) {
+    public static String millisToFormattedString(long millis, String timeZone) {
+        if (timeZone == null) {
+            timeZone = "UTC";
+        }
+
         Date date = new Date(millis);
         DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US);
-        formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
+        formatter.setTimeZone(TimeZone.getTimeZone(timeZone));
         return formatter.format(date);
     }
 
     /**
      * Checks if the UTC timestamp is in the future
      *
-     * @param nextTime next occurrence in reference to which the time delta will be calculated (in UTC millis)
+     * @param nextTime       next occurrence in reference to which the time delta will be calculated (in UTC millis)
+     * @param sourceTimeZone timezone in which the date should be displayed (I don't want to touch this shit again)
      * @return true if the timestamp is in the future
      */
-    public static boolean isInFuture(long nextTime) {
-        TimeZone timeZone = TimeZone.getTimeZone("UTC");
-        return nextTime > Calendar.getInstance(timeZone).getTimeInMillis();
+    public static boolean isInFuture(long nextTime, String sourceTimeZone) {
+        if (sourceTimeZone == null) {
+            sourceTimeZone = "UTC";
+        }
+
+        long delta = nextTime - Instant.now().toEpochMilli() + tzOffsetToLocal(nextTime, sourceTimeZone);
+        return delta > 0;
     }
 
     /**
      * Calculates and formats the time delta value from now until <code>nextTime</code>
      *
-     * @param nextTime next occurrence in reference to which the time delta will be calculated (in UTC millis)
+     * @param nextTime       next occurrence in reference to which the time delta will be calculated (in UTC millis)
+     * @param sourceTimeZone timezone in which the date should be displayed (I don't want to touch this shit again)
      * @return formatted string
      */
-    public String timeDifferenceToString(long nextTime) {
+    public String timeDifferenceToFormattedString(long nextTime, String sourceTimeZone) {
         if (nextTime <= 0) {
             // TODO implement count-up
             return "Negative or zero";
@@ -43,13 +53,7 @@ public class DateConverter {
 
         String retString = "";
 
-        TimeZone timeZone = TimeZone.getTimeZone("UTC");
-        Calendar epoch = Calendar.getInstance(timeZone);
-        epoch.setTimeInMillis(0);
-        Calendar dateDelta = Calendar.getInstance(timeZone);
-        dateDelta.setTimeInMillis(nextTime - Calendar.getInstance(timeZone).getTimeInMillis());
-
-        long delta = nextTime - Calendar.getInstance(timeZone).getTimeInMillis();
+        long delta = nextTime - Instant.now().toEpochMilli() + tzOffsetToLocal(nextTime, sourceTimeZone);
         if ((delta / 1000) == 0) {
             return "NOW"; // TODO: Make a resource
         } else if (delta < 0) {
@@ -86,6 +90,14 @@ public class DateConverter {
             return String.format(Locale.US, pattern, value);
         }
         return "";
+    }
+
+    private static long tzOffsetToLocal(long timeStamp, String sourceTimeZone) {
+        // translate nextTime from the given timezone
+        TimeZone sourceTz = TimeZone.getTimeZone(sourceTimeZone);
+        long sourceOffset = sourceTz.getOffset(timeStamp);
+        long localOffset = TimeZone.getDefault().getOffset(new Date().getTime());
+        return sourceOffset - localOffset;
     }
 
 }

@@ -24,12 +24,14 @@ public class CalendarManager {
             CalendarContract.Events.TITLE,          // 1
             CalendarContract.Events.CALENDAR_ID,    // 2
             CalendarContract.Events.DTSTART,        // 3
+            CalendarContract.Events.EVENT_TIMEZONE, // 4
     };
 
     private static final int EV_INDEX_ID = 0;
     private static final int EV_INDEX_TITLE = 1;
     private static final int EV_INDEX_CALENDAR_ID = 2;
     private static final int EV_START = 3;
+    private static final int EV_TZ = 4;
 
     ////// Projection [INSTANCES table]
 
@@ -120,9 +122,10 @@ public class CalendarManager {
 
     private static void cursorToEventItem(Cursor cursor, EventItem eventItem) {
         eventItem.id = cursor.getInt(EV_INDEX_ID);
-        eventItem.title = cursor.getString(EV_INDEX_TITLE);
+        eventItem.title = cursor.getString(EV_INDEX_TITLE).replace('Ŝ', 'Š');
         eventItem.calendar_id = cursor.getInt(EV_INDEX_CALENDAR_ID);
         eventItem.dt_start = cursor.getLong(EV_START);
+        eventItem.timezone = cursor.getString(EV_TZ);
 
 //        Log.i("ID", Integer.toString(eventItem.id));
 //        Log.i("Title", eventItem.title);

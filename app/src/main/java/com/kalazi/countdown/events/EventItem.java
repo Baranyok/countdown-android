@@ -5,4 +5,5 @@ public class EventItem {
     public String title;
     public int calendar_id;
     public long dt_start;
+    public String timezone;
 }

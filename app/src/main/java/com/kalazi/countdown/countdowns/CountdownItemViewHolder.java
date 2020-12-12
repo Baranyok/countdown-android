@@ -107,8 +107,8 @@ public class CountdownItemViewHolder extends RecyclerView.ViewHolder {
         remainingTimeView.setText(dateFormat.format(new Date(nextInstance)));
 
         DateConverter dateConverter = new DateConverter();
-        remainingTimeView.setText(dateConverter.timeDifferenceToString(nextInstance));
+        remainingTimeView.setText(dateConverter.timeDifferenceToFormattedString(nextInstance, eventItem.timezone));
 
-        whenView.setText((DateConverter.isInFuture(nextInstance)) ? "Until" : "Since"); // TODO: Resource
+        whenView.setText((DateConverter.isInFuture(nextInstance, eventItem.timezone)) ? "Until" : "Since"); // TODO: Resource
     }
 }
