@@ -37,6 +37,8 @@ public class EditCountdownFragment extends Fragment {
     private TextView titleLockView;
     private SwitchCompat showEventNameSwitch;
 
+    // in case editing is finished and lock is immediately clicked
+    private boolean editLocking = false;
     private boolean titleLocked = false;
 
     ////// Overrides
@@ -139,12 +141,17 @@ public class EditCountdownFragment extends Fragment {
         });
 
         titleLockView.setOnClickListener(l -> {
-            lockTitle(!titleLocked);
+            if (!editLocking) {
+                lockTitle(!titleLocked);
+            } else {
+                editLocking = false;
+            }
         });
 
         titleView.setOnFocusChangeListener((v, hasFocus) -> {
             if (!hasFocus) {
                 lockTitle(true);
+                editLocking = true;
             }
         });
     }
