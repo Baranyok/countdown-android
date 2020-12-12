@@ -34,7 +34,7 @@ public class EditCountdownFragment extends Fragment {
     private CalendarEventPickItem eventPickItemView;
     private TextView titleLockView;
 
-    private boolean nameLocked = false;
+    private boolean titleLocked = false;
 
     ////// Overrides
 
@@ -114,7 +114,8 @@ public class EditCountdownFragment extends Fragment {
             item = viewModel.getItemReference(arrayIndex);
             existedBefore = true;
             titleLockView.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, R.drawable.ic_lock_closed);
-            nameLocked = true;
+            titleView.setEnabled(false);
+            titleLocked = true;
             updateUIFromItem();
         }
     }
@@ -128,15 +129,16 @@ public class EditCountdownFragment extends Fragment {
         eventPickItemView = view.findViewById(R.id.cc_form_event);
         eventPickItemView.registerDataObservers(getViewLifecycleOwner());
         eventPickItemView.getEvent().observe(getViewLifecycleOwner(), eventItem -> {
-            if (!nameLocked) {
+            if (!titleLocked) {
                 titleView.setText(eventItem.title);
             }
         });
 
         titleLockView.setOnClickListener(l -> {
-            nameLocked = !nameLocked;
+            titleLocked = !titleLocked;
             titleLockView.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0,
-                    (nameLocked) ? R.drawable.ic_lock_closed : R.drawable.ic_lock_open);
+                    (titleLocked) ? R.drawable.ic_lock_closed : R.drawable.ic_lock_open);
+            titleView.setEnabled(!titleLocked);
         });
     }
 
