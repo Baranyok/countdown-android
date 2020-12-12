@@ -58,8 +58,8 @@ public class CountdownItemViewHolder extends RecyclerView.ViewHolder {
         this.countdownItem = countdownItem;
         loadEvent();
 
-        nameView.setText(countdownItem.getTitle());
-        colorView.setText("#" + Integer.toHexString(countdownItem.getColor()));
+        nameView.setText(countdownItem.title);
+        colorView.setText("#" + Integer.toHexString(countdownItem.color));
         eventNameView.setText((eventItem == null) ? "" : eventItem.title); // TODO: resource
 
         loadNextInstanceTime();
@@ -72,16 +72,16 @@ public class CountdownItemViewHolder extends RecyclerView.ViewHolder {
 
     private void customizeView() {
         // set text color (foreground)
-        remainingTimeView.setTextColor(countdownItem.getFontColor());
-        nameView.setTextColor(countdownItem.getFontColor());
-        eventNameView.setTextColor(countdownItem.getFontColor());
+        remainingTimeView.setTextColor(countdownItem.fontColor);
+        nameView.setTextColor(countdownItem.fontColor);
+        eventNameView.setTextColor(countdownItem.fontColor);
 
         // determine and set the label colors
-        whenView.setTextColor(ColorConverter.combineColorOpacity(countdownItem.getFontColor(), labelOpacity));
-        eventStaticView.setTextColor(ColorConverter.combineColorOpacity(countdownItem.getFontColor(), labelOpacity));
+        whenView.setTextColor(ColorConverter.combineColorOpacity(countdownItem.fontColor, labelOpacity));
+        eventStaticView.setTextColor(ColorConverter.combineColorOpacity(countdownItem.fontColor, labelOpacity));
 
         // set background color
-        cardView.setCardBackgroundColor(countdownItem.getColor());
+        cardView.setCardBackgroundColor(countdownItem.color);
     }
 
     private void hideEventIfNameIsSame() {
@@ -89,7 +89,7 @@ public class CountdownItemViewHolder extends RecyclerView.ViewHolder {
             return;
         }
 
-        if ("".equals(countdownItem.getTitle())) {
+        if ("".equals(countdownItem.title)) {
             whenView.setVisibility(View.GONE);
         }
 

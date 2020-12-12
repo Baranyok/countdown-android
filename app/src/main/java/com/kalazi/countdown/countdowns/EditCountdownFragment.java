@@ -119,7 +119,7 @@ public class EditCountdownFragment extends Fragment {
         } else {
             item = viewModel.getItemReference(arrayIndex);
             existedBefore = true;
-            if (!"".equals(item.getTitle())) {
+            if (!"".equals(item.title)) {
                 lockTitle(true);
             }
             updateUIFromItem();
@@ -170,10 +170,10 @@ public class EditCountdownFragment extends Fragment {
      */
     // TODO: bind instead?
     private void updateUIFromItem() {
-        titleView.setText(item.getTitle());
-        colorView.setColor(ColorConverter.removeColorAlpha(item.getColor()));
-        opacityView.setProgress(ColorConverter.colorToOpacity(item.getColor()));
-        fontColorView.setColor(item.getFontColor());
+        titleView.setText(item.title);
+        colorView.setColor(ColorConverter.removeColorAlpha(item.color));
+        opacityView.setProgress(ColorConverter.colorToOpacity(item.color));
+        fontColorView.setColor(item.fontColor);
         eventPickItemView.setEventFromID(item.eventID);
         showEventNameSwitch.setChecked(item.showEventName);
     }
@@ -183,9 +183,9 @@ public class EditCountdownFragment extends Fragment {
      */
     // TODO: bind instead?
     private void updateItemFromUI() {
-        item.setTitle(titleView.getText().toString());
-        item.setColor(ColorConverter.combineColorOpacity(colorView.getColor(), opacityView.getProgress()));
-        item.setFontColor(fontColorView.getColor());
+        item.title = titleView.getText().toString();
+        item.color = ColorConverter.combineColorOpacity(colorView.getColor(), opacityView.getProgress());
+        item.fontColor = fontColorView.getColor();
         item.eventID = eventPickItemView.getEventID();
         item.showEventName = showEventNameSwitch.isChecked();
     }

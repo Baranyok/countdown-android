@@ -1,16 +1,16 @@
 package com.kalazi.countdown.countdowns;
 
 public class CountdownItem {
-    private final int id;
+    public int id;
 
     // TODO: Make this look uniform
-    private String title;
+    public String title;
     public int eventID;
-    private int color;
-    private int opacity;
-    private int fontColor;
-    private int fontSize;
-    private String fontFamily;
+    public int color;
+    public int opacity;
+    public int fontColor;
+    public int fontSize;
+    public String fontFamily;
     public boolean showEventName;
 
     ////// Constructors
@@ -18,46 +18,6 @@ public class CountdownItem {
     public CountdownItem(int id) {
         this.id = id;
         this.title = "";
-    }
-
-    ////// Setters
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public void setColor(int color) {
-        this.color = color;
-    }
-
-    public void setOpacity(int opacity) {
-        this.opacity = opacity;
-    }
-
-    public void setFontColor(int fontColor) {
-        this.fontColor = fontColor;
-    }
-
-    ////// Getters
-
-    public int getId() {
-        return id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public int getColor() {
-        return color;
-    }
-
-    public int getOpacity() {
-        return opacity;
-    }
-
-    public int getFontColor() {
-        return fontColor;
     }
 
     ////// Overrides

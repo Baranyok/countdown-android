@@ -99,8 +99,8 @@ public class CountdownsViewModel extends ViewModel {
     public int getLastIndex() {
         int new_id = 0;
         for (CountdownItem item : countdownsArray) {
-            if (item.getId() == new_id) {
-                new_id = item.getId() + 1;
+            if (item.id == new_id) {
+                new_id = item.id + 1;
             }
         }
         return new_id;
