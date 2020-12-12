@@ -2,12 +2,13 @@
 <androidx.cardview.widget.CardView
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/ci_card_view"
         android:layout_width="match_parent"
         android:layout_height="@dimen/ci_height"
         android:layout_marginHorizontal="@dimen/countdown_item_margin"
         android:layout_marginTop="@dimen/countdown_item_margin_separator"
         app:cardCornerRadius="@dimen/countdown_item_corner_radius"
-        app:cardElevation="6dp">
+        app:cardElevation="0dp">
 
     <LinearLayout
             android:layout_width="match_parent"

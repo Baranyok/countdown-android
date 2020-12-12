@@ -44,8 +44,8 @@
     <string name="frag_cc_label_name">Name</string>
     <string name="frag_cc_hint_name">An awesome countdown name</string>
     <string name="frag_cc_label_opacity">Opacity</string>
-    <string name="frag_cc_label_color">Color</string>
-    <string name="frag_cc_label_font_color">Font color</string>
+    <string name="frag_cc_label_color">Background color</string>
+    <string name="frag_cc_label_font_color">Foreground color</string>
     <string name="frag_cc_label_choose_event">Select Google event</string>
     <string name="frag_cc_label_show_event">Show event in countdown</string>
 

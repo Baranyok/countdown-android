@@ -14,6 +14,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import com.kalazi.countdown.R;
 import com.kalazi.countdown.util.CalendarEventPickItem;
+import com.kalazi.countdown.util.ColorConverter;
 import com.kalazi.countdown.util.ColorPickSelectableItem;
 
 /**
@@ -116,9 +117,11 @@ public class EditCountdownFragment extends Fragment {
         } else {
             item = viewModel.getItemReference(arrayIndex);
             existedBefore = true;
-            titleLockView.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, R.drawable.ic_lock_closed);
-            titleView.setEnabled(false);
-            titleLocked = true;
+            if (!"".equals(item.getName())) {
+                titleLockView.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, R.drawable.ic_lock_closed);
+                titleView.setEnabled(false);
+                titleLocked = true;
+            }
             updateUIFromItem();
         }
     }
@@ -153,8 +156,8 @@ public class EditCountdownFragment extends Fragment {
     // TODO: bind instead?
     private void updateUIFromItem() {
         titleView.setText(item.getName());
-        colorView.setColor(item.getColor());
-        opacityView.setProgress(item.getOpacity());
+        colorView.setColor(ColorConverter.removeColorAlpha(item.getColor()));
+        opacityView.setProgress(ColorConverter.colorToOpacity(item.getColor()));
         fontColorView.setColor(item.getFontColor());
         eventPickItemView.setEventFromID(item.eventID);
         showEventNameSwitch.setChecked(item.showEventName);
@@ -166,8 +169,7 @@ public class EditCountdownFragment extends Fragment {
     // TODO: bind instead?
     private void updateItemFromUI() {
         item.setName(titleView.getText().toString());
-        item.setColor(colorView.getColor());
-        item.setOpacity(opacityView.getProgress());
+        item.setColor(ColorConverter.combineColorOpacity(colorView.getColor(), opacityView.getProgress()));
         item.setFontColor(fontColorView.getColor());
         item.eventID = eventPickItemView.getEventID();
         item.showEventName = showEventNameSwitch.isChecked();

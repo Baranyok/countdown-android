@@ -4,10 +4,12 @@ import android.os.Handler;
 import android.os.Looper;
 import android.view.View;
 import android.widget.TextView;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 import com.kalazi.countdown.R;
 import com.kalazi.countdown.calendar.CalendarManager;
 import com.kalazi.countdown.events.EventItem;
+import com.kalazi.countdown.util.ColorConverter;
 import com.kalazi.countdown.util.DateConverter;
 
 import java.text.DateFormat;
@@ -27,9 +29,13 @@ public class CountdownItemViewHolder extends RecyclerView.ViewHolder {
     private final TextView whenView;
     private final TextView eventStaticView;
 
+    private final CardView cardView;
+
     private CountdownItem countdownItem;
     private EventItem eventItem;
     private long nextInstance = 0;
+
+    private final int labelOpacity = 80;
 
     public CountdownItemViewHolder(View itemContainerView) {
         super(itemContainerView);
@@ -39,6 +45,7 @@ public class CountdownItemViewHolder extends RecyclerView.ViewHolder {
         remainingTimeView = itemContainerView.findViewById(R.id.ci_remaining_time);
         whenView = itemContainerView.findViewById(R.id.ci_since_until);
         eventStaticView = itemContainerView.findViewById(R.id.ci_event_static);
+        cardView = itemContainerView.findViewById(R.id.ci_card_view);
     }
 
     /**
@@ -60,6 +67,21 @@ public class CountdownItemViewHolder extends RecyclerView.ViewHolder {
         startUpdateHandler();
 
         hideEventIfNameIsSame();
+        customizeView();
+    }
+
+    private void customizeView() {
+        // set text color (foreground)
+        remainingTimeView.setTextColor(countdownItem.getFontColor());
+        nameView.setTextColor(countdownItem.getFontColor());
+        eventNameView.setTextColor(countdownItem.getFontColor());
+
+        // determine and set the label colors
+        whenView.setTextColor(ColorConverter.combineColorOpacity(countdownItem.getFontColor(), labelOpacity));
+        eventStaticView.setTextColor(ColorConverter.combineColorOpacity(countdownItem.getFontColor(), labelOpacity));
+
+        // set background color
+        cardView.setCardBackgroundColor(countdownItem.getColor());
     }
 
     private void hideEventIfNameIsSame() {
