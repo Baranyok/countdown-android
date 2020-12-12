@@ -57,7 +57,13 @@ dependencies {
     implementation "androidx.cardview:cardview:1.0.0"
     implementation "androidx.room:room-runtime:2.2.5"
 
-    // cutom license section
+    // custom license section
     implementation 'com.thebluealliance:spectrum:0.7.1'
     implementation 'com.wada811:android-material-design-colors:3.0.0'
+
+    // room
+    implementation "androidx.room:room-runtime:2.2.5"
+    annotationProcessor "androidx.room:room-compiler:2.2.5"
+
+
 }

@@ -121,16 +121,13 @@ public class CountdownsFragment extends Fragment {
      */
     private void registerDataObservers(@NonNull View view) {
         // register status text observer
-        final TextView textView = view.findViewById(R.id.text_countdowns_status);
-        viewModel.getStatusText().observe(getViewLifecycleOwner(), s -> {
-            textView.setText(getString(s));
-            if (s == R.string.empty) {
-                textView.setVisibility(View.INVISIBLE);
-            }
-        });
+        final TextView statusTextView = view.findViewById(R.id.text_countdowns_status);
 
         // observer for widget list change
-        viewModel.getCountdowns().observe(getViewLifecycleOwner(), list -> rvAdapter.updateDataset(list));
+        viewModel.getCountdowns().observe(getViewLifecycleOwner(), list -> {
+            rvAdapter.updateDataset(list);
+            statusTextView.setVisibility((list.isEmpty()) ? View.VISIBLE : View.GONE);
+        });
     }
 
     /**

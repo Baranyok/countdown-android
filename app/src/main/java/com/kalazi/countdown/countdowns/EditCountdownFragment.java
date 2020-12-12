@@ -114,10 +114,10 @@ public class EditCountdownFragment extends Fragment {
     private void loadItem() {
         int arrayIndex = EditCountdownFragmentArgs.fromBundle(requireArguments()).getCountdownArrayIndex();
         if (arrayIndex == -1) {
-            item = new CountdownItem(viewModel.getLastIndex());
+            item = new CountdownItem();
             existedBefore = false;
         } else {
-            item = viewModel.getItemReference(arrayIndex);
+            item = viewModel.getItem(arrayIndex);
             existedBefore = true;
             if (!"".equals(item.title)) {
                 lockTitle(true);
@@ -198,11 +198,9 @@ public class EditCountdownFragment extends Fragment {
      */
     private boolean confirmEdits() {
         updateItemFromUI();
-        if (!existedBefore) {
-            viewModel.addItem(item);
-        } else {
-            viewModel.notifyItemChanged();
-        }
+
+        // in case the item with id exists, it will be overwritten
+        viewModel.addItem(item);
 
         // return to previous fragment
         NavController navController = NavHostFragment.findNavController(EditCountdownFragment.this);

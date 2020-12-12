@@ -1,43 +1,37 @@
 package com.kalazi.countdown.countdowns;
 
+import android.app.Application;
+import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
 import com.kalazi.countdown.R;
+import com.kalazi.countdown.database.CountdownRepository;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Represents the ViewModel of the CountdownFragment<br>
  * Primarily contains a list of Countdown Items
  */
-public class CountdownsViewModel extends ViewModel {
+public class CountdownsViewModel extends AndroidViewModel {
 
-    private final List<CountdownItem> countdownsArray = new ArrayList<>();
     private final MutableLiveData<Integer> statusText = new MutableLiveData<>();
-    private final MutableLiveData<List<CountdownItem>> countdowns = new MutableLiveData<>(null);
+
+    private final CountdownRepository repository;
+    private final LiveData<List<CountdownItem>> countdowns;
 
     ////// Constructors
 
-    public CountdownsViewModel() {
-        if (countdowns.getValue() == null) {
-            countdowns.setValue(countdownsArray);
-        }
+    public CountdownsViewModel(Application application) {
+        super(application);
+
+        repository = new CountdownRepository(application);
+        countdowns = repository.getAll();
 
         updateStatusText();
     }
 
     ////// Public interface -> LiveData + Item operations
-
-    /**
-     * LiveData interface for connecting an observer to the status text
-     *
-     * @return LiveData for the status text
-     */
-    public LiveData<Integer> getStatusText() {
-        return statusText;
-    }
 
     /**
      * LiveData interface for connecting an observer to the list of Countdown Items
@@ -56,8 +50,7 @@ public class CountdownsViewModel extends ViewModel {
      * @param item The item reference to be added
      */
     public void addItem(CountdownItem item) {
-        countdownsArray.add(item);
-        notifyItemChanged();
+        repository.insert(item);
         updateStatusText();
     }
 
@@ -67,8 +60,7 @@ public class CountdownsViewModel extends ViewModel {
      * @param item The item reference to be deleted
      */
     public void deleteItem(CountdownItem item) {
-        countdownsArray.remove(item);
-        notifyItemChanged();
+        repository.delete(item);
         updateStatusText();
     }
 
@@ -78,32 +70,12 @@ public class CountdownsViewModel extends ViewModel {
      * @param index index of the item (not item ID!)
      * @return Item CountdownItem reference
      */
-    public CountdownItem getItemReference(int index) {
-        return countdownsArray.get(index);
-    }
-
-    /**
-     * Notify the LiveData holding the dataset that an item has changed
-     */
-    public void notifyItemChanged() {
-        countdowns.setValue(countdownsArray);
-    }
-
-    /// Temporary section
-
-    /**
-     * Temporary function
-     *
-     * @return Available index (not item ID!) that can be inserted into a RecyclerView
-     */
-    public int getLastIndex() {
-        int new_id = 0;
-        for (CountdownItem item : countdownsArray) {
-            if (item.id == new_id) {
-                new_id = item.id + 1;
-            }
+    public CountdownItem getItem(int index) {
+        if (countdowns.getValue() != null) {
+            return countdowns.getValue().get(index);
         }
-        return new_id;
+
+        return null;
     }
 
     ////// Private utility functions
@@ -112,6 +84,10 @@ public class CountdownsViewModel extends ViewModel {
      * Displays a text if no countdowns are present
      */
     private void updateStatusText() {
-        statusText.setValue((countdownsArray.isEmpty()) ? R.string.frag_countdowns_none : R.string.empty);
+        if (countdowns.getValue() == null) {
+            statusText.setValue(R.string.frag_countdowns_none);
+        } else {
+            statusText.setValue((countdowns.getValue().isEmpty()) ? R.string.frag_countdowns_none : R.string.empty);
+        }
     }
 }

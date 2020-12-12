@@ -1,24 +1,30 @@
 package com.kalazi.countdown.countdowns;
 
+import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+@Entity(tableName = "countdown_table")
 public class CountdownItem {
-    public int id;
+    @PrimaryKey(autoGenerate = true)
+    public Integer id;
 
-    // TODO: Make this look uniform
-    public String title;
+    @NonNull
+    @ColumnInfo(name = "title")
+    public String title = "";
+
+    @ColumnInfo(name = "event_id")
     public int eventID;
+
+    @ColumnInfo(name = "color")
     public int color;
-    public int opacity;
+
+    @ColumnInfo(name = "font_color")
     public int fontColor;
-    public int fontSize;
-    public String fontFamily;
-    public boolean showEventName;
 
-    ////// Constructors
-
-    public CountdownItem(int id) {
-        this.id = id;
-        this.title = "";
-    }
+    @ColumnInfo(name = "show_event")
+    public boolean showEventName; // TODO: refactor this
 
     ////// Overrides
 
@@ -34,6 +40,6 @@ public class CountdownItem {
 
     @Override
     public int hashCode() {
-        return id;
+        return (title + eventID + color + fontColor + showEventName).hashCode();
     }
 }
