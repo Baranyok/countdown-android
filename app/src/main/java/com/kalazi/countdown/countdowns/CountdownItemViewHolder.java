@@ -37,6 +37,8 @@ public class CountdownItemViewHolder extends RecyclerView.ViewHolder {
 
     private final int labelOpacity = 80;
 
+    private volatile boolean isCounting = false;
+
     public CountdownItemViewHolder(View itemContainerView) {
         super(itemContainerView);
         nameView = itemContainerView.findViewById(R.id.ci_title);
@@ -108,19 +110,25 @@ public class CountdownItemViewHolder extends RecyclerView.ViewHolder {
         }
     }
 
-    private void startUpdateHandler() {
+    public void startUpdateHandler() {
+        isCounting = true;
+
         final Handler handler = new Handler(Looper.getMainLooper());
         final int delay = 1000; // 1000 milliseconds == 1 second
 
         handler.postDelayed(new Runnable() {
             public void run() {
                 updateDisplayedTime();
-                if (itemView.isShown()) {
+                if (isCounting) {
                     handler.postDelayed(this, delay);
                 }
             }
         }, delay);
 
+    }
+
+    public void stopUpdateHandler() {
+        isCounting = false;
     }
 
     private void loadNextInstanceTime() {

@@ -33,6 +33,13 @@ public class CountdownsRVAdapter extends RecyclerView.Adapter<CountdownItemViewH
 
     ////// Overrides
 
+
+    @Override
+    public void onViewRecycled(@NonNull CountdownItemViewHolder holder) {
+        super.onViewRecycled(holder);
+        holder.stopUpdateHandler();
+    }
+
     /**
      * Create a ViewHolder (inflate layout)
      * -> invoked by the layout manager
