@@ -42,14 +42,21 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         }
 
         // FIXME: Exception
-        List<CalendarItem> calendarItemList = CalendarManager.loadCalendars(requireContext());
+        List<CalendarItem> calendarItemList = null;
+        try {
+            calendarItemList = CalendarManager.loadCalendars(requireContext());
+        } catch (SecurityException ignored) {
+
+        }
 
         List<String> entries = new ArrayList<>();
         List<String> values = new ArrayList<>();
 
-        for (CalendarItem calendar : calendarItemList) {
-            entries.add(calendar.displayName);
-            values.add(Integer.toString(calendar.id));
+        if (calendarItemList != null) {
+            for (CalendarItem calendar : calendarItemList) {
+                entries.add(calendar.displayName);
+                values.add(Integer.toString(calendar.id));
+            }
         }
 
         enabled_calendar_pref.setEntries(entries.toArray(new CharSequence[0]));
