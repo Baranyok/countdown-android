@@ -29,9 +29,9 @@
     <string name="hello_slideshow_second">Hello HomeSecondFragment. Arg: %1$s</string>
 
     <!-- Fragment Countdown item -->
-    <string name="ci_date_placeholder">1 year, 10 months, 3 days, 5 hours and 23 minutes</string>
+    <string name="ci_date_placeholder">3 days, 5 hours, 1 minute and 23 seconds</string>
     <string name="ci_since_until_placeholder">Until</string>
-    <string name="ci_event_name_placeholder">ITU obhajoba</string>
+    <string name="ci_event_name_placeholder">event name</string>
     <string name="ci_title_placeholder">countdown name</string>
     <string name="ci_event_static_label">Event:</string>
 
@@ -41,6 +41,7 @@
     <!-- Fragments - Countdown details (cc -> create countdown) -->
     <string name="frag_cc">Create countdown</string>
     <string name="frag_ec">Edit countdown</string>
+    <string name="frag_cc_label_preview">Preview</string>
     <string name="frag_cc_label_name">Name</string>
     <string name="frag_cc_hint_name">An awesome countdown name</string>
     <string name="frag_cc_label_opacity">Opacity</string>

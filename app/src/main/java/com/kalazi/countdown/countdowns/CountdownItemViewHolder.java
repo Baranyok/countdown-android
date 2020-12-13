@@ -72,14 +72,16 @@ public class CountdownItemViewHolder extends RecyclerView.ViewHolder {
     }
 
     private void customizeView() {
+        int lightColor = ColorConverter.combineColorOpacity(countdownItem.fontColor, labelOpacity);
+
         // set text color (foreground)
         remainingTimeView.setTextColor(countdownItem.fontColor);
         nameView.setTextColor(countdownItem.fontColor);
         eventNameView.setTextColor(countdownItem.fontColor);
 
         // determine and set the label colors
-        whenView.setTextColor(ColorConverter.combineColorOpacity(countdownItem.fontColor, labelOpacity));
-        eventStaticView.setTextColor(ColorConverter.combineColorOpacity(countdownItem.fontColor, labelOpacity));
+        whenView.setTextColor(lightColor);
+        eventStaticView.setTextColor(lightColor);
 
         // set background color
         cardView.setCardBackgroundColor(countdownItem.color);

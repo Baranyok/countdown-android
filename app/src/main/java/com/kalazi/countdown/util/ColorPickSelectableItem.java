@@ -11,6 +11,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import com.kalazi.countdown.R;
 import com.thebluealliance.spectrum.SpectrumDialog;
 
@@ -19,9 +21,11 @@ public class ColorPickSelectableItem extends AppCompatTextView {
     private static final String TAG = "ColorPickSelectableItem";
 
     private final Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
-    private int color = 0xff000000;
     private float iconPadding = 0;
     private float iconSize = 0;
+
+    private int color = 0xff000000;
+    private MutableLiveData<Integer> liveColor = new MutableLiveData<>(color);
 
     ////// Inherited Constructor calls (for compatibility)
 
@@ -94,11 +98,16 @@ public class ColorPickSelectableItem extends AppCompatTextView {
         return color;
     }
 
+    public LiveData<Integer> getLiveColor() {
+        return liveColor;
+    }
+
     /// Setters
 
     public void setColor(int color) {
         this.color = color;
         paint.setColor(color);
+        liveColor.setValue(color);
         this.invalidate();
     }
 

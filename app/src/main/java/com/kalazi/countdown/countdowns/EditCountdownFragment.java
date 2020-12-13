@@ -1,18 +1,24 @@
 package com.kalazi.countdown.countdowns;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.*;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SwitchCompat;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import com.kalazi.countdown.R;
+import com.kalazi.countdown.calendar.CalendarManager;
+import com.kalazi.countdown.events.EventItem;
 import com.kalazi.countdown.util.CalendarEventPickItem;
 import com.kalazi.countdown.util.ColorConverter;
 import com.kalazi.countdown.util.ColorPickSelectableItem;
@@ -36,6 +42,14 @@ public class EditCountdownFragment extends Fragment {
     private CalendarEventPickItem eventPickItemView;
     private TextView titleLockView;
     private SwitchCompat showEventNameSwitch;
+
+    LinearLayout preview_parent;
+    private TextView preview_nameView;
+    private TextView preview_eventNameView;
+    private TextView preview_remainingTimeView;
+    private TextView preview_whenView;
+    private TextView preview_eventStaticView;
+    private CardView preview_cardView;
 
     // in case editing is finished and lock is immediately clicked
     private boolean editLocking = false;
@@ -67,6 +81,7 @@ public class EditCountdownFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        // this fragment
         titleView = view.findViewById(R.id.cc_form_title);
         colorView = view.findViewById(R.id.cc_form_color);
         opacityView = view.findViewById(R.id.cc_form_opacity);
@@ -75,7 +90,18 @@ public class EditCountdownFragment extends Fragment {
         titleLockView = view.findViewById(R.id.cc_title_lock);
         showEventNameSwitch = view.findViewById(R.id.cc_form_show_event);
 
+        // preview
+        preview_parent = view.findViewById(R.id.ce_preview);
+        preview_nameView = preview_parent.findViewById(R.id.ci_title);
+        preview_eventNameView = preview_parent.findViewById(R.id.ci_event_name);
+        preview_remainingTimeView = preview_parent.findViewById(R.id.ci_remaining_time);
+        preview_whenView = preview_parent.findViewById(R.id.ci_since_until);
+        preview_eventStaticView = preview_parent.findViewById(R.id.ci_event_static);
+        preview_cardView = preview_parent.findViewById(R.id.ci_card_view);
+
         loadItem();
+
+        bindItemToPreview(view);
         registerUIListeners(view);
     }
 
@@ -126,6 +152,66 @@ public class EditCountdownFragment extends Fragment {
         }
     }
 
+    private void bindItemToPreview(@NonNull View view) {
+        EventItem eventItem = null;
+        try {
+            eventItem = CalendarManager.loadEventFromID(item.eventID, requireContext());
+        } catch (SecurityException ignored) {
+
+        }
+
+        preview_nameView.setText(item.title);
+        preview_eventNameView.setText((eventItem == null) ? "None" : eventItem.title);
+
+        titleView.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                preview_nameView.setText(s.toString());
+            }
+        });
+
+        colorView.getLiveColor().observe(getViewLifecycleOwner(), this::updatePreviewBackground);
+        fontColorView.getLiveColor().observe(getViewLifecycleOwner(), this::updatePreviewForeground);
+        opacityView.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                updatePreviewBackground(0);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+            }
+        });
+    }
+
+    private void updatePreviewBackground(int ignored) {
+        preview_cardView.setCardBackgroundColor(ColorConverter.combineColorOpacity(colorView.getColor(), opacityView.getProgress()));
+    }
+
+    private void updatePreviewForeground(int fontColor) {
+        int lightColor = ColorConverter.combineColorOpacity(fontColor, CountdownItemViewHolder.labelOpacity);
+
+        preview_remainingTimeView.setTextColor(fontColor);
+        preview_nameView.setTextColor(fontColor);
+        preview_eventNameView.setTextColor(fontColor);
+
+        // determine and set the label colors
+        preview_whenView.setTextColor(lightColor);
+        preview_eventStaticView.setTextColor(lightColor);
+    }
+
     /**
      * Register all UI listeners (UI Interactivity)
      *
@@ -137,6 +223,7 @@ public class EditCountdownFragment extends Fragment {
         eventPickItemView.getEvent().observe(getViewLifecycleOwner(), eventItem -> {
             if (!titleLocked) {
                 titleView.setText(eventItem.title);
+                preview_eventNameView.setText(eventItem.title);
             }
         });
 
