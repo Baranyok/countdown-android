@@ -20,4 +20,14 @@
 
     </PreferenceCategory>
 
+    <PreferenceCategory
+            app:title="@string/settings_header_countdowns">
+
+        <SwitchPreferenceCompat
+                app:key="show_seconds"
+                app:title="@string/settings_item_show_seconds"
+                app:icon="@drawable/ic_seconds"
+                app:defaultValue="true"/>
+    </PreferenceCategory>
+
 </PreferenceScreen>

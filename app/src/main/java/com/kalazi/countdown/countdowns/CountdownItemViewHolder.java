@@ -1,11 +1,12 @@
 package com.kalazi.countdown.countdowns;
 
+import android.content.SharedPreferences;
 import android.os.Handler;
 import android.os.Looper;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.cardview.widget.CardView;
+import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.kalazi.countdown.R;
 import com.kalazi.countdown.calendar.CalendarManager;
@@ -82,8 +83,6 @@ public class CountdownItemViewHolder extends RecyclerView.ViewHolder {
 
         // set background color
         cardView.setCardBackgroundColor(countdownItem.color);
-
-        LinearLayout layout = itemView.findViewById(R.id.ci_immersed_layout);
     }
 
     private void hideEventIfNameIsSame() {
@@ -146,8 +145,11 @@ public class CountdownItemViewHolder extends RecyclerView.ViewHolder {
             return;
         }
 
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(itemView.getContext());
+        boolean showSeconds = prefs.getBoolean("show_seconds", true);
+
         DateConverter dateConverter = new DateConverter();
-        remainingTimeView.setText(dateConverter.timeDifferenceToFormattedString(nextInstance, eventItem.timezone, true));
+        remainingTimeView.setText(dateConverter.timeDifferenceToFormattedString(nextInstance, eventItem.timezone, showSeconds));
 
         whenView.setText((DateConverter.isInFuture(nextInstance, eventItem.timezone)) ? "Until" : "Since"); // TODO: Resource
     }

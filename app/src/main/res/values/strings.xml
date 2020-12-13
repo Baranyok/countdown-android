@@ -51,10 +51,12 @@
 
     <!-- Preference titles -->
     <string name="settings_header_environment">Environment</string>
+    <string name="settings_header_countdowns">Countdowns</string>
 
     <!-- Preference items -->
     <string name="settings_item_theme_dark">Dark theme</string>
     <string name="reply_title">Default reply action</string>
+    <string name="settings_item_show_seconds">Show seconds in countdowns</string>
 
     <!-- Fragment - events -->
     <string name="frag_events_no_perms_label">Calendar access needed for event interaction</string>
