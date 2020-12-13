@@ -174,15 +174,6 @@ public class CountdownWidget extends AppWidgetProvider {
         WidgetAlarm.restart(context);
     }
 
-//    private void startUpdateService(Context context) {
-//        final Intent intent = new Intent(context, WidgetUpdateService.class);
-//        final PendingIntent pending = PendingIntent.getService(context, 0, intent, 0);
-//        final AlarmManager alarm = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-//        alarm.cancel(pending);
-//        long interval = 1000 * 60;
-//        alarm.setRepeating(AlarmManager.ELAPSED_REALTIME, SystemClock.elapsedRealtime(), interval, pending);
-//    }
-
     @Override
     public void onDeleted(Context context, int[] appWidgetIds) {
         // When the user deletes the widget, delete the preference associated with it.
