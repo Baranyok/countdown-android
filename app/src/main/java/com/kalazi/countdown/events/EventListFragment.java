@@ -15,6 +15,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.kalazi.countdown.R;
+import com.kalazi.countdown.calendar.CalendarManager;
 import com.kalazi.countdown.permissions.PermissionManager;
 import com.kalazi.countdown.permissions.PermissionViewModel;
 
@@ -23,7 +24,9 @@ public class EventListFragment extends DialogFragment {
     private EventListViewModel viewModel;
     private PermissionViewModel permissionViewModel;
     private Button askPermButton;
+    private Button createEventButton;
     private LinearLayout noPermsBlock;
+    private LinearLayout permsBlock;
     private EventRVAdapter rvAdapter;
     public MutableLiveData<EventItem> event;
 
@@ -52,7 +55,9 @@ public class EventListFragment extends DialogFragment {
         super.onViewCreated(view, savedInstanceState);
 
         askPermButton = view.findViewById(R.id.ask_perm_button);
+        createEventButton = view.findViewById(R.id.frag_events_create);
         noPermsBlock = view.findViewById(R.id.no_perms_block);
+        permsBlock = view.findViewById(R.id.perms_block);
 
         initRecyclerView(view);
 
@@ -94,7 +99,7 @@ public class EventListFragment extends DialogFragment {
 
         permissionViewModel.getPermsGranted().observe(getViewLifecycleOwner(), perms -> {
             // display button for perm asking
-            searchView.setVisibility((perms) ? View.VISIBLE : View.GONE);
+            permsBlock.setVisibility((perms) ? View.VISIBLE : View.GONE);
         });
 
         viewModel.getEvents().observe(getViewLifecycleOwner(), eventList -> rvAdapter.updateDataset(eventList));
@@ -107,6 +112,10 @@ public class EventListFragment extends DialogFragment {
      */
     private void registerUIListeners(@NonNull View view) {
         askPermButton.setOnClickListener(v -> PermissionManager.askForPermissions(getActivity()));
+        createEventButton.setOnClickListener(v -> {
+            CalendarManager.addEvent(this);
+            dismiss();
+        });
 
         SearchView searchView = view.findViewById(R.id.event_search);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
