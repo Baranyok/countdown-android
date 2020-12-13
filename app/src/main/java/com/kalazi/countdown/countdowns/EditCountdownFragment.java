@@ -162,6 +162,8 @@ public class EditCountdownFragment extends Fragment {
 
         preview_nameView.setText(item.title);
         preview_eventNameView.setText((eventItem == null) ? "None" : eventItem.title);
+        preview_eventStaticView.setVisibility((showEventNameSwitch.isChecked()) ? View.VISIBLE : View.GONE);
+        preview_eventNameView.setVisibility((showEventNameSwitch.isChecked()) ? View.VISIBLE : View.GONE);
 
         titleView.addTextChangedListener(new TextWatcher() {
             @Override
@@ -193,6 +195,11 @@ public class EditCountdownFragment extends Fragment {
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
             }
+        });
+
+        showEventNameSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            preview_eventStaticView.setVisibility((isChecked) ? View.VISIBLE : View.GONE);
+            preview_eventNameView.setVisibility((isChecked) ? View.VISIBLE : View.GONE);
         });
     }
 

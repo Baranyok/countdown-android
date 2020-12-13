@@ -13,12 +13,6 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme.NoActionBar">
 
-        <service
-                android:name=".widget.WidgetUpdateService"
-                android:enabled="true"
-                android:exported="false">
-        </service>
-
         <receiver android:name=".widget.CountdownWidget">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
