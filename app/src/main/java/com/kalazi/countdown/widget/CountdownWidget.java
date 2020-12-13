@@ -61,7 +61,7 @@ public class CountdownWidget extends AppWidgetProvider {
 
     public static void updateCountdownWidget(Context context, AppWidgetManager appWidgetManager, int appWidgetId) {
         Log.i(TAG, "update");
-        int countdownId = CountdownWidgetConfigureActivity.loadTitlePref(context, appWidgetId);
+        int countdownId = CountdownWidgetConfigureActivity.loadPersistentPref(context, appWidgetId);
         RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.countdown_widget);
 
         if (countdownId == -1) {
@@ -178,7 +178,7 @@ public class CountdownWidget extends AppWidgetProvider {
     public void onDeleted(Context context, int[] appWidgetIds) {
         // When the user deletes the widget, delete the preference associated with it.
         for (int appWidgetId : appWidgetIds) {
-            CountdownWidgetConfigureActivity.deleteTitlePref(context, appWidgetId);
+            CountdownWidgetConfigureActivity.deletePersistentPref(context, appWidgetId);
         }
     }
 }

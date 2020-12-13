@@ -32,7 +32,7 @@ public class CountdownWidgetConfigureActivity extends AppCompatActivity {
 
             // When the button is clicked, store the string locally
             int countdownId = Integer.parseInt(countdownIdView.getText().toString());
-            saveTitlePref(context, mAppWidgetId, countdownId);
+            savePersistentPref(context, mAppWidgetId, countdownId);
 
             // It is the responsibility of the configuration activity to update the app widget
             AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
@@ -51,21 +51,18 @@ public class CountdownWidgetConfigureActivity extends AppCompatActivity {
         super();
     }
 
-    // Write the prefix to the SharedPreferences object for this widget
-    static void saveTitlePref(Context context, int appWidgetId, int countdownId) {
+    static void savePersistentPref(Context context, int appWidgetId, int countdownId) {
         SharedPreferences.Editor prefs = context.getSharedPreferences(PREFS_NAME, 0).edit();
         prefs.putInt(PREF_PREFIX_KEY + appWidgetId, countdownId);
         prefs.apply();
     }
 
-    // Read the prefix from the SharedPreferences object for this widget.
-    // If there is no preference saved, get the default from a resource
-    static int loadTitlePref(Context context, int appWidgetId) {
+    static int loadPersistentPref(Context context, int appWidgetId) {
         SharedPreferences prefs = context.getSharedPreferences(PREFS_NAME, 0);
         return prefs.getInt(PREF_PREFIX_KEY + appWidgetId, -1);
     }
 
-    static void deleteTitlePref(Context context, int appWidgetId) {
+    static void deletePersistentPref(Context context, int appWidgetId) {
         SharedPreferences.Editor prefs = context.getSharedPreferences(PREFS_NAME, 0).edit();
         prefs.remove(PREF_PREFIX_KEY + appWidgetId);
         prefs.apply();
