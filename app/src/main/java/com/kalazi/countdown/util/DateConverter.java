@@ -1,5 +1,8 @@
 package com.kalazi.countdown.util;
 
+import android.content.res.Resources;
+import com.kalazi.countdown.R;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
@@ -9,7 +12,14 @@ import java.util.TimeZone;
 
 public class DateConverter {
 
-    boolean hit = false;
+    private boolean hit = false;
+    private Resources resources;
+
+    private static final int LINE_LEN_BREAK = 20;
+
+    public DateConverter(Resources resources) {
+        this.resources = resources;
+    }
 
     public static String millisToFormattedString(long millis, String timeZone) {
         if (timeZone == null) {
@@ -45,7 +55,7 @@ public class DateConverter {
      * @param sourceTimeZone timezone in which the date should be displayed (I don't want to touch this shit again)
      * @return formatted string
      */
-    public String timeDifferenceToFormattedString(long nextTime, String sourceTimeZone) {
+    public String timeDifferenceToFormattedString(long nextTime, String sourceTimeZone, boolean showSeconds) {
         if (nextTime <= 0) {
             // TODO implement count-up
             return "Negative or zero";
@@ -76,10 +86,22 @@ public class DateConverter {
 
         long seconds = delta / secondsInMilli;
 
-        retString += formatVal("%d Days, ", days);
-        retString += formatVal("%d Hours, ", hours);
-        retString += formatVal("%d Minutes, ", minutes);
-        retString += formatVal("%d Seconds", seconds);
+        String res_day = resources.getQuantityString(R.plurals.day_plurals, (int) days);
+        String res_hour = resources.getQuantityString(R.plurals.hour_plurals, (int) hours);
+        String res_minute = resources.getQuantityString(R.plurals.minute_plurals, (int) minutes);
+        String res_second = resources.getQuantityString(R.plurals.second_plurals, (int) seconds);
+
+        retString += formatVal("%d " + res_day + ", ", days);
+        retString += formatVal("%d " + res_hour + ", ", hours);
+        retString += formatVal("%d " + res_minute + "", minutes);
+
+        if (showSeconds) {
+            if (retString.length() > LINE_LEN_BREAK) {
+                retString += "\n";
+            }
+
+            retString += formatVal(" and %d " + res_second, seconds);
+        }
 
         return retString;
     }

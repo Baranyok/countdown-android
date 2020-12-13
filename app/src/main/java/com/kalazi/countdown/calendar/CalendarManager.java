@@ -7,15 +7,32 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.CalendarContract;
+import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import com.kalazi.countdown.events.EventItem;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Set;
 
 public class CalendarManager {
+
+    ////// Projection [CALENDARS table]
+
+    public static final String[] CAL_PROJECTION = new String[]{
+            CalendarContract.Calendars._ID,                      // 0
+            CalendarContract.Calendars.NAME,                     // 1
+            CalendarContract.Calendars.CALENDAR_DISPLAY_NAME,    // 2
+            CalendarContract.Calendars.VISIBLE,                  // 3
+    };
+
+    private static final int CAL_INDEX_ID = 0;
+    private static final int CAL_INDEX_NAME = 1;
+    private static final int CAL_INDEX_DISPLAY_NAME = 2;
+    private static final int CAL_INDEX_VISIBLE = 3;
 
     ////// Projection [EVENTS table]
 
@@ -42,6 +59,38 @@ public class CalendarManager {
 
     private static final int INST_INDEX_ID = 0;
     private static final int INST_INDEX_BEGIN = 1;
+
+    ////// Calendar loading
+
+    public static List<CalendarItem> loadCalendars(@NonNull Context context) {
+        List<CalendarItem> events = new ArrayList<>();
+
+        ContentResolver resolver = context.getContentResolver();
+
+        Cursor cursor;
+        cursor = resolver.query(CalendarContract.Calendars.CONTENT_URI, CAL_PROJECTION, null, null, null);
+
+        while (cursor.moveToNext()) {
+            CalendarItem eventItem = new CalendarItem();
+
+            cursorToCalendarItem(cursor, eventItem);
+
+            events.add(eventItem);
+        }
+
+        cursor.close();
+
+        return events;
+    }
+
+    ////// Calendar loading - private
+
+    private static void cursorToCalendarItem(Cursor cursor, CalendarItem eventItem) {
+        eventItem.id = cursor.getInt(CAL_INDEX_ID);
+        eventItem.name = cursor.getString(CAL_INDEX_NAME);
+        eventItem.displayName = cursor.getString(CAL_INDEX_DISPLAY_NAME);
+        eventItem.visible = cursor.getInt(CAL_INDEX_VISIBLE) != 0;
+    }
 
     ////// Event loading
 
@@ -97,7 +146,7 @@ public class CalendarManager {
         return eventItem;
     }
 
-    public static List<EventItem> loadEvents(@NonNull Context context) {
+    public static List<EventItem> loadEvents(@NonNull Context context, Set<Integer> calendar_ids) {
         List<EventItem> events = new ArrayList<>();
 
         ContentResolver resolver = context.getContentResolver();
@@ -105,7 +154,13 @@ public class CalendarManager {
         Cursor cursor;
         cursor = resolver.query(CalendarContract.Events.CONTENT_URI, EV_PROJECTION, null, null, null);
 
+        Log.i("DB", calendar_ids.toString());
+
         while (cursor.moveToNext()) {
+            if (!calendar_ids.contains(cursor.getInt(EV_INDEX_CALENDAR_ID))) {
+                continue;
+            }
+
             EventItem eventItem = new EventItem();
 
             cursorToEventItem(cursor, eventItem);
@@ -122,7 +177,7 @@ public class CalendarManager {
 
     private static void cursorToEventItem(Cursor cursor, EventItem eventItem) {
         eventItem.id = cursor.getInt(EV_INDEX_ID);
-        eventItem.title = cursor.getString(EV_INDEX_TITLE).replace('Ŝ', 'Š');
+        eventItem.title = cursor.getString(EV_INDEX_TITLE).replace('Ŝ', 'Š').replace('ŝ', 'š');
         eventItem.calendar_id = cursor.getInt(EV_INDEX_CALENDAR_ID);
         eventItem.dt_start = cursor.getLong(EV_START);
         eventItem.timezone = cursor.getString(EV_TZ);
@@ -136,19 +191,13 @@ public class CalendarManager {
     ////// Not implemented
 
     public static void addEvent(Fragment fragment) {
-        Calendar beginTime = Calendar.getInstance();
-        beginTime.set(2012, 0, 19, 7, 30);
-        Calendar endTime = Calendar.getInstance();
-        endTime.set(2012, 0, 19, 8, 30);
         Intent intent = new Intent(Intent.ACTION_INSERT)
                 .setData(CalendarContract.Events.CONTENT_URI)
-                .putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, beginTime.getTimeInMillis())
-                .putExtra(CalendarContract.EXTRA_EVENT_END_TIME, endTime.getTimeInMillis())
-                .putExtra(CalendarContract.Events.TITLE, "Yoga")
-                .putExtra(CalendarContract.Events.DESCRIPTION, "Group class")
-                .putExtra(CalendarContract.Events.EVENT_LOCATION, "The gym")
-                .putExtra(CalendarContract.Events.AVAILABILITY, CalendarContract.Events.AVAILABILITY_BUSY)
-                .putExtra(Intent.EXTRA_EMAIL, "rowan@example.com,trevor@example.com");
+                .putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, Instant.now().toEpochMilli())
+                .putExtra(CalendarContract.EXTRA_EVENT_END_TIME, Instant.now().toEpochMilli())
+                .putExtra(CalendarContract.Events.TITLE, "Event name")
+                .putExtra(CalendarContract.Events.DESCRIPTION, "Countdown event")
+                .putExtra(CalendarContract.Events.AVAILABILITY, CalendarContract.Events.AVAILABILITY_TENTATIVE);
         fragment.startActivity(intent);
     }
 }

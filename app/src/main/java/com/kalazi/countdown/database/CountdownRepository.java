@@ -1,6 +1,6 @@
 package com.kalazi.countdown.database;
 
-import android.app.Application;
+import android.content.Context;
 import androidx.lifecycle.LiveData;
 import com.kalazi.countdown.countdowns.CountdownItem;
 
@@ -10,14 +10,18 @@ public class CountdownRepository {
     private CountdownDAO countdownDAO;
     private LiveData<List<CountdownItem>> countdowns;
 
-    public CountdownRepository(Application application) {
-        CountdownDatabase db = DBManager.getInstance(application).getCountdownDB();
+    public CountdownRepository(Context appContext) {
+        CountdownDatabase db = DBManager.getInstance(appContext).getCountdownDB();
         countdownDAO = db.countdownDAO();
         countdowns = countdownDAO.getAll();
     }
 
     public LiveData<List<CountdownItem>> getAll() {
         return countdowns;
+    }
+
+    public LiveData<CountdownItem> getById(int countdownId) {
+        return countdownDAO.loadById(countdownId);
     }
 
     public void insert(CountdownItem countdownItem) {

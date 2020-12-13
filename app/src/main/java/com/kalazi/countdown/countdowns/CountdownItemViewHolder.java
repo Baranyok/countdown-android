@@ -1,19 +1,18 @@
 package com.kalazi.countdown.countdowns;
 
+import android.content.SharedPreferences;
 import android.os.Handler;
 import android.os.Looper;
 import android.view.View;
 import android.widget.TextView;
 import androidx.cardview.widget.CardView;
+import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.kalazi.countdown.R;
 import com.kalazi.countdown.calendar.CalendarManager;
 import com.kalazi.countdown.events.EventItem;
 import com.kalazi.countdown.util.ColorConverter;
 import com.kalazi.countdown.util.DateConverter;
-
-import java.text.DateFormat;
-import java.util.Date;
 
 /**
  * Represents an Item View in the UI<br>
@@ -22,7 +21,7 @@ import java.util.Date;
 public class CountdownItemViewHolder extends RecyclerView.ViewHolder {
     // each data item is just a string in this case
     private final TextView nameView;
-    private final TextView colorView;
+    private final TextView countdownIdView;
     private final TextView eventNameView;
     private final TextView remainingTimeView;
 
@@ -35,14 +34,14 @@ public class CountdownItemViewHolder extends RecyclerView.ViewHolder {
     private EventItem eventItem;
     private long nextInstance = 0;
 
-    private final int labelOpacity = 80;
+    public static final int labelOpacity = 80;
 
     private volatile boolean isCounting = false;
 
     public CountdownItemViewHolder(View itemContainerView) {
         super(itemContainerView);
         nameView = itemContainerView.findViewById(R.id.ci_title);
-        colorView = itemContainerView.findViewById(R.id.ci_color);
+        countdownIdView = itemContainerView.findViewById(R.id.ci_countdown_id);
         eventNameView = itemContainerView.findViewById(R.id.ci_event_name);
         remainingTimeView = itemContainerView.findViewById(R.id.ci_remaining_time);
         whenView = itemContainerView.findViewById(R.id.ci_since_until);
@@ -61,7 +60,7 @@ public class CountdownItemViewHolder extends RecyclerView.ViewHolder {
         loadEvent();
 
         nameView.setText(countdownItem.title);
-        colorView.setText("#" + Integer.toHexString(countdownItem.color));
+        countdownIdView.setText(Integer.toString(countdownItem.id));
         eventNameView.setText((eventItem == null) ? "" : eventItem.title); // TODO: resource
 
         loadNextInstanceTime();
@@ -73,14 +72,16 @@ public class CountdownItemViewHolder extends RecyclerView.ViewHolder {
     }
 
     private void customizeView() {
+        int lightColor = ColorConverter.combineColorOpacity(countdownItem.fontColor, labelOpacity);
+
         // set text color (foreground)
         remainingTimeView.setTextColor(countdownItem.fontColor);
         nameView.setTextColor(countdownItem.fontColor);
         eventNameView.setTextColor(countdownItem.fontColor);
 
         // determine and set the label colors
-        whenView.setTextColor(ColorConverter.combineColorOpacity(countdownItem.fontColor, labelOpacity));
-        eventStaticView.setTextColor(ColorConverter.combineColorOpacity(countdownItem.fontColor, labelOpacity));
+        whenView.setTextColor(lightColor);
+        eventStaticView.setTextColor(lightColor);
 
         // set background color
         cardView.setCardBackgroundColor(countdownItem.color);
@@ -146,11 +147,11 @@ public class CountdownItemViewHolder extends RecyclerView.ViewHolder {
             return;
         }
 
-        DateFormat dateFormat = DateFormat.getDateTimeInstance();
-        remainingTimeView.setText(dateFormat.format(new Date(nextInstance)));
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(itemView.getContext());
+        boolean showSeconds = prefs.getBoolean("show_seconds", true);
 
-        DateConverter dateConverter = new DateConverter();
-        remainingTimeView.setText(dateConverter.timeDifferenceToFormattedString(nextInstance, eventItem.timezone));
+        DateConverter dateConverter = new DateConverter(itemView.getResources());
+        remainingTimeView.setText(dateConverter.timeDifferenceToFormattedString(nextInstance, eventItem.timezone, showSeconds));
 
         whenView.setText((DateConverter.isInFuture(nextInstance, eventItem.timezone)) ? "Until" : "Since"); // TODO: Resource
     }

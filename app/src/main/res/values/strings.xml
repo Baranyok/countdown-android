@@ -29,9 +29,9 @@
     <string name="hello_slideshow_second">Hello HomeSecondFragment. Arg: %1$s</string>
 
     <!-- Fragment Countdown item -->
-    <string name="ci_date_placeholder">1 year, 10 months, 3 days, 5 hours and 23 minutes</string>
+    <string name="ci_date_placeholder">3 days, 5 hours, 1 minute and 23 seconds</string>
     <string name="ci_since_until_placeholder">Until</string>
-    <string name="ci_event_name_placeholder">ITU obhajoba</string>
+    <string name="ci_event_name_placeholder">event name</string>
     <string name="ci_title_placeholder">countdown name</string>
     <string name="ci_event_static_label">Event:</string>
 
@@ -41,6 +41,7 @@
     <!-- Fragments - Countdown details (cc -> create countdown) -->
     <string name="frag_cc">Create countdown</string>
     <string name="frag_ec">Edit countdown</string>
+    <string name="frag_cc_label_preview">Preview</string>
     <string name="frag_cc_label_name">Name</string>
     <string name="frag_cc_hint_name">An awesome countdown name</string>
     <string name="frag_cc_label_opacity">Opacity</string>
@@ -51,16 +52,45 @@
 
     <!-- Preference titles -->
     <string name="settings_header_environment">Environment</string>
+    <string name="settings_header_countdowns">Countdowns</string>
+    <string name="settings_header_events">Events</string>
 
     <!-- Preference items -->
     <string name="settings_item_theme_dark">Dark theme</string>
     <string name="reply_title">Default reply action</string>
+    <string name="settings_item_show_seconds">Show seconds in countdowns</string>
+    <string name="settings_item_calendar_select">Visible calendars</string>
 
     <!-- Fragment - events -->
     <string name="frag_events_no_perms_label">Calendar access needed for event interaction</string>
     <string name="frag_events_ask_perm_button_label">Grant permissions</string>
     <string name="frag_events_search_hint">Search…</string>
+    <string name="frag_events_create_button_label">Create new event</string>
     <string name="ei_title_placeholder">Example event</string>
     <string name="ei_id_placeholder">69</string>
     <string name="ei_cal_id_placeholder">2</string>
+
+    <!-- widget -->
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="configure">Select countdown</string>
+    <string name="add_widget">Add widget</string>
+
+    <!-- Plurals for time computation -->
+    <plurals name="second_plurals">
+        <item quantity="one">Second</item>
+        <item quantity="other">Seconds</item>
+    </plurals>
+    <plurals name="minute_plurals">
+        <item quantity="one">Minute</item>
+        <item quantity="other">Minutes</item>
+    </plurals>
+    <plurals name="hour_plurals">
+        <item quantity="one">Hour</item>
+        <item quantity="other">Hours</item>
+    </plurals>
+    <plurals name="day_plurals">
+        <item quantity="one">Day</item>
+        <item quantity="other">Days</item>
+    </plurals>
+
 </resources>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:minWidth="250dp"
+                    android:minHeight="40dp"
+                    android:updatePeriodMillis="1800000"
+                    android:previewImage="@drawable/widget_example"
+                    android:initialLayout="@layout/countdown_widget"
+                    android:configure="com.kalazi.countdown.widget.CountdownWidgetConfigureActivity"
+                    android:resizeMode="horizontal|vertical"
+                    android:widgetCategory="home_screen|keyguard"
+                    android:initialKeyguardLayout="@layout/countdown_widget">
+</appwidget-provider>

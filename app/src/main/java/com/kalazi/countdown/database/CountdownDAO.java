@@ -15,6 +15,9 @@ public interface CountdownDAO {
     @Query("SELECT * FROM countdown_table WHERE id IN (:userIds)")
     List<CountdownItem> loadAllByIds(int[] userIds);
 
+    @Query("SELECT * FROM countdown_table WHERE id = :countdownId")
+    LiveData<CountdownItem> loadById(int countdownId);
+
     @Insert
     void insertAll(CountdownItem... countdownItems);
 

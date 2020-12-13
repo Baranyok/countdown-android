@@ -1,4 +1,5 @@
 <PreferenceScreen
+        xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <PreferenceCategory
@@ -10,14 +11,22 @@
                 app:icon="@drawable/ic_invert"
                 app:defaultValue="true"/>
 
-        <ListPreference
-                app:key="reply"
-                app:title="@string/reply_title"
-                app:entries="@array/reply_entries"
-                app:entryValues="@array/reply_values"
-                app:defaultValue="reply"
-                app:useSimpleSummaryProvider="true"/>
+        <SwitchPreferenceCompat
+                app:key="show_seconds"
+                app:title="@string/settings_item_show_seconds"
+                app:icon="@drawable/ic_seconds"
+                app:defaultValue="true"/>
 
+    </PreferenceCategory>
+
+    <PreferenceCategory
+            app:title="@string/settings_header_events">
+
+        <MultiSelectListPreference
+                app:key="enabled_calendars"
+                app:title="@string/settings_item_calendar_select"
+                android:icon="@drawable/ic_calendar"
+                app:useSimpleSummaryProvider="true"/>
     </PreferenceCategory>
 
 </PreferenceScreen>

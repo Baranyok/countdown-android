@@ -5,8 +5,17 @@
               android:layout_height="wrap_content"
               xmlns:app="http://schemas.android.com/apk/res-auto"
               android:orientation="vertical"
-              android:paddingTop="@dimen/form_fragment_padding_top"
+
               tools:context=".countdowns.EditCountdownFragment">
+
+    <LinearLayout
+            android:id="@+id/ce_preview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+        <include layout="@layout/row_item_countdown"/>
+    </LinearLayout>
 
     <LinearLayout
             android:orientation="horizontal"
@@ -14,6 +23,7 @@
             android:layout_height="@dimen/cc_item_height"
             android:focusableInTouchMode="true"
             android:focusable="true"
+            android:layout_marginTop="@dimen/form_fragment_padding_top"
             android:gravity="center_vertical">
         <TextView
                 android:id="@+id/cc_label_title"
