@@ -11,6 +11,11 @@ public class WidgetAlarm {
     private static final int ALARM_ID = 0;
     private static final int INTERVAL_MILLIS = 60000;
 
+    public static void restart(Context context) {
+        stop(context);
+        start(context);
+    }
+
     public static void start(Context context) {
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.MILLISECOND, INTERVAL_MILLIS);

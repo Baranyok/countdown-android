@@ -29,6 +29,7 @@ import java.time.Instant;
 public class CountdownWidget extends AppWidgetProvider {
 
     public static final String ACTION_AUTO_UPDATE = "AUTO_UPDATE";
+    private static final String TAG = "CountdownWidget";
 
     ////// Overrides
 
@@ -38,21 +39,15 @@ public class CountdownWidget extends AppWidgetProvider {
         super.onReceive(context, intent);
 
         if (intent.getAction().equals(ACTION_AUTO_UPDATE)) {
-            Log.i("CountdownWidget", Instant.now().toString());
-            Log.i("CountdownWidget", "received");
+            Log.i(TAG, Instant.now().toString());
+            Log.i(TAG, "received");
             updateCountdownWidgets(context);
         }
     }
 
     @Override
-    public void onEnabled(Context context) {
-        Log.i("CountdownWidget", "enabled");
-//        WidgetAlarm.start(context);
-    }
-
-    @Override
     public void onDisabled(Context context) {
-        Log.i("CountdownWidget", "disabled");
+        Log.i(TAG, "disabled");
         // disable alarm when all of the widgets are removed
         AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
         ComponentName thisAppWidgetComponentName = new ComponentName(context.getPackageName(), getClass().getName());
@@ -65,7 +60,7 @@ public class CountdownWidget extends AppWidgetProvider {
     ////// Private utility methods
 
     public static void updateCountdownWidget(Context context, AppWidgetManager appWidgetManager, int appWidgetId) {
-        Log.i("CountdownWidget", "update");
+        Log.i(TAG, "update");
         int countdownId = CountdownWidgetConfigureActivity.loadTitlePref(context, appWidgetId);
         RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.countdown_widget);
 
@@ -159,7 +154,7 @@ public class CountdownWidget extends AppWidgetProvider {
     }
 
     public void updateCountdownWidgets(Context context) {
-        Log.i("CountdownWidget", "pre-update");
+        Log.i(TAG, "pre-update");
 
         AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
         ComponentName thisAppWidgetComponentName = new ComponentName(context.getPackageName(), getClass().getName());
@@ -174,7 +169,9 @@ public class CountdownWidget extends AppWidgetProvider {
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
+        Log.i(TAG, "restart");
         updateCountdownWidgets(context);
+        WidgetAlarm.restart(context);
     }
 
 //    private void startUpdateService(Context context) {
