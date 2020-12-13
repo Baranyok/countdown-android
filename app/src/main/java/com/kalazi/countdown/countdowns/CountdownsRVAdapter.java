@@ -26,9 +26,14 @@ public class CountdownsRVAdapter extends RecyclerView.Adapter<CountdownItemViewH
     private List<CountdownItem> fullDataset = null;
 
     private Fragment parentFragment = null;
+    private View.OnClickListener itemListener;
 
     public void setParentFragment(Fragment parentFragment) {
         this.parentFragment = parentFragment;
+    }
+
+    public void setItemOnClickListener(View.OnClickListener listener) {
+        this.itemListener = listener;
     }
 
     ////// Overrides
@@ -66,11 +71,14 @@ public class CountdownsRVAdapter extends RecyclerView.Adapter<CountdownItemViewH
 
         // set onClick listener
         if (parentFragment != null) {
+            // TODO: convert this to listener
             CountdownsFragmentDirections.ActionEditCountdown action =
                     CountdownsFragmentDirections.actionEditCountdown();
             action.setCountdownArrayIndex(position);
             holder.itemView.setOnClickListener(v -> NavHostFragment.findNavController(parentFragment)
                     .navigate(action));
+        } else {
+            holder.itemView.setOnClickListener(itemListener);
         }
     }
 

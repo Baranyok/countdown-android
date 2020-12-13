@@ -11,6 +11,8 @@ public class DateConverter {
 
     boolean hit = false;
 
+    private static final int LINE_LEN_BREAK = 20;
+
     public static String millisToFormattedString(long millis, String timeZone) {
         if (timeZone == null) {
             timeZone = "UTC";
@@ -45,7 +47,7 @@ public class DateConverter {
      * @param sourceTimeZone timezone in which the date should be displayed (I don't want to touch this shit again)
      * @return formatted string
      */
-    public String timeDifferenceToFormattedString(long nextTime, String sourceTimeZone) {
+    public String timeDifferenceToFormattedString(long nextTime, String sourceTimeZone, boolean showSeconds) {
         if (nextTime <= 0) {
             // TODO implement count-up
             return "Negative or zero";
@@ -78,8 +80,15 @@ public class DateConverter {
 
         retString += formatVal("%d Days, ", days);
         retString += formatVal("%d Hours, ", hours);
-        retString += formatVal("%d Minutes, ", minutes);
-        retString += formatVal("%d Seconds", seconds);
+        retString += formatVal("%d Minutes", minutes);
+
+        if (showSeconds) {
+            if (retString.length() > LINE_LEN_BREAK) {
+                retString += "\n";
+            }
+
+            retString += formatVal(" and %d Seconds", seconds);
+        }
 
         return retString;
     }

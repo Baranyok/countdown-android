@@ -63,4 +63,9 @@
     <string name="ei_title_placeholder">Example event</string>
     <string name="ei_id_placeholder">69</string>
     <string name="ei_cal_id_placeholder">2</string>
+
+    <!-- widget -->
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="configure">Select countdown</string>
+    <string name="add_widget">Add widget</string>
 </resources>

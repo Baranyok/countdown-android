@@ -34,4 +34,8 @@
     <!-- Countdown item -->
     <dimen name="ci_height">120dp</dimen>
 
+    <!-- Widget -->
+    <!--    <dimen name="widget_margin">8dp</dimen>-->
+    <dimen name="widget_margin">0dp</dimen>
+
 </resources>
