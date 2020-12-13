@@ -71,4 +71,23 @@
     <string name="appwidget_text">EXAMPLE</string>
     <string name="configure">Select countdown</string>
     <string name="add_widget">Add widget</string>
+
+    <!-- Plurals for time computation -->
+    <plurals name="second_plurals">
+        <item quantity="one">Second</item>
+        <item quantity="other">Seconds</item>
+    </plurals>
+    <plurals name="minute_plurals">
+        <item quantity="one">Minute</item>
+        <item quantity="other">Minutes</item>
+    </plurals>
+    <plurals name="hour_plurals">
+        <item quantity="one">Hour</item>
+        <item quantity="other">Hours</item>
+    </plurals>
+    <plurals name="day_plurals">
+        <item quantity="one">Day</item>
+        <item quantity="other">Days</item>
+    </plurals>
+
 </resources>

@@ -94,7 +94,7 @@ public class CountdownWidget extends AppWidgetProvider {
 
                 // things dependent on event
                 if (eventItem != null) {
-                    DateConverter dateConverter = new DateConverter();
+                    DateConverter dateConverter = new DateConverter(context.getResources());
                     String remTime = dateConverter.timeDifferenceToFormattedString(nextInstance, eventItem.timezone, false);
                     remoteViews.setTextViewText(R.id.ci_remaining_time, remTime);
 

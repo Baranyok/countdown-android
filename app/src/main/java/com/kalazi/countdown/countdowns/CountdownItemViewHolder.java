@@ -148,7 +148,7 @@ public class CountdownItemViewHolder extends RecyclerView.ViewHolder {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(itemView.getContext());
         boolean showSeconds = prefs.getBoolean("show_seconds", true);
 
-        DateConverter dateConverter = new DateConverter();
+        DateConverter dateConverter = new DateConverter(itemView.getResources());
         remainingTimeView.setText(dateConverter.timeDifferenceToFormattedString(nextInstance, eventItem.timezone, showSeconds));
 
         whenView.setText((DateConverter.isInFuture(nextInstance, eventItem.timezone)) ? "Until" : "Since"); // TODO: Resource
